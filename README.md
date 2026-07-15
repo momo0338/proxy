@@ -1,157 +1,163 @@
-# 代理收集器
+# Proxy Pool Service
 
-从多个GitHub免费代理列表项目收集代理，支持HTTP、HTTPS和SOCKS5协议。
+Persistent proxy pool service with auto-fetch, validation, SQLite storage, and HTTP API.
 
-## 快速开始
-
-```bash
-pip install requests
-python main.py collect      # 收集代理
-python main.py validate     # 验证代理
-python main.py all          # 收集并验证
-```
-
-## 命令行参数
-
-| 命令 | 说明 |
-|------|------|
-| `collect` | 收集代理 |
-| `validate` | 验证代理 |
-| `all` | 收集并验证 |
-
-| 参数 | 说明 |
-|------|------|
-| `-o, --output` | 输出目录 |
-| `-c, --config` | 配置文件路径 |
-| `-f, --proxy-file` | 代理文件路径 |
-| `-m, --max-verify` | 最大验证数量 |
+## Quick Start
 
 ```bash
-python main.py collect -o my_output          # 指定输出目录
-python main.py collect -c config.json        # 使用配置文件
-python main.py validate -m 500               # 验证500个代理
+# Install
+uv venv .venv --python 3.11
+uv pip install -r requirements.txt
+
+# Run
+python main.py serve              # Start HTTP API + auto-refresh daemon
+python main.py collect            # Collect proxies only
+python main.py validate           # Validate stored proxies
+python main.py all                # Collect + validate
 ```
 
-## 项目结构
+## CLI Commands
 
-```
-proxy/
-├── main.py                 # 主入口
-├── config.example.json     # 配置示例
-├── src/                    # 源代码
-│   ├── config.py          # 配置
-│   ├── proxy.py           # 代理模型
-│   ├── utils.py           # 工具函数
-│   ├── collector.py       # 收集器
-│   └── validator.py       # 验证器
-└── output/                 # 输出文件
-```
+| Command | Description |
+|---------|-------------|
+| `serve` | Start HTTP API service with auto-refresh |
+| `collect` | Fetch proxies from all configured sources |
+| `validate` | Validate unvalidated proxies in the store |
+| `all` | Collect and validate in sequence |
 
-## 输出文件
+### Options
 
-| 文件 | 说明 |
-|------|------|
-| `all_proxies.txt` | 所有代理（带协议前缀） |
-| `http_proxies.txt` | HTTP代理 |
-| `socks5_proxies.txt` | SOCKS5代理 |
-| `verified_proxies_all.txt` | 验证后的有效代理 |
-| `verified_report_all.json` | 验证详细报告 |
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--config, -c` | Config file path | — |
+| `--host, -h` | Bind host (serve) | `0.0.0.0` |
+| `--port, -p` | Bind port (serve) | `8000` |
 
-## Python 使用
-
-### 加载代理
-
-```python
-with open('output/http_proxies.txt', 'r') as f:
-    proxies = [line.strip() for line in f if line.strip()]
+```bash
+python main.py serve --host 0.0.0.0 --port 9000
+python main.py collect -c config.json
 ```
 
-### 使用代理请求
+## API Endpoints
 
-```python
-import requests
+### `GET /health`
 
-proxy = f"http://{proxies[0]}"
-response = requests.get(
-    'http://httpbin.org/ip',
-    proxies={'http': proxy, 'https': proxy},
-    timeout=10
-)
-print(response.json())
+```json
+{"status": "ok", "total": 1234, "valid": 56}
 ```
 
-### 验证代理
-
-```python
-from src.validator import ProxyValidator
-
-validator = ProxyValidator(output_dir='output')
-result = validator.validate_proxy('http://95.211.174.135:3128')
-print(f"有效: {result['is_valid']}, 耗时: {result['response_time']}s")
-```
-
-### 代理轮换
-
-```python
-import random
-
-def fetch_with_rotation(urls, proxies):
-    for url in urls:
-        proxy = random.choice(proxies)
-        response = requests.get(url, proxies={'http': proxy, 'https': proxy}, timeout=10)
-        yield response.text
-```
-
-### 异步请求
-
-```python
-import asyncio
-import aiohttp
-
-async def fetch_async(url, proxy):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url, proxy=proxy) as resp:
-            return await resp.text()
-```
-
-## 配置文件
-
-复制 `config.example.json` 为 `config.json`：
+### `GET /metrics`
 
 ```json
 {
-  "output_dir": "output",
+  "total": 1234,
+  "valid": 56,
+  "by_protocol": {"http": 30, "socks5": 26}
+}
+```
+
+### `GET /proxies`
+
+Query params: `protocol`, `anon`, `country`, `limit`
+
+```bash
+curl "http://localhost:8000/proxies?protocol=socks5&limit=10"
+```
+
+### `GET /proxy/random`
+
+Query params: `protocol`, `anon`, `country`
+
+```bash
+curl "http://localhost:8000/proxy/random?protocol=http"
+```
+
+### `POST /refresh`
+
+Triggers background proxy refresh.
+
+```bash
+curl -X POST http://localhost:8000/refresh
+```
+
+## Configuration
+
+Copy `config.example.json` to `config.json`:
+
+```json
+{
+  "db_path": "data/proxies.db",
+  "refresh_interval_minutes": 30,
+  "proxy_expiry_hours": 6,
+  "max_concurrency": 50,
   "timeout": 30,
   "max_workers": 20,
+  "verify_timeout": 8.0,
+  "max_verify": 200,
+  "anon_check_url": "http://httpbin.org/ip",
+  "country_url": "http://ip-api.com/json",
   "sources": [
     {
-      "name": "源名称",
-      "url": "https://raw.githubusercontent.com/user/repo/branch/file.txt",
+      "name": "TheSpeedX HTTP",
+      "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
       "protocol": "http",
+      "format": "ip:port",
       "enabled": true
     }
   ]
 }
 ```
 
-使用配置文件：
-```bash
-python main.py collect -c config.json
+## Project Structure
+
+```
+proxy/
+├── main.py              # CLI entry point (typer)
+├── pyproject.toml       # Project config + ruff/basedpyright
+├── requirements.txt     # Dependencies
+├── config.example.json  # Example configuration
+├── Dockerfile           # Container build
+├── src/
+│   ├── __init__.py
+│   ├── models.py        # ProxyRecord, ProxyProtocol, Anonymity
+│   ├── config.py        # Configuration loading
+│   ├── store.py         # SQLite storage (ProxyStore)
+│   ├── sources.py       # Remote source fetching (TextSource)
+│   ├── collector.py     # Proxy collection orchestration
+│   ├── validator.py     # Proxy validation with httpx
+│   ├── api.py           # FastAPI HTTP routes
+│   └── scheduler.py     # APScheduler periodic refresh
+├── tests/
+│   ├── test_models.py
+│   ├── test_store.py
+│   ├── test_sources.py
+│   ├── test_api.py
+│   └── test_config.py
+└── output/              # Legacy output files
 ```
 
-## 代理源
+## Docker
 
-| 协议 | 来源 |
-|------|------|
-| HTTP | TheSpeedX, Monosans |
+```bash
+docker build -t proxy-pool .
+docker run -p 8000:8000 proxy-pool
+```
+
+## Development
+
+```bash
+uv pip install -r requirements.txt
+ruff check .             # Lint
+basedpyright .           # Type check
+pytest -q                # Test
+```
+
+## Proxy Sources
+
+8 pre-configured GitHub sources:
+
+| Protocol | Sources |
+|----------|---------|
+| HTTP | TheSpeedX, Monosans, clarketm, ShiftyTR |
+| HTTPS | roosterkid |
 | SOCKS5 | TheSpeedX, Monosans, Hookzof |
-
-## 注意事项
-
-1. 免费代理不稳定，建议定期重新收集
-2. 使用前建议验证代理可用性
-3. 避免通过免费代理传输敏感信息
-
-## 许可证
-
-MIT License

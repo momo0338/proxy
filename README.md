@@ -9,6 +9,10 @@
 uv venv .venv --python 3.11
 uv pip install -r requirements.txt
 
+# 运行前请先激活虚拟环境，否则会用到缺少依赖的系统 Python
+#   source .venv/bin/activate
+#   或者直接用 .venv/bin/python main.py ... / uv run python main.py ...
+
 # 运行
 python main.py serve              # 启动 HTTP API + 自动刷新守护进程
 python main.py collect            # 仅抓取代理

@@ -1,0 +1,60 @@
+[project]
+name = "proxy-pool"
+version = "2.0.0"
+description = "Persistent proxy pool service with auto-refresh and HTTP API"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "httpx[socks]>=0.27.0",
+    "apscheduler>=3.10.0",
+    "pydantic>=2.0.0",
+    "typer>=0.12.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.6.0",
+    "basedpyright>=1.14.0",
+]
+
+[project.scripts]
+proxy-pool = "main:app"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",
+    "ISC001",
+    "D203",
+    "D213",
+    "CPY001",
+    "FBT001",
+    "FBT002",
+    "TD002",
+    "TD003",
+    "FIX002",
+    "T201",
+    "S104",
+    "EXE001",
+    "S101",
+    "PLR2004",
+    "PT001",
+    "D102",
+    "D104",
+]
+
+[tool.basedpyright]
+typeCheckingMode = "all"
+pythonVersion = "3.11"
+reportCallInDefaultInitializer = "warning"  # typer.Option(...) used as CLI default
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

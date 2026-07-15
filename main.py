@@ -1,66 +1,134 @@
-#!/usr/bin/env python3
-"""
-代理收集器 - 主入口
-从多个GitHub免费代理列表项目收集代理，验证可用性并整理
-"""
+"""Proxy Pool Service — CLI and long-running daemon."""
 
-import sys
-import argparse
-from src.collector import ProxyCollector
-from src.validator import ProxyValidator
-from src.config import DEFAULT_CONFIG
-from src.utils import print_header, print_separator
+from __future__ import annotations
 
-def main():
-    parser = argparse.ArgumentParser(description='代理收集器 - 从GitHub收集免费代理')
-    parser.add_argument('command', choices=['collect', 'validate', 'all'], 
-                       help='执行命令: collect(收集), validate(验证), all(全部)')
-    parser.add_argument('--output', '-o', 
-                       help='输出目录')
-    parser.add_argument('--config', '-c',
-                       help='配置文件路径')
-    parser.add_argument('--proxy-file', '-f',
-                       help='代理文件路径 (验证时使用)')
-    parser.add_argument('--max-verify', '-m', type=int,
-                       help='最大验证数量')
-    
-    args = parser.parse_args()
-    
-    print_header("代理收集器")
-    print(f"命令: {args.command}")
-    if args.config:
-        print(f"配置文件: {args.config}")
-    print()
-    
-    if args.command == 'collect':
-        # 只收集代理
-        collector = ProxyCollector(output_dir=args.output, config_file=args.config)
-        collector.run()
-        
-    elif args.command == 'validate':
-        # 只验证代理
-        validator = ProxyValidator(output_dir=args.output)
-        if args.proxy_file:
-            validator.run(proxy_file=args.proxy_file, max_verify=args.max_verify)
-        else:
-            validator.run(max_verify=args.max_verify)
-            
-    elif args.command == 'all':
-        # 收集并验证
-        print("第一步: 收集代理...")
-        collector = ProxyCollector(output_dir=args.output, config_file=args.config)
-        collector.collect_all()
-        collector.save_results()
-        
-        print()
-        print("第二步: 验证代理...")
-        validator = ProxyValidator(output_dir=args.output)
-        validator.run()
-    
-    print()
-    print_separator()
-    print("完成!")
-    print_separator()
+import asyncio
+import logging
+from typing import TYPE_CHECKING
+
+import typer
+
+if TYPE_CHECKING:
+    from src.store import ProxyStore
+
+app = typer.Typer(help="Proxy Pool Service — collect, validate, and serve proxies")
+
+SEPARATOR = "=" * 60
+
+
+def _print_header(title: str) -> None:
+    """Print a formatted header."""
+    print(SEPARATOR)
+    print(title)
+    print(SEPARATOR)
+
+
+def _load_config(config_path: str | None) -> dict[str, object]:
+    """Load configuration from file or defaults."""
+    from src.config import load_config, load_proxy_sources  # noqa: PLC0415
+
+    config = load_config(config_path)
+    # Ensure sources are in config for build_sources()
+    if "sources" not in config:
+        config["sources"] = load_proxy_sources(config_path)
+    return config
+
+
+def _get_store(config: dict[str, object]) -> ProxyStore:
+    """Get or create the proxy store."""
+    from src.store import ProxyStore  # noqa: PLC0415
+
+    db_path = str(config.get("db_path", "data/proxies.db"))
+    store = ProxyStore(db_path)
+    store.init_schema()
+    return store
+
+
+@app.command()
+def collect(config_path: str | None = typer.Option(None, "--config", "-c")) -> None:
+    """Collect proxies from all configured sources."""
+    from src.collector import ProxyCollector  # noqa: PLC0415
+
+    _print_header("Proxy Collector")
+    config = _load_config(config_path)
+    store = _get_store(config)
+
+    collector = ProxyCollector(store, config)
+    count = asyncio.run(collector.collect())
+    print(f"\nCollected {count} proxies")
+
+
+@app.command()
+def validate(config_path: str | None = typer.Option(None, "--config", "-c")) -> None:
+    """Validate unvalidated proxies in the store."""
+    from src.validator import ProxyValidator  # noqa: PLC0415
+
+    _print_header("Proxy Validator")
+    config = _load_config(config_path)
+    store = _get_store(config)
+
+    unvalidated = store.get_unvalidated()
+    print(f"Unvalidated proxies: {len(unvalidated)}")
+
+    if not unvalidated:
+        print("Nothing to validate")
+        return
+
+    max_conc = int(config.get("max_concurrency", 50))  # type: ignore[arg-type]
+    validator = ProxyValidator(config, store)
+    valid = asyncio.run(validator.validate_all(unvalidated, max_conc))
+    print(f"Valid proxies: {len(valid)}")
+
+
+@app.command(name="all")
+def all_cmd(config_path: str | None = typer.Option(None, "--config", "-c")) -> None:
+    """Collect and then validate all proxies."""
+    from src.collector import ProxyCollector  # noqa: PLC0415
+    from src.validator import ProxyValidator  # noqa: PLC0415
+
+    _print_header("Proxy Pool — Full Cycle")
+    config = _load_config(config_path)
+    store = _get_store(config)
+
+    print("Step 1: Collecting proxies...")
+    collector = ProxyCollector(store, config)
+    collected = asyncio.run(collector.collect())
+    print(f"Collected {collected} proxies")
+
+    print("\nStep 2: Validating proxies...")
+    unvalidated = store.get_unvalidated()
+    max_conc = int(config.get("max_concurrency", 50))  # type: ignore[arg-type]
+    validator = ProxyValidator(config, store)
+    valid = asyncio.run(validator.validate_all(unvalidated, max_conc))
+    print(f"Valid proxies: {len(valid)}")
+
+    counts = store.count()
+    print(f"\nTotal in DB: {counts['total']}, Valid: {counts['valid']}")
+
+
+@app.command()
+def serve(
+    host: str = typer.Option("0.0.0.0", "--host", "-h"),
+    port: int = typer.Option(8000, "--port", "-p"),
+    config_path: str | None = typer.Option(None, "--config", "-c"),
+) -> None:
+    """Start the HTTP API service with auto-refresh."""
+    import uvicorn  # noqa: PLC0415
+
+    logging.basicConfig(level=logging.INFO)
+
+    from src.api import create_app  # noqa: PLC0415
+
+    _print_header("Proxy Pool Service")
+    config = _load_config(config_path)
+    store = _get_store(config)
+
+    print(f"\nListening on {host}:{port}")
+    print(f"DB: {config.get('db_path')}")
+    print(f"Refresh interval: {config.get('refresh_interval_minutes')} minutes")
+
+    uvicorn.run(create_app(store, config), host=host, port=port, log_level="info")
+
 
 if __name__ == "__main__":
-    main()
+    app()

@@ -214,13 +214,31 @@ class ProxyStore:
             row = conn.execute(sql, params).fetchone()
         return self._row_to_record(row) if row else None
 
-    def get_unvalidated(self) -> list[ProxyRecord]:
-        """Return rows where is_valid = 0."""
+    def get_unvalidated(self, *, include_failed: bool = False) -> list[ProxyRecord]:
+        """Return unvalidated proxies.
+
+        By default only returns proxies that have never been tested
+        (is_valid = 0 AND last_verified = ''). Pass include_failed=True to also
+        return proxies that were previously tested and found dead, so they can
+        be retried (e.g. after a source re-collects them).
+        """
+        if include_failed:
+            sql = "SELECT * FROM proxies WHERE is_valid = 0"
+        else:
+            sql = "SELECT * FROM proxies WHERE is_valid = 0 AND last_verified = ''"
         with self._connect() as conn:
-            rows = conn.execute(
-                "SELECT * FROM proxies WHERE is_valid = 0"
-            ).fetchall()
+            rows = conn.execute(sql).fetchall()
         return [self._row_to_record(row) for row in rows]
+
+    def count_unvalidated(self, *, include_failed: bool = False) -> int:
+        """Count unvalidated proxies without materialising rows."""
+        if include_failed:
+            sql = "SELECT COUNT(*) FROM proxies WHERE is_valid = 0"
+        else:
+            sql = "SELECT COUNT(*) FROM proxies WHERE is_valid = 0 AND last_verified = ''"
+        with self._connect() as conn:
+            row = conn.execute(sql).fetchone()
+        return row[0] if row else 0
 
     def count(self) -> dict[str, int]:
         """Aggregate counts: total, valid, and per protocol."""

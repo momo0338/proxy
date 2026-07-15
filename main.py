@@ -59,7 +59,12 @@ def collect(config_path: str | None = typer.Option(None, "--config", "-c")) -> N
 
 
 @app.command()
-def validate(config_path: str | None = typer.Option(None, "--config", "-c")) -> None:
+def validate(
+    config_path: str | None = typer.Option(None, "--config", "-c"),
+    include_failed: bool = typer.Option(
+        False, "--include-failed", help="Also retry proxies that were previously verified dead"
+    ),
+) -> None:
     """Validate unvalidated proxies in the store."""
     from src.validator import ProxyValidator  # noqa: PLC0415
 
@@ -67,7 +72,7 @@ def validate(config_path: str | None = typer.Option(None, "--config", "-c")) -> 
     config = _load_config(config_path)
     store = _get_store(config)
 
-    unvalidated = store.get_unvalidated()
+    unvalidated = store.get_unvalidated(include_failed=include_failed)
     print(f"Unvalidated proxies: {len(unvalidated)}")
 
     if not unvalidated:
@@ -81,7 +86,12 @@ def validate(config_path: str | None = typer.Option(None, "--config", "-c")) -> 
 
 
 @app.command(name="all")
-def all_cmd(config_path: str | None = typer.Option(None, "--config", "-c")) -> None:
+def all_cmd(
+    config_path: str | None = typer.Option(None, "--config", "-c"),
+    include_failed: bool = typer.Option(
+        False, "--include-failed", help="Also retry proxies that were previously verified dead"
+    ),
+) -> None:
     """Collect and then validate all proxies."""
     from src.collector import ProxyCollector  # noqa: PLC0415
     from src.validator import ProxyValidator  # noqa: PLC0415
@@ -96,7 +106,7 @@ def all_cmd(config_path: str | None = typer.Option(None, "--config", "-c")) -> N
     print(f"Collected {collected} proxies")
 
     print("\nStep 2: Validating proxies...")
-    unvalidated = store.get_unvalidated()
+    unvalidated = store.get_unvalidated(include_failed=include_failed)
     max_conc = int(config.get("max_concurrency", 50))  # type: ignore[arg-type]
     validator = ProxyValidator(config, store)
     valid = asyncio.run(validator.validate_all(unvalidated, max_conc))

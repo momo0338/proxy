@@ -241,3 +241,33 @@ class TestProxyStoreRecordValidation:
         assert valid[0].is_valid is True
         assert valid[0].country == "DE"
         assert valid[0].response_time == 0.3
+
+
+class TestProxyStoreUnvalidated:
+    def test_get_unvalidated_skips_tested_dead(
+        self, store: ProxyStore
+    ) -> None:
+        never_tested = ProxyRecord(
+            ip="1.1.1.1", port=80, protocol=ProxyProtocol.HTTP, source="t", is_valid=False
+        )
+        store.upsert(never_tested)
+        dead = ProxyRecord(
+            ip="2.2.2.2", port=80, protocol=ProxyProtocol.HTTP, source="t",
+            is_valid=False, last_verified=datetime.now(UTC).isoformat(),
+        )
+        store.upsert(dead)
+
+        assert len(store.get_unvalidated()) == 1
+        assert store.get_unvalidated()[0].ip == "1.1.1.1"
+        assert len(store.get_unvalidated(include_failed=True)) == 2
+
+    def test_count_unvalidated(self, store: ProxyStore) -> None:
+        store.upsert(ProxyRecord(
+            ip="1.1.1.1", port=80, protocol=ProxyProtocol.HTTP, source="t", is_valid=False
+        ))
+        store.upsert(ProxyRecord(
+            ip="2.2.2.2", port=80, protocol=ProxyProtocol.HTTP, source="t",
+            is_valid=False, last_verified=datetime.now(UTC).isoformat(),
+        ))
+        assert store.count_unvalidated() == 1
+        assert store.count_unvalidated(include_failed=True) == 2

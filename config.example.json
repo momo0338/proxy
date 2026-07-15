@@ -9,8 +9,12 @@
   "refresh_interval_minutes": 30,
   "proxy_expiry_hours": 6,
   "max_concurrency": 50,
-  "verify_endpoints": ["http://httpbin.org/ip"],
-  "anon_check_url": "http://httpbin.org/ip",
+  "verify_endpoints": [
+    "https://ipinfo.io/json",
+    "https://api.ipify.org?format=json",
+    "http://httpbin.org/ip"
+  ],
+  "anon_check_url": "https://ipinfo.io/json",
   "country_url": "http://ip-api.com/json",
   "sources": [
     {

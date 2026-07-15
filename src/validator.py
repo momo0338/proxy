@@ -33,10 +33,9 @@ class ProxyValidator:
         self._store = store
 
     @staticmethod
-    def _proxy_dict(record: ProxyRecord) -> dict[str, str]:
-        """Build httpx proxy mapping for a given record."""
-        address = record.address
-        return {"http": address, "https": address}
+    def _proxy_url(record: ProxyRecord) -> str:
+        """Return the proxy URL (already protocol-prefixed) for httpx."""
+        return record.address
 
     def _echo_endpoints(self) -> list[str]:
         """Resolve the ordered list of echo endpoints to test against."""
@@ -102,11 +101,7 @@ class ProxyValidator:
         """
         start = time.monotonic()
         try:
-            resp = await client.get(
-                endpoint,
-                proxies=self._proxy_dict(record),
-                timeout=timeout_sec,
-            )
+            resp = await client.get(endpoint, timeout=timeout_sec)
             resp.raise_for_status()
             data = resp.json()
         except (httpx.HTTPError, OSError, ValueError):
@@ -178,24 +173,25 @@ class ProxyValidator:
 
         async def _guarded(record: ProxyRecord) -> None:
             async with semaphore:
-                result = await self._validate_with_fallback(
-                    record, client, local_ip, endpoints, timeout_sec
-                )
-                self._store.record_validation(
-                    record.key,
-                    is_valid=result.is_valid,
-                    response_time=result.response_time,
-                    anonymity=result.anonymity,
-                    country=result.country,
-                    last_verified=result.last_verified,
-                )
-                if result.is_valid:
-                    valid.append(result)
+                proxy_url = self._proxy_url(record)
+                async with httpx.AsyncClient(proxy=proxy_url, timeout=timeout_sec) as client:
+                    result = await self._validate_with_fallback(
+                        record, client, local_ip, endpoints, timeout_sec
+                    )
+                    self._store.record_validation(
+                        record.key,
+                        is_valid=result.is_valid,
+                        response_time=result.response_time,
+                        anonymity=result.anonymity,
+                        country=result.country,
+                        last_verified=result.last_verified,
+                    )
+                    if result.is_valid:
+                        valid.append(result)
 
-        async with httpx.AsyncClient() as client:
-            await asyncio.gather(
-                *[_guarded(r) for r in records],
-                return_exceptions=True,
-            )
+        await asyncio.gather(
+            *[_guarded(r) for r in records],
+            return_exceptions=True,
+        )
 
         return valid

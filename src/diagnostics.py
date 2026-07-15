@@ -50,16 +50,13 @@ async def diagnose(
     if not records:
         print("  (no proxies to probe)")
         return
-    async with httpx.AsyncClient() as client:
-        for rec in records:
-            print(f"\n  {rec.address}")
+    for rec in records:
+        proxy_url = validator._proxy_url(rec)  # noqa: SLF001
+        print(f"\n  {rec.address}")
+        async with httpx.AsyncClient(proxy=proxy_url, timeout=timeout) as client:
             for ep in endpoints:
                 try:
-                    resp = await client.get(
-                        ep,
-                        proxies=validator._proxy_dict(rec),  # noqa: SLF001
-                        timeout=timeout,
-                    )
+                    resp = await client.get(ep)
                     resp.raise_for_status()
                     data = resp.json()
                     seen = str(data.get("ip") or data.get("origin") or "")

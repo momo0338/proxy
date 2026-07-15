@@ -25,7 +25,11 @@ class TestLoadConfig:
         assert config["refresh_interval_minutes"] == 30
         assert config["proxy_expiry_hours"] == 6
         assert config["max_concurrency"] == 50
-        assert config["verify_endpoints"] == ["http://httpbin.org/ip"]
+        assert config["verify_endpoints"] == [
+            "https://ipinfo.io/json",
+            "https://api.ipify.org?format=json",
+            "http://httpbin.org/ip",
+        ]
 
     def test_load_from_file(self, tmp_path: Path) -> None:
         config_file = tmp_path / "config.json"

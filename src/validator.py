@@ -170,8 +170,12 @@ class ProxyValidator:
         timeout_sec = float(timeout_val) if isinstance(timeout_val, (int, float)) else 8.0
         semaphore = asyncio.Semaphore(max_concurrency)
         valid: list[ProxyRecord] = []
+        total = len(records)
+        done = 0
+        valid_so_far = 0
 
         async def _guarded(record: ProxyRecord) -> None:
+            nonlocal done, valid_so_far
             async with semaphore:
                 proxy_url = self._proxy_url(record)
                 async with httpx.AsyncClient(proxy=proxy_url, timeout=timeout_sec) as client:
@@ -188,10 +192,25 @@ class ProxyValidator:
                     )
                     if result.is_valid:
                         valid.append(result)
+                        valid_so_far += 1
+            done += 1
+            if done % 1000 == 0:
+                print(
+                    f"  [validate] {done}/{total} checked, {valid_so_far} valid",
+                    flush=True,
+                )
 
+        print(
+            f"  validating {total} proxies @ concurrency={max_concurrency} ...",
+            flush=True,
+        )
         await asyncio.gather(
             *[_guarded(r) for r in records],
             return_exceptions=True,
+        )
+        print(
+            f"  [validate] {done}/{total} checked, {valid_so_far} valid",
+            flush=True,
         )
 
         return valid

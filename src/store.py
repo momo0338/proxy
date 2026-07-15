@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import sqlite3
 from contextlib import contextmanager
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -55,6 +55,28 @@ class ProxyStore:
         """Create the proxies table if it doesn't exist."""
         with self._connect() as conn:
             conn.executescript(_SCHEMA)
+            self._normalize_timestamps(conn)
+
+    def _normalize_timestamps(self, conn: sqlite3.Connection) -> None:
+        """Convert legacy UTC timestamps (+00:00) to naive local time.
+
+        Idempotent: only rows still carrying a UTC offset are touched, so
+        calling this on every startup is safe.
+        """
+        local_tz = datetime.now().astimezone().tzinfo
+        rows = conn.execute(
+            "SELECT key, last_verified FROM proxies WHERE last_verified LIKE '%+00:00'"
+        ).fetchall()
+        for row in rows:
+            try:
+                dt = datetime.fromisoformat(row["last_verified"])
+            except ValueError:
+                continue
+            local = dt.astimezone(local_tz).replace(tzinfo=None)
+            conn.execute(
+                "UPDATE proxies SET last_verified = ? WHERE key = ?",
+                (local.isoformat(), row["key"]),
+            )
 
     def upsert(self, record: ProxyRecord) -> None:
         """Insert or replace a single proxy record."""
@@ -160,7 +182,7 @@ class ProxyStore:
         params: list[object] = []
 
         if only_fresh:
-            cutoff = (datetime.now(UTC) - timedelta(hours=expiry_hours)).isoformat()
+            cutoff = (datetime.now() - timedelta(hours=expiry_hours)).isoformat()
             clauses.append("last_verified >= ?")
             params.append(cutoff)
 
@@ -258,7 +280,7 @@ class ProxyStore:
 
     def delete_expired(self, expiry_hours: int) -> int:
         """Delete valid proxies older than expiry_hours. Returns count deleted."""
-        cutoff = (datetime.now(UTC) - timedelta(hours=expiry_hours)).isoformat()
+        cutoff = (datetime.now() - timedelta(hours=expiry_hours)).isoformat()
         with self._connect() as conn:
             cursor = conn.execute(
                 "DELETE FROM proxies WHERE is_valid = 1 AND last_verified < ?",

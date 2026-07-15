@@ -48,6 +48,8 @@ ignore = [
     "PT001",
     "D102",
     "D104",
+    # 本项目刻意使用本地时间(面向本机操作者), 故忽略 datetime.now() 缺 tz 的告警
+    "DTZ005",
 ]
 
 [tool.ruff.lint.per-file-ignores]

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import time
-from datetime import UTC, datetime
+from datetime import datetime
 from typing import TYPE_CHECKING
 
 import httpx
@@ -116,7 +116,7 @@ class ProxyValidator:
         if not country:
             country = await self._lookup_country(client, record.ip)
         elapsed = round(time.monotonic() - start, 3)
-        now = datetime.now(UTC).isoformat()
+        now = datetime.now().isoformat()
         return ProxyRecord(
             ip=record.ip,
             port=record.port,
@@ -142,7 +142,7 @@ class ProxyValidator:
             result = await self._attempt(record, client, local_ip, endpoint, timeout_sec)
             if result is not None:
                 return result
-        now = datetime.now(UTC).isoformat()
+        now = datetime.now().isoformat()
         return ProxyRecord(
             ip=record.ip,
             port=record.port,

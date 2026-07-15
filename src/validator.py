@@ -1,192 +1,157 @@
-"""
-代理验证器
-"""
+"""Proxy validator — tests proxies against check endpoints."""
 
-import requests
+from __future__ import annotations
+
+import asyncio
 import time
-import concurrent.futures
-from typing import List, Dict, Optional
-from datetime import datetime
+from datetime import UTC, datetime
+from typing import TYPE_CHECKING
 
-from .config import DEFAULT_CONFIG
-from .proxy import Proxy
-from .utils import (
-    ensure_dir,
-    get_timestamp,
-    save_json,
-    save_text,
-    load_text,
-    print_separator,
-    print_header,
-    format_number
-)
+import httpx
+
+from src.models import Anonymity, ProxyRecord
+
+if TYPE_CHECKING:
+    from src.store import ProxyStore
+
 
 class ProxyValidator:
-    """代理验证器"""
-    
-    def __init__(self, output_dir: str = None):
-        self.output_dir = output_dir or DEFAULT_CONFIG["output_dir"]
-        self.valid_proxies: List[Dict] = []
-        
-        ensure_dir(self.output_dir)
-    
-    def validate_proxy(self, proxy: str, timeout: float = None) -> Dict:
-        """验证单个代理"""
-        timeout = timeout or DEFAULT_CONFIG["verify_timeout"]
-        
-        result = {
-            "address": proxy,
-            "is_valid": False,
-            "response_time": 0,
-            "origin_ip": None,
-            "error": None
-        }
-        
+    """Validate proxies concurrently using httpx."""
+
+    def __init__(self, config: dict[str, object], store: ProxyStore) -> None:
+        """Initialise validator with config and store."""
+        self._config = config
+        self._store = store
+
+    @staticmethod
+    def _proxy_dict(record: ProxyRecord) -> dict[str, str]:
+        """Build httpx proxy mapping for a given record."""
+        address = record.address
+        return {"http": address, "https": address}
+
+    async def _resolve_local_ip(self) -> str:
+        """Best-effort fetch of our own public IP."""
         try:
-            # 解析代理地址
-            if "://" not in proxy:
-                proxy = f"http://{proxy}"
-            
-            proxies = {
-                "http": proxy,
-                "https": proxy
-            }
-            
-            start_time = time.time()
-            response = requests.get(
-                "http://httpbin.org/ip",
-                proxies=proxies,
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                resp = await client.get("https://api.ipify.org")
+                resp.raise_for_status()
+                return resp.text.strip()
+        except (httpx.HTTPError, OSError):
+            return ""
+
+    async def validate_one(
+        self,
+        record: ProxyRecord,
+        client: httpx.AsyncClient,
+        local_ip: str,
+    ) -> ProxyRecord:
+        """Validate a single proxy by routing a request through it."""
+        anon_check_url = str(self._config.get("anon_check_url", "http://httpbin.org/ip"))
+        country_url = str(self._config.get("country_url", "http://ip-api.com/json"))
+        timeout_val = self._config.get("verify_timeout", 8.0)
+        timeout = float(timeout_val) if isinstance(timeout_val, (int, float)) else 8.0
+
+        start = time.monotonic()
+        try:
+            resp = await client.get(
+                anon_check_url,
+                proxies=self._proxy_dict(record),
                 timeout=timeout,
-                headers={"User-Agent": DEFAULT_CONFIG["user_agent"]}
             )
-            
-            result["response_time"] = round(time.time() - start_time, 3)
-            result["is_valid"] = response.status_code == 200
-            result["origin_ip"] = response.json().get("origin", "")
-            
-        except requests.exceptions.Timeout:
-            result["error"] = "连接超时"
-        except requests.exceptions.ConnectionError:
-            result["error"] = "连接失败"
-        except Exception as e:
-            result["error"] = str(e)
-        
-        return result
-    
-    def validate_batch(self, proxies: List[str], max_workers: int = None) -> List[Dict]:
-        """批量验证代理"""
-        max_workers = max_workers or DEFAULT_CONFIG["max_workers"]
-        
-        print_header("代理验证器")
-        print(f"待验证代理数: {len(proxies)}")
-        print(f"并发数: {max_workers}")
-        print()
-        
-        valid_proxies = []
-        invalid_count = 0
-        
-        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-            future_to_proxy = {
-                executor.submit(self.validate_proxy, proxy): proxy 
-                for proxy in proxies
-            }
-            
-            completed = 0
-            for future in concurrent.futures.as_completed(future_to_proxy):
-                completed += 1
-                proxy_addr = future_to_proxy[future]
-                
-                try:
-                    result = future.result()
-                    if result["is_valid"]:
-                        valid_proxies.append(result)
-                        print(f"  ✓ {proxy_addr} ({result['response_time']}s)")
-                    else:
-                        invalid_count += 1
-                except Exception as e:
-                    invalid_count += 1
-                
-                # 进度显示
-                if completed % 20 == 0:
-                    print(f"  进度: {completed}/{len(proxies)}")
-        
-        print()
-        print_separator()
-        print("验证完成")
-        print_separator()
-        print(f"有效代理: {len(valid_proxies)}")
-        print(f"无效代理: {invalid_count}")
-        
-        # 按响应时间排序
-        valid_proxies.sort(key=lambda x: x["response_time"])
-        
-        self.valid_proxies = valid_proxies
-        return valid_proxies
-    
-    def load_proxies_from_file(self, filepath: str) -> List[str]:
-        """从文件加载代理列表"""
-        try:
-            proxies = load_text(filepath)
-            print(f"从 {filepath} 加载了 {len(proxies)} 个代理")
-            return proxies
-        except FileNotFoundError:
-            print(f"文件不存在: {filepath}")
+            resp.raise_for_status()
+            elapsed = round(time.monotonic() - start, 3)
+
+            data = resp.json()
+            origin_ip = str(data.get("origin", ""))
+
+            # Determine anonymity
+            if origin_ip == local_ip:
+                anon = Anonymity.TRANSPARENT
+            elif origin_ip == record.ip:
+                anon = Anonymity.ELITE
+            else:
+                anon = Anonymity.ANONYMOUS
+
+            # Best-effort country lookup
+            country = ""
+            try:
+                cresp = await client.get(
+                    country_url,
+                    params={"ip": record.ip},
+                    timeout=5.0,
+                )
+                cresp.raise_for_status()
+                cdata = cresp.json()
+                country = str(cdata.get("country", ""))
+            except (httpx.HTTPError, OSError):
+                country = ""
+
+            now = datetime.now(UTC).isoformat()
+            return ProxyRecord(
+                ip=record.ip,
+                port=record.port,
+                protocol=record.protocol,
+                source=record.source,
+                country=country,
+                anonymity=anon,
+                response_time=elapsed,
+                last_verified=now,
+                is_valid=True,
+            )
+
+        except (
+            httpx.ConnectError,
+            httpx.ConnectTimeout,
+            httpx.ReadTimeout,
+            httpx.TimeoutException,
+            httpx.ProxyError,
+            httpx.HTTPStatusError,
+            OSError,
+        ):
+            now = datetime.now(UTC).isoformat()
+            return ProxyRecord(
+                ip=record.ip,
+                port=record.port,
+                protocol=record.protocol,
+                source=record.source,
+                country="",
+                anonymity=Anonymity.TRANSPARENT,
+                response_time=0.0,
+                last_verified=now,
+                is_valid=False,
+            )
+
+    async def validate_all(
+        self,
+        records: list[ProxyRecord],
+        max_concurrency: int,
+    ) -> list[ProxyRecord]:
+        """Validate many proxies concurrently. Updates store and returns valid ones."""
+        if not records:
             return []
-    
-    def save_results(self) -> None:
-        """保存验证结果"""
-        if not self.valid_proxies:
-            print("没有有效代理可保存")
-            return
-        
-        # 保存有效代理
-        valid_proxies_file = f"{self.output_dir}/verified_proxies.txt"
-        save_text([p["address"] for p in self.valid_proxies], valid_proxies_file)
-        
-        # 保存详细报告
-        report = {
-            "timestamp": get_timestamp(),
-            "total_tested": len(self.valid_proxies),
-            "valid_count": len(self.valid_proxies),
-            "proxies": self.valid_proxies
-        }
-        save_json(report, f"{self.output_dir}/verified_report.json")
-        
-        print(f"\n验证结果已保存到 {self.output_dir} 目录")
-        print(f"  - verified_proxies.txt: {len(self.valid_proxies)} 个有效代理")
-        print(f"  - verified_report.json: 详细报告")
-    
-    def run(self, proxy_file: str = None, max_verify: int = None) -> None:
-        """运行验证器"""
-        # 加载代理列表
-        if proxy_file:
-            proxies = self.load_proxies_from_file(proxy_file)
-        else:
-            proxies = self.load_proxies_from_file(f"{self.output_dir}/all_proxies.txt")
-        
-        if not proxies:
-            print("没有找到代理文件")
-            return
-        
-        # 限制验证数量
-        if max_verify is None:
-            max_verify = DEFAULT_CONFIG["max_verify"]
-        
-        if max_verify > 0 and len(proxies) > max_verify:
-            print(f"代理数量过多，只验证前 {max_verify} 个")
-            proxies = proxies[:max_verify]
-        elif max_verify == 0:
-            print(f"验证所有代理: {len(proxies)} 个")
-        
-        # 验证代理
-        self.validate_batch(proxies)
-        
-        # 保存结果
-        self.save_results()
-        
-        # 显示最快的10个代理
-        if self.valid_proxies:
-            print()
-            print("最快的10个代理:")
-            for i, proxy in enumerate(self.valid_proxies[:10]):
-                print(f"  {i+1}. {proxy['address']} ({proxy['response_time']}s)")
+
+        local_ip = await self._resolve_local_ip()
+        semaphore = asyncio.Semaphore(max_concurrency)
+        valid: list[ProxyRecord] = []
+
+        async def _guarded(record: ProxyRecord) -> None:
+            async with semaphore:
+                result = await self.validate_one(record, client, local_ip)
+                self._store.record_validation(
+                    record.key,
+                    is_valid=result.is_valid,
+                    response_time=result.response_time,
+                    anonymity=result.anonymity,
+                    country=result.country,
+                    last_verified=result.last_verified,
+                )
+                if result.is_valid:
+                    valid.append(result)
+
+        async with httpx.AsyncClient() as client:
+            await asyncio.gather(
+                *[_guarded(r) for r in records],
+                return_exceptions=True,
+            )
+
+        return valid

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import tempfile
-from datetime import UTC, datetime
+from datetime import datetime
 from pathlib import Path
 
 import pytest
@@ -50,7 +50,7 @@ def populated_client() -> TestClient:
                     country="US",
                     anonymity=Anonymity.ELITE,
                     response_time=0.5,
-                    last_verified=datetime.now(UTC).isoformat(),
+                    last_verified=datetime.now().isoformat(),
                     is_valid=True,
                 )
             )

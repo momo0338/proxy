@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import tempfile
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -33,7 +33,7 @@ def sample_record() -> ProxyRecord:
         country="US",
         anonymity=Anonymity.ELITE,
         response_time=0.5,
-        last_verified=datetime.now(UTC).isoformat(),
+        last_verified=datetime.now().isoformat(),
         is_valid=True,
     )
 
@@ -69,7 +69,7 @@ class TestProxyStoreUpsert:
             source="test-source",
             response_time=1.0,
             is_valid=True,
-            last_verified=datetime.now(UTC).isoformat(),
+            last_verified=datetime.now().isoformat(),
         )
         store.upsert(updated)
         records = store.get_valid(only_fresh=False)
@@ -109,7 +109,7 @@ class TestProxyStoreGetValid:
             protocol=ProxyProtocol.SOCKS5,
             source="t",
             is_valid=True,
-            last_verified=datetime.now(UTC).isoformat(),
+            last_verified=datetime.now().isoformat(),
         )
         store.upsert(socks)
         http_only = store.get_valid(protocol=ProxyProtocol.HTTP, only_fresh=False)
@@ -125,7 +125,7 @@ class TestProxyStoreGetValid:
                     protocol=ProxyProtocol.HTTP,
                     source="t",
                     is_valid=True,
-                    last_verified=datetime.now(UTC).isoformat(),
+                    last_verified=datetime.now().isoformat(),
                 )
             )
         limited = store.get_valid(limit=3, only_fresh=False)
@@ -138,7 +138,7 @@ class TestProxyStoreGetValid:
             protocol=ProxyProtocol.HTTP,
             source="t",
             is_valid=True,
-            last_verified=(datetime.now(UTC) - timedelta(hours=10)).isoformat(),
+            last_verified=(datetime.now() - timedelta(hours=10)).isoformat(),
         )
         fresh = ProxyRecord(
             ip="2.2.2.2",
@@ -146,7 +146,7 @@ class TestProxyStoreGetValid:
             protocol=ProxyProtocol.HTTP,
             source="t",
             is_valid=True,
-            last_verified=datetime.now(UTC).isoformat(),
+            last_verified=datetime.now().isoformat(),
         )
         store.upsert(old)
         store.upsert(fresh)
@@ -176,11 +176,11 @@ class TestProxyStoreDeleteExpired:
     def test_delete_expired(self, store: ProxyStore) -> None:
         old = ProxyRecord(
             ip="1.1.1.1", port=80, protocol=ProxyProtocol.HTTP, source="t",
-            is_valid=True, last_verified=(datetime.now(UTC) - timedelta(hours=10)).isoformat(),
+            is_valid=True, last_verified=(datetime.now() - timedelta(hours=10)).isoformat(),
         )
         fresh = ProxyRecord(
             ip="2.2.2.2", port=80, protocol=ProxyProtocol.HTTP, source="t",
-            is_valid=True, last_verified=datetime.now(UTC).isoformat(),
+            is_valid=True, last_verified=datetime.now().isoformat(),
         )
         store.upsert(old)
         store.upsert(fresh)
@@ -210,7 +210,7 @@ class TestProxyStoreCount:
     def test_count_mixed(self, store: ProxyStore) -> None:
         store.upsert(ProxyRecord(
             ip="1.1.1.1", port=80, protocol=ProxyProtocol.HTTP, source="t",
-            is_valid=True, last_verified=datetime.now(UTC).isoformat(),
+            is_valid=True, last_verified=datetime.now().isoformat(),
         ))
         store.upsert(ProxyRecord(
             ip="2.2.2.2", port=1080, protocol=ProxyProtocol.SOCKS5, source="t", is_valid=False,
@@ -227,7 +227,7 @@ class TestProxyStoreRecordValidation:
 
     def test_record_validation(self, store: ProxyStore, sample_invalid_record: ProxyRecord) -> None:
         store.upsert(sample_invalid_record)
-        now = datetime.now(UTC).isoformat()
+        now = datetime.now().isoformat()
         store.record_validation(
             sample_invalid_record.key,
             is_valid=True,
@@ -253,7 +253,7 @@ class TestProxyStoreUnvalidated:
         store.upsert(never_tested)
         dead = ProxyRecord(
             ip="2.2.2.2", port=80, protocol=ProxyProtocol.HTTP, source="t",
-            is_valid=False, last_verified=datetime.now(UTC).isoformat(),
+            is_valid=False, last_verified=datetime.now().isoformat(),
         )
         store.upsert(dead)
 
@@ -267,7 +267,7 @@ class TestProxyStoreUnvalidated:
         ))
         store.upsert(ProxyRecord(
             ip="2.2.2.2", port=80, protocol=ProxyProtocol.HTTP, source="t",
-            is_valid=False, last_verified=datetime.now(UTC).isoformat(),
+            is_valid=False, last_verified=datetime.now().isoformat(),
         ))
         assert store.count_unvalidated() == 1
         assert store.count_unvalidated(include_failed=True) == 2

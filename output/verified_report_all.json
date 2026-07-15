@@ -1,0 +1,1289 @@
+{
+  "timestamp": "2026-07-06 16:14:04",
+  "total_tested": 3518,
+  "valid_count": 183,
+  "valid_rate": "5.2%",
+  "proxies": [
+    {
+      "address": "http://115.239.234.43:7302",
+      "is_valid": true,
+      "response_time": 0.028,
+      "origin_ip": "",
+      "error": null
+    },
+    {
+      "address": "http://16.163.88.228:80",
+      "is_valid": true,
+      "response_time": 0.195,
+      "origin_ip": "",
+      "error": null
+    },
+    {
+      "address": "http://43.133.15.47:3128",
+      "is_valid": true,
+      "response_time": 0.271,
+      "origin_ip": "116.235.167.120, 43.133.15.47",
+      "error": null
+    },
+    {
+      "address": "http://43.133.169.167:3128",
+      "is_valid": true,
+      "response_time": 0.275,
+      "origin_ip": "162.226.172.80, 43.133.169.167",
+      "error": null
+    },
+    {
+      "address": "http://43.167.187.233:3128",
+      "is_valid": true,
+      "response_time": 0.282,
+      "origin_ip": "176.120.71.144, 43.167.187.233",
+      "error": null
+    },
+    {
+      "address": "http://43.167.171.85:3128",
+      "is_valid": true,
+      "response_time": 0.294,
+      "origin_ip": "110.46.158.118, 43.167.171.85",
+      "error": null
+    },
+    {
+      "address": "http://43.167.245.99:3128",
+      "is_valid": true,
+      "response_time": 0.364,
+      "origin_ip": "43.130.33.155, 43.167.245.99",
+      "error": null
+    },
+    {
+      "address": "http://43.167.213.156:3128",
+      "is_valid": true,
+      "response_time": 0.381,
+      "origin_ip": "45.33.80.44, 43.167.213.156",
+      "error": null
+    },
+    {
+      "address": "http://43.167.16.253:3128",
+      "is_valid": true,
+      "response_time": 0.4,
+      "origin_ip": "91.200.242.113, 43.167.16.253",
+      "error": null
+    },
+    {
+      "address": "http://124.156.230.244:3128",
+      "is_valid": true,
+      "response_time": 0.481,
+      "origin_ip": "101.68.51.21, 124.156.230.244",
+      "error": null
+    },
+    {
+      "address": "http://95.211.174.135:3128",
+      "is_valid": true,
+      "response_time": 0.495,
+      "origin_ip": "95.211.174.135",
+      "error": null
+    },
+    {
+      "address": "http://1.231.81.166:3128",
+      "is_valid": true,
+      "response_time": 0.499,
+      "origin_ip": "101.68.51.21, 1.231.81.166",
+      "error": null
+    },
+    {
+      "address": "http://52.34.243.150:8080",
+      "is_valid": true,
+      "response_time": 0.508,
+      "origin_ip": null,
+      "error": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "address": "http://207.244.248.97:80",
+      "is_valid": true,
+      "response_time": 0.521,
+      "origin_ip": null,
+      "error": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "address": "http://13.114.160.78:80",
+      "is_valid": true,
+      "response_time": 0.537,
+      "origin_ip": "13.114.160.78",
+      "error": null
+    },
+    {
+      "address": "http://178.212.144.7:80",
+      "is_valid": true,
+      "response_time": 0.538,
+      "origin_ip": "116.235.167.120, 178.212.144.7",
+      "error": null
+    },
+    {
+      "address": "http://194.59.204.87:9080",
+      "is_valid": true,
+      "response_time": 0.609,
+      "origin_ip": "194.59.204.87",
+      "error": null
+    },
+    {
+      "address": "http://176.111.37.5:39811",
+      "is_valid": true,
+      "response_time": 0.741,
+      "origin_ip": "104.28.222.75, 176.111.37.5",
+      "error": null
+    },
+    {
+      "address": "http://47.52.223.161:5872",
+      "is_valid": true,
+      "response_time": 0.769,
+      "origin_ip": "101.68.51.21, 47.52.223.161",
+      "error": null
+    },
+    {
+      "address": "http://183.173.72.186:6518",
+      "is_valid": true,
+      "response_time": 0.77,
+      "origin_ip": "38.207.137.42",
+      "error": null
+    },
+    {
+      "address": "http://185.135.69.34:80",
+      "is_valid": true,
+      "response_time": 0.793,
+      "origin_ip": "166.88.114.250, 185.135.69.34",
+      "error": null
+    },
+    {
+      "address": "http://62.133.62.184:1082",
+      "is_valid": true,
+      "response_time": 0.844,
+      "origin_ip": "62.133.62.184",
+      "error": null
+    },
+    {
+      "address": "http://174.137.134.182:2999",
+      "is_valid": true,
+      "response_time": 0.855,
+      "origin_ip": "174.137.134.182",
+      "error": null
+    },
+    {
+      "address": "http://217.123.140.50:8888",
+      "is_valid": true,
+      "response_time": 0.952,
+      "origin_ip": "158.173.21.45",
+      "error": null
+    },
+    {
+      "address": "socks5://142.54.235.9:4145",
+      "is_valid": true,
+      "response_time": 1.0,
+      "origin_ip": "142.54.235.9",
+      "error": null
+    },
+    {
+      "address": "socks5://72.37.217.3:4145",
+      "is_valid": true,
+      "response_time": 1.092,
+      "origin_ip": "72.37.217.3",
+      "error": null
+    },
+    {
+      "address": "socks5://202.79.26.242:1080",
+      "is_valid": true,
+      "response_time": 1.118,
+      "origin_ip": "202.79.26.242",
+      "error": null
+    },
+    {
+      "address": "socks5://159.54.148.142:1080",
+      "is_valid": true,
+      "response_time": 1.122,
+      "origin_ip": "159.54.148.142",
+      "error": null
+    },
+    {
+      "address": "http://173.212.246.157:3128",
+      "is_valid": true,
+      "response_time": 1.124,
+      "origin_ip": "47.112.3.14, 173.212.246.157",
+      "error": null
+    },
+    {
+      "address": "socks5://213.5.17.84:1080",
+      "is_valid": true,
+      "response_time": 1.133,
+      "origin_ip": "213.5.17.84",
+      "error": null
+    },
+    {
+      "address": "socks5://67.201.35.145:4145",
+      "is_valid": true,
+      "response_time": 1.141,
+      "origin_ip": "67.201.35.145",
+      "error": null
+    },
+    {
+      "address": "http://23.81.87.202:8118",
+      "is_valid": true,
+      "response_time": 1.151,
+      "origin_ip": "23.81.87.202",
+      "error": null
+    },
+    {
+      "address": "http://2.56.178.88:808",
+      "is_valid": true,
+      "response_time": 1.21,
+      "origin_ip": "2.56.178.88",
+      "error": null
+    },
+    {
+      "address": "socks5://142.54.229.249:4145",
+      "is_valid": true,
+      "response_time": 1.244,
+      "origin_ip": "142.54.229.249",
+      "error": null
+    },
+    {
+      "address": "socks5://141.148.158.143:1080",
+      "is_valid": true,
+      "response_time": 1.276,
+      "origin_ip": "141.148.158.143",
+      "error": null
+    },
+    {
+      "address": "socks5://194.87.250.182:1080",
+      "is_valid": true,
+      "response_time": 1.337,
+      "origin_ip": "194.87.250.182",
+      "error": null
+    },
+    {
+      "address": "http://176.111.37.216:39811",
+      "is_valid": true,
+      "response_time": 1.346,
+      "origin_ip": "101.68.51.21, 176.111.37.216",
+      "error": null
+    },
+    {
+      "address": "socks5://199.58.185.9:4145",
+      "is_valid": true,
+      "response_time": 1.362,
+      "origin_ip": "199.58.185.9",
+      "error": null
+    },
+    {
+      "address": "socks5://199.116.114.11:4145",
+      "is_valid": true,
+      "response_time": 1.406,
+      "origin_ip": "199.116.114.11",
+      "error": null
+    },
+    {
+      "address": "http://101.6.70.131:4780",
+      "is_valid": true,
+      "response_time": 1.429,
+      "origin_ip": "100.42.227.131",
+      "error": null
+    },
+    {
+      "address": "http://12.50.107.221:80",
+      "is_valid": true,
+      "response_time": 1.473,
+      "origin_ip": "12.50.107.221",
+      "error": null
+    },
+    {
+      "address": "http://94.158.49.82:3128",
+      "is_valid": true,
+      "response_time": 1.511,
+      "origin_ip": "94.158.49.82",
+      "error": null
+    },
+    {
+      "address": "http://113.176.92.71:3128",
+      "is_valid": true,
+      "response_time": 1.519,
+      "origin_ip": "101.68.51.21, 113.176.92.71",
+      "error": null
+    },
+    {
+      "address": "socks5://212.87.198.96:1080",
+      "is_valid": true,
+      "response_time": 1.523,
+      "origin_ip": "212.87.198.96",
+      "error": null
+    },
+    {
+      "address": "http://120.92.212.16:7890",
+      "is_valid": true,
+      "response_time": 1.604,
+      "origin_ip": "60.28.217.71",
+      "error": null
+    },
+    {
+      "address": "http://43.167.214.133:3128",
+      "is_valid": true,
+      "response_time": 1.607,
+      "origin_ip": "101.68.51.21, 43.167.214.133",
+      "error": null
+    },
+    {
+      "address": "socks5://24.249.199.12:4145",
+      "is_valid": true,
+      "response_time": 1.612,
+      "origin_ip": "24.249.199.12",
+      "error": null
+    },
+    {
+      "address": "http://101.71.143.237:8092",
+      "is_valid": true,
+      "response_time": 1.618,
+      "origin_ip": "101.71.143.237",
+      "error": null
+    },
+    {
+      "address": "socks5://98.170.57.231:4145",
+      "is_valid": true,
+      "response_time": 1.628,
+      "origin_ip": "98.170.57.231",
+      "error": null
+    },
+    {
+      "address": "socks5://134.175.238.113:1080",
+      "is_valid": true,
+      "response_time": 1.648,
+      "origin_ip": null,
+      "error": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "address": "http://140.238.32.108:3128",
+      "is_valid": true,
+      "response_time": 1.68,
+      "origin_ip": "140.238.32.108",
+      "error": null
+    },
+    {
+      "address": "socks5://206.220.175.2:4145",
+      "is_valid": true,
+      "response_time": 1.738,
+      "origin_ip": "206.220.175.2",
+      "error": null
+    },
+    {
+      "address": "socks5://174.64.199.79:4145",
+      "is_valid": true,
+      "response_time": 1.741,
+      "origin_ip": "174.64.199.79",
+      "error": null
+    },
+    {
+      "address": "socks5://34.84.162.206:38081",
+      "is_valid": true,
+      "response_time": 1.765,
+      "origin_ip": "34.84.162.206",
+      "error": null
+    },
+    {
+      "address": "socks5://184.178.172.28:15294",
+      "is_valid": true,
+      "response_time": 1.766,
+      "origin_ip": "184.178.172.28",
+      "error": null
+    },
+    {
+      "address": "socks5://184.170.245.148:4145",
+      "is_valid": true,
+      "response_time": 1.768,
+      "origin_ip": "184.170.245.148",
+      "error": null
+    },
+    {
+      "address": "socks5://45.61.188.134:44499",
+      "is_valid": true,
+      "response_time": 1.785,
+      "origin_ip": "45.61.188.134",
+      "error": null
+    },
+    {
+      "address": "http://185.161.251.195:3128",
+      "is_valid": true,
+      "response_time": 1.802,
+      "origin_ip": "101.68.51.21, 185.161.251.195",
+      "error": null
+    },
+    {
+      "address": "socks5://43.128.150.150:1080",
+      "is_valid": true,
+      "response_time": 1.82,
+      "origin_ip": "43.128.150.150",
+      "error": null
+    },
+    {
+      "address": "http://203.162.13.222:6868",
+      "is_valid": true,
+      "response_time": 1.838,
+      "origin_ip": "203.162.13.222",
+      "error": null
+    },
+    {
+      "address": "http://34.140.137.151:80",
+      "is_valid": true,
+      "response_time": 1.844,
+      "origin_ip": "34.140.137.151",
+      "error": null
+    },
+    {
+      "address": "http://141.147.70.238:3128",
+      "is_valid": true,
+      "response_time": 1.855,
+      "origin_ip": "101.68.51.21, 152.67.154.127",
+      "error": null
+    },
+    {
+      "address": "socks5://103.138.145.228:1999",
+      "is_valid": true,
+      "response_time": 1.867,
+      "origin_ip": "103.138.144.252",
+      "error": null
+    },
+    {
+      "address": "socks5://121.169.46.116:1090",
+      "is_valid": true,
+      "response_time": 1.884,
+      "origin_ip": null,
+      "error": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "address": "socks5://192.252.211.197:14921",
+      "is_valid": true,
+      "response_time": 1.894,
+      "origin_ip": "192.252.211.197",
+      "error": null
+    },
+    {
+      "address": "socks5://184.182.240.211:4145",
+      "is_valid": true,
+      "response_time": 1.896,
+      "origin_ip": "184.182.240.211",
+      "error": null
+    },
+    {
+      "address": "http://41.59.90.171:80",
+      "is_valid": true,
+      "response_time": 1.906,
+      "origin_ip": "41.59.90.98",
+      "error": null
+    },
+    {
+      "address": "socks5://45.76.183.4:10080",
+      "is_valid": true,
+      "response_time": 1.914,
+      "origin_ip": "45.76.183.4",
+      "error": null
+    },
+    {
+      "address": "socks5://184.178.172.26:4145",
+      "is_valid": true,
+      "response_time": 1.94,
+      "origin_ip": "184.178.172.26",
+      "error": null
+    },
+    {
+      "address": "socks5://174.75.211.222:4145",
+      "is_valid": true,
+      "response_time": 1.946,
+      "origin_ip": "174.75.211.222",
+      "error": null
+    },
+    {
+      "address": "socks5://184.178.172.13:15311",
+      "is_valid": true,
+      "response_time": 1.96,
+      "origin_ip": "184.178.172.13",
+      "error": null
+    },
+    {
+      "address": "http://72.56.32.152:1081",
+      "is_valid": true,
+      "response_time": 1.972,
+      "origin_ip": "72.56.32.152",
+      "error": null
+    },
+    {
+      "address": "socks5://192.252.210.233:4145",
+      "is_valid": true,
+      "response_time": 1.992,
+      "origin_ip": "192.252.210.233",
+      "error": null
+    },
+    {
+      "address": "http://140.245.238.56:53",
+      "is_valid": true,
+      "response_time": 2.01,
+      "origin_ip": "140.245.238.56",
+      "error": null
+    },
+    {
+      "address": "http://81.90.29.194:10808",
+      "is_valid": true,
+      "response_time": 2.021,
+      "origin_ip": "81.90.29.194",
+      "error": null
+    },
+    {
+      "address": "socks5://72.206.74.126:4145",
+      "is_valid": true,
+      "response_time": 2.068,
+      "origin_ip": "72.206.74.126",
+      "error": null
+    },
+    {
+      "address": "http://47.238.134.126:8181",
+      "is_valid": true,
+      "response_time": 2.071,
+      "origin_ip": "47.238.134.126",
+      "error": null
+    },
+    {
+      "address": "http://47.76.144.139:5060",
+      "is_valid": true,
+      "response_time": 2.073,
+      "origin_ip": "47.76.144.139",
+      "error": null
+    },
+    {
+      "address": "http://47.238.130.212:8004",
+      "is_valid": true,
+      "response_time": 2.075,
+      "origin_ip": "47.238.130.212",
+      "error": null
+    },
+    {
+      "address": "http://8.213.134.213:443",
+      "is_valid": true,
+      "response_time": 2.088,
+      "origin_ip": "8.213.134.213",
+      "error": null
+    },
+    {
+      "address": "http://47.91.29.151:6379",
+      "is_valid": true,
+      "response_time": 2.093,
+      "origin_ip": "47.91.29.151",
+      "error": null
+    },
+    {
+      "address": "http://8.213.156.191:8181",
+      "is_valid": true,
+      "response_time": 2.097,
+      "origin_ip": "8.213.156.191",
+      "error": null
+    },
+    {
+      "address": "http://8.221.138.111:46691",
+      "is_valid": true,
+      "response_time": 2.098,
+      "origin_ip": "8.221.138.111",
+      "error": null
+    },
+    {
+      "address": "http://47.91.29.151:4002",
+      "is_valid": true,
+      "response_time": 2.102,
+      "origin_ip": "47.91.29.151",
+      "error": null
+    },
+    {
+      "address": "http://86.62.2.25:3128",
+      "is_valid": true,
+      "response_time": 2.108,
+      "origin_ip": "86.62.2.25",
+      "error": null
+    },
+    {
+      "address": "http://8.221.138.111:6379",
+      "is_valid": true,
+      "response_time": 2.11,
+      "origin_ip": "8.221.138.111",
+      "error": null
+    },
+    {
+      "address": "http://8.213.128.6:90",
+      "is_valid": true,
+      "response_time": 2.118,
+      "origin_ip": "8.213.128.6",
+      "error": null
+    },
+    {
+      "address": "http://47.237.2.245:1080",
+      "is_valid": true,
+      "response_time": 2.125,
+      "origin_ip": "47.237.2.245",
+      "error": null
+    },
+    {
+      "address": "http://8.219.229.53:11",
+      "is_valid": true,
+      "response_time": 2.126,
+      "origin_ip": "8.219.229.53",
+      "error": null
+    },
+    {
+      "address": "http://47.237.107.41:85",
+      "is_valid": true,
+      "response_time": 2.13,
+      "origin_ip": "47.237.107.41",
+      "error": null
+    },
+    {
+      "address": "socks5://72.195.34.58:4145",
+      "is_valid": true,
+      "response_time": 2.133,
+      "origin_ip": "72.195.34.58",
+      "error": null
+    },
+    {
+      "address": "socks5://198.98.57.207:1080",
+      "is_valid": true,
+      "response_time": 2.136,
+      "origin_ip": "198.98.57.207",
+      "error": null
+    },
+    {
+      "address": "http://103.69.129.89:24444",
+      "is_valid": true,
+      "response_time": 2.147,
+      "origin_ip": "78.36.72.116, 103.73.66.232",
+      "error": null
+    },
+    {
+      "address": "socks5://199.102.106.94:4145",
+      "is_valid": true,
+      "response_time": 2.172,
+      "origin_ip": "199.102.106.94",
+      "error": null
+    },
+    {
+      "address": "socks5://98.188.47.132:4145",
+      "is_valid": true,
+      "response_time": 2.191,
+      "origin_ip": "98.188.47.132",
+      "error": null
+    },
+    {
+      "address": "http://47.250.11.111:41",
+      "is_valid": true,
+      "response_time": 2.251,
+      "origin_ip": "47.250.11.111",
+      "error": null
+    },
+    {
+      "address": "socks5://64.188.62.136:1080",
+      "is_valid": true,
+      "response_time": 2.255,
+      "origin_ip": "64.188.62.136",
+      "error": null
+    },
+    {
+      "address": "socks5://103.61.122.229:1080",
+      "is_valid": true,
+      "response_time": 2.283,
+      "origin_ip": "103.61.122.229",
+      "error": null
+    },
+    {
+      "address": "socks5://195.128.18.229:1080",
+      "is_valid": true,
+      "response_time": 2.283,
+      "origin_ip": "195.128.18.208",
+      "error": null
+    },
+    {
+      "address": "http://103.73.66.232:24444",
+      "is_valid": true,
+      "response_time": 2.286,
+      "origin_ip": "78.36.72.116, 103.73.66.232",
+      "error": null
+    },
+    {
+      "address": "http://8.209.96.245:3128",
+      "is_valid": true,
+      "response_time": 2.292,
+      "origin_ip": "8.209.96.245",
+      "error": null
+    },
+    {
+      "address": "http://47.250.51.110:8081",
+      "is_valid": true,
+      "response_time": 2.301,
+      "origin_ip": "47.250.51.110",
+      "error": null
+    },
+    {
+      "address": "socks5://184.181.217.210:4145",
+      "is_valid": true,
+      "response_time": 2.301,
+      "origin_ip": "184.181.217.210",
+      "error": null
+    },
+    {
+      "address": "socks5://125.76.110.48:1080",
+      "is_valid": true,
+      "response_time": 2.309,
+      "origin_ip": "188.253.121.148",
+      "error": null
+    },
+    {
+      "address": "socks5://174.77.111.198:49547",
+      "is_valid": true,
+      "response_time": 2.312,
+      "origin_ip": "174.77.111.198",
+      "error": null
+    },
+    {
+      "address": "http://8.211.49.86:3128",
+      "is_valid": true,
+      "response_time": 2.318,
+      "origin_ip": "8.211.49.86",
+      "error": null
+    },
+    {
+      "address": "http://8.211.49.86:7777",
+      "is_valid": true,
+      "response_time": 2.323,
+      "origin_ip": "8.211.49.86",
+      "error": null
+    },
+    {
+      "address": "http://8.211.42.167:81",
+      "is_valid": true,
+      "response_time": 2.334,
+      "origin_ip": "8.211.42.167",
+      "error": null
+    },
+    {
+      "address": "socks5://5.255.117.127:1080",
+      "is_valid": true,
+      "response_time": 2.352,
+      "origin_ip": "5.255.117.127",
+      "error": null
+    },
+    {
+      "address": "http://8.211.195.139:3128",
+      "is_valid": true,
+      "response_time": 2.356,
+      "origin_ip": "8.211.195.139",
+      "error": null
+    },
+    {
+      "address": "http://8.211.194.78:1081",
+      "is_valid": true,
+      "response_time": 2.359,
+      "origin_ip": "8.211.194.78",
+      "error": null
+    },
+    {
+      "address": "http://8.211.49.86:8443",
+      "is_valid": true,
+      "response_time": 2.375,
+      "origin_ip": "8.211.49.86",
+      "error": null
+    },
+    {
+      "address": "http://47.91.89.3:1081",
+      "is_valid": true,
+      "response_time": 2.385,
+      "origin_ip": "47.91.89.3",
+      "error": null
+    },
+    {
+      "address": "http://47.91.89.3:1080",
+      "is_valid": true,
+      "response_time": 2.402,
+      "origin_ip": "47.91.89.3",
+      "error": null
+    },
+    {
+      "address": "http://8.211.42.167:104",
+      "is_valid": true,
+      "response_time": 2.41,
+      "origin_ip": "8.211.42.167",
+      "error": null
+    },
+    {
+      "address": "http://47.91.89.3:35",
+      "is_valid": true,
+      "response_time": 2.421,
+      "origin_ip": "47.91.89.3",
+      "error": null
+    },
+    {
+      "address": "http://8.209.96.245:193",
+      "is_valid": true,
+      "response_time": 2.434,
+      "origin_ip": "8.209.96.245",
+      "error": null
+    },
+    {
+      "address": "http://8.211.42.167:8000",
+      "is_valid": true,
+      "response_time": 2.445,
+      "origin_ip": "8.211.42.167",
+      "error": null
+    },
+    {
+      "address": "http://47.252.11.233:8081",
+      "is_valid": true,
+      "response_time": 2.458,
+      "origin_ip": "47.252.11.233",
+      "error": null
+    },
+    {
+      "address": "http://8.209.96.245:8081",
+      "is_valid": true,
+      "response_time": 2.462,
+      "origin_ip": "8.209.96.245",
+      "error": null
+    },
+    {
+      "address": "http://47.90.149.238:5060",
+      "is_valid": true,
+      "response_time": 2.502,
+      "origin_ip": "47.90.149.238",
+      "error": null
+    },
+    {
+      "address": "http://47.90.167.27:999",
+      "is_valid": true,
+      "response_time": 2.502,
+      "origin_ip": "47.90.167.27",
+      "error": null
+    },
+    {
+      "address": "http://95.217.23.103:8443",
+      "is_valid": true,
+      "response_time": 2.523,
+      "origin_ip": "95.217.23.103",
+      "error": null
+    },
+    {
+      "address": "http://47.252.18.37:8083",
+      "is_valid": true,
+      "response_time": 2.544,
+      "origin_ip": "47.252.18.37",
+      "error": null
+    },
+    {
+      "address": "http://47.91.115.179:10250",
+      "is_valid": true,
+      "response_time": 2.55,
+      "origin_ip": "47.91.115.179",
+      "error": null
+    },
+    {
+      "address": "http://47.251.73.54:8118",
+      "is_valid": true,
+      "response_time": 2.563,
+      "origin_ip": "47.251.73.54",
+      "error": null
+    },
+    {
+      "address": "http://145.133.83.62:3128",
+      "is_valid": true,
+      "response_time": 2.576,
+      "origin_ip": "131.145.40.6",
+      "error": null
+    },
+    {
+      "address": "http://47.254.36.213:20",
+      "is_valid": true,
+      "response_time": 2.595,
+      "origin_ip": "47.254.36.213",
+      "error": null
+    },
+    {
+      "address": "http://78.189.92.15:1953",
+      "is_valid": true,
+      "response_time": 2.616,
+      "origin_ip": "78.189.92.15",
+      "error": null
+    },
+    {
+      "address": "http://149.129.226.9:104",
+      "is_valid": true,
+      "response_time": 2.623,
+      "origin_ip": "149.129.226.9",
+      "error": null
+    },
+    {
+      "address": "socks5://192.111.139.165:4145",
+      "is_valid": true,
+      "response_time": 2.643,
+      "origin_ip": "192.111.139.165",
+      "error": null
+    },
+    {
+      "address": "http://47.91.110.148:1080",
+      "is_valid": true,
+      "response_time": 2.645,
+      "origin_ip": "47.91.110.148",
+      "error": null
+    },
+    {
+      "address": "http://8.220.141.8:1080",
+      "is_valid": true,
+      "response_time": 2.663,
+      "origin_ip": "8.220.141.8",
+      "error": null
+    },
+    {
+      "address": "socks5://213.176.113.24:50001",
+      "is_valid": true,
+      "response_time": 2.686,
+      "origin_ip": "213.176.113.24",
+      "error": null
+    },
+    {
+      "address": "http://8.213.195.191:8080",
+      "is_valid": true,
+      "response_time": 2.73,
+      "origin_ip": "8.213.195.191",
+      "error": null
+    },
+    {
+      "address": "socks5://174.64.199.82:4145",
+      "is_valid": true,
+      "response_time": 2.754,
+      "origin_ip": "174.64.199.82",
+      "error": null
+    },
+    {
+      "address": "http://8.213.222.247:8090",
+      "is_valid": true,
+      "response_time": 2.755,
+      "origin_ip": "8.213.222.247",
+      "error": null
+    },
+    {
+      "address": "http://8.212.168.170:80",
+      "is_valid": true,
+      "response_time": 2.764,
+      "origin_ip": "8.212.168.170",
+      "error": null
+    },
+    {
+      "address": "socks5://62.60.149.161:1080",
+      "is_valid": true,
+      "response_time": 2.766,
+      "origin_ip": "62.60.149.161",
+      "error": null
+    },
+    {
+      "address": "http://8.213.197.208:8085",
+      "is_valid": true,
+      "response_time": 2.833,
+      "origin_ip": "8.213.197.208",
+      "error": null
+    },
+    {
+      "address": "http://8.213.222.157:8118",
+      "is_valid": true,
+      "response_time": 2.874,
+      "origin_ip": "8.213.222.157",
+      "error": null
+    },
+    {
+      "address": "http://135.125.154.99:8899",
+      "is_valid": true,
+      "response_time": 2.891,
+      "origin_ip": "135.125.154.103",
+      "error": null
+    },
+    {
+      "address": "http://142.93.202.130:3128",
+      "is_valid": true,
+      "response_time": 2.913,
+      "origin_ip": "101.68.51.21, 142.93.202.130",
+      "error": null
+    },
+    {
+      "address": "socks5://184.181.217.194:4145",
+      "is_valid": true,
+      "response_time": 3.089,
+      "origin_ip": "184.181.217.194",
+      "error": null
+    },
+    {
+      "address": "socks5://213.188.215.27:1080",
+      "is_valid": true,
+      "response_time": 3.093,
+      "origin_ip": "216.246.119.89",
+      "error": null
+    },
+    {
+      "address": "socks5://192.111.135.17:18302",
+      "is_valid": true,
+      "response_time": 3.096,
+      "origin_ip": "192.111.135.17",
+      "error": null
+    },
+    {
+      "address": "socks5://155.138.165.60:1081",
+      "is_valid": true,
+      "response_time": 3.115,
+      "origin_ip": "155.138.165.60",
+      "error": null
+    },
+    {
+      "address": "http://37.27.6.46:80",
+      "is_valid": true,
+      "response_time": 3.132,
+      "origin_ip": "37.27.6.46",
+      "error": null
+    },
+    {
+      "address": "socks5://78.29.53.109:1080",
+      "is_valid": true,
+      "response_time": 3.313,
+      "origin_ip": "78.29.53.109",
+      "error": null
+    },
+    {
+      "address": "socks5://184.170.251.30:11288",
+      "is_valid": true,
+      "response_time": 3.313,
+      "origin_ip": "184.170.251.30",
+      "error": null
+    },
+    {
+      "address": "http://93.113.63.11:3128",
+      "is_valid": true,
+      "response_time": 3.502,
+      "origin_ip": "93.113.63.11",
+      "error": null
+    },
+    {
+      "address": "socks5://152.70.107.226:1080",
+      "is_valid": true,
+      "response_time": 3.583,
+      "origin_ip": "152.70.107.226",
+      "error": null
+    },
+    {
+      "address": "socks5://206.123.156.240:7466",
+      "is_valid": true,
+      "response_time": 3.595,
+      "origin_ip": "78.142.18.172",
+      "error": null
+    },
+    {
+      "address": "http://43.167.27.118:3128",
+      "is_valid": true,
+      "response_time": 3.624,
+      "origin_ip": "101.68.51.21, 43.167.27.118",
+      "error": null
+    },
+    {
+      "address": "http://12.50.107.220:80",
+      "is_valid": true,
+      "response_time": 3.626,
+      "origin_ip": "12.50.107.220",
+      "error": null
+    },
+    {
+      "address": "http://183.173.206.254:6382",
+      "is_valid": true,
+      "response_time": 3.754,
+      "origin_ip": "103.129.180.21",
+      "error": null
+    },
+    {
+      "address": "http://31.220.78.244:80",
+      "is_valid": true,
+      "response_time": 3.811,
+      "origin_ip": "31.220.78.244",
+      "error": null
+    },
+    {
+      "address": "socks5://159.195.61.240:1080",
+      "is_valid": true,
+      "response_time": 3.943,
+      "origin_ip": "23.129.64.184",
+      "error": null
+    },
+    {
+      "address": "socks5://169.155.50.87:1080",
+      "is_valid": true,
+      "response_time": 3.993,
+      "origin_ip": "75.102.33.66",
+      "error": null
+    },
+    {
+      "address": "socks5://92.119.164.84:1085",
+      "is_valid": true,
+      "response_time": 4.096,
+      "origin_ip": "81.19.209.53",
+      "error": null
+    },
+    {
+      "address": "http://62.248.56.111:1953",
+      "is_valid": true,
+      "response_time": 4.222,
+      "origin_ip": "62.248.56.111",
+      "error": null
+    },
+    {
+      "address": "http://103.184.67.117:8181",
+      "is_valid": true,
+      "response_time": 4.385,
+      "origin_ip": "101.68.51.21, 103.184.67.117",
+      "error": null
+    },
+    {
+      "address": "http://47.91.120.190:8081",
+      "is_valid": true,
+      "response_time": 4.466,
+      "origin_ip": "47.91.120.190",
+      "error": null
+    },
+    {
+      "address": "socks5://69.61.200.104:36181",
+      "is_valid": true,
+      "response_time": 4.48,
+      "origin_ip": "69.61.200.104",
+      "error": null
+    },
+    {
+      "address": "socks5://194.59.186.35:1080",
+      "is_valid": true,
+      "response_time": 4.487,
+      "origin_ip": "194.59.186.35",
+      "error": null
+    },
+    {
+      "address": "http://190.52.110.111:999",
+      "is_valid": true,
+      "response_time": 4.574,
+      "origin_ip": "101.68.51.21, 190.52.110.110",
+      "error": null
+    },
+    {
+      "address": "http://64.188.77.26:3128",
+      "is_valid": true,
+      "response_time": 4.578,
+      "origin_ip": "64.188.77.26",
+      "error": null
+    },
+    {
+      "address": "socks5://206.123.156.230:9929",
+      "is_valid": true,
+      "response_time": 4.607,
+      "origin_ip": "212.38.162.241",
+      "error": null
+    },
+    {
+      "address": "http://88.248.48.141:1953",
+      "is_valid": true,
+      "response_time": 4.647,
+      "origin_ip": "88.248.48.141",
+      "error": null
+    },
+    {
+      "address": "socks5://92.46.70.174:1080",
+      "is_valid": true,
+      "response_time": 4.659,
+      "origin_ip": "92.46.70.174",
+      "error": null
+    },
+    {
+      "address": "socks5://203.189.153.170:1080",
+      "is_valid": true,
+      "response_time": 4.683,
+      "origin_ip": "203.189.153.170",
+      "error": null
+    },
+    {
+      "address": "socks5://125.227.45.187:5001",
+      "is_valid": true,
+      "response_time": 4.695,
+      "origin_ip": "125.227.45.187",
+      "error": null
+    },
+    {
+      "address": "http://82.114.228.67:1080",
+      "is_valid": true,
+      "response_time": 4.731,
+      "origin_ip": "82.114.228.67",
+      "error": null
+    },
+    {
+      "address": "http://103.156.233.41:8080",
+      "is_valid": true,
+      "response_time": 4.879,
+      "origin_ip": "101.68.51.21, 103.156.233.41",
+      "error": null
+    },
+    {
+      "address": "http://38.52.209.229:999",
+      "is_valid": true,
+      "response_time": 5.205,
+      "origin_ip": "101.68.51.21, 38.52.209.231",
+      "error": null
+    },
+    {
+      "address": "socks5://193.25.215.182:22222",
+      "is_valid": true,
+      "response_time": 5.468,
+      "origin_ip": "193.25.215.182",
+      "error": null
+    },
+    {
+      "address": "http://103.59.45.249:8080",
+      "is_valid": true,
+      "response_time": 5.477,
+      "origin_ip": "101.68.51.21, 103.59.45.249",
+      "error": null
+    },
+    {
+      "address": "socks5://206.123.156.230:42081",
+      "is_valid": true,
+      "response_time": 6.337,
+      "origin_ip": "38.84.24.90",
+      "error": null
+    },
+    {
+      "address": "http://109.224.242.6:8080",
+      "is_valid": true,
+      "response_time": 6.338,
+      "origin_ip": "101.68.51.21, 109.224.242.6",
+      "error": null
+    },
+    {
+      "address": "socks5://206.123.156.199:7151",
+      "is_valid": true,
+      "response_time": 6.345,
+      "origin_ip": "212.38.162.241",
+      "error": null
+    },
+    {
+      "address": "socks5://194.26.192.168:8080",
+      "is_valid": true,
+      "response_time": 6.847,
+      "origin_ip": "37.167.63.39",
+      "error": null
+    },
+    {
+      "address": "http://186.180.20.18:8080",
+      "is_valid": true,
+      "response_time": 7.111,
+      "origin_ip": "101.68.51.21, 186.180.20.18",
+      "error": null
+    },
+    {
+      "address": "http://160.191.192.45:8090",
+      "is_valid": true,
+      "response_time": 10.059,
+      "origin_ip": "101.68.51.21, 160.191.192.45",
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "output_dir": "output",
+  "timeout": 30,
+  "max_workers": 20,
+  "verify_timeout": 5.0,
+  "max_verify": 200,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+  "sources": [
+    {
+      "name": "TheSpeedX HTTP",
+      "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
+      "protocol": "http",
+      "format": "ip:port",
+      "enabled": true
+    },
+    {
+      "name": "Monosans HTTP",
+      "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/http.txt",
+      "protocol": "http",
+      "format": "ip:port",
+      "enabled": true
+    },
+    {
+      "name": "TheSpeedX SOCKS5",
+      "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
+      "protocol": "socks5",
+      "format": "ip:port",
+      "enabled": true
+    }
+  ]
+}

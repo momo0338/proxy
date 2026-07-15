@@ -140,5 +140,21 @@ def serve(
     uvicorn.run(create_app(store, config), host=host, port=port, log_level="info")
 
 
+@app.command()
+def diagnose(
+    config_path: str | None = typer.Option(None, "--config", "-c"),
+    sample: int = typer.Option(5, "--sample", "-n", help="How many sample proxies to probe"),
+) -> None:
+    """Check endpoint reachability and probe sample proxies verbosely."""
+    from src.diagnostics import diagnose as run_diagnose  # noqa: PLC0415
+    from src.validator import ProxyValidator  # noqa: PLC0415
+
+    _print_header("Proxy Pool — Diagnostics")
+    config = _load_config(config_path)
+    store = _get_store(config)
+    validator = ProxyValidator(config, store)
+    asyncio.run(run_diagnose(store, validator, config, sample))
+
+
 if __name__ == "__main__":
     app()

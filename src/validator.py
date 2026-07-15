@@ -194,7 +194,7 @@ class ProxyValidator:
                         valid.append(result)
                         valid_so_far += 1
             done += 1
-            if done % 1000 == 0:
+            if done % 100 == 0:
                 print(
                     f"  [validate] {done}/{total} checked, {valid_so_far} valid",
                     flush=True,

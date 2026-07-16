@@ -1,0 +1,57 @@
+name: Daily Proxy Check
+
+on:
+  schedule:
+    # 每天 UTC 0 点 = 北京时间 8:00, 自动采集+验证+导出
+    - cron: "0 0 * * *"
+  workflow_dispatch: {}  # 允许手动触发测试
+
+permissions:
+  contents: write  # 允许 GITHUB_TOKEN 把产物提交回本仓库
+
+concurrency:
+  group: daily-proxy-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 需要完整历史以便 commit 回写
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Run full cycle (collect + validate + export)
+        run: |
+          python main.py all
+
+      - name: Generate Clash config
+        run: |
+          python scripts/gen_clash.py
+
+      - name: Commit results back to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # data/ 在 .gitignore 中, 强制添加实际存在的产物文件
+          for f in data/valid_http.txt data/valid_socks5.txt data/valid_proxies.json data/clash_proxies.yaml; do
+            [ -f "$f" ] && git add -f "$f"
+          done
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: 每日代理检测产物 $(date -u +%Y-%m-%d)"
+            git push
+          fi

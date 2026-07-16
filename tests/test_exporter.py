@@ -55,10 +55,8 @@ def test_export_classifies_by_protocol_and_anonymity(store: ProxyStore) -> None:
         assert obj["by_protocol"]["socks5"]["total"] == 1  # type: ignore[attr-defined]
         assert "http://1.1.1.1:80" in obj["proxies"][0]["address"]  # type: ignore[attr-defined]
 
-        # TXT 分段含分类标题
-        txt = Path(tmp, "valid_proxies.txt").read_text(encoding="utf-8")
-        assert "HTTP / elite" in txt
-        assert "SOCKS5 / anonymous" in txt
+        # 不再生成分段大合集 valid_proxies.txt, 只有 json + 单协议文件
+        assert not Path(tmp, "valid_proxies.txt").exists()
 
         # 单协议扁平文件
         assert Path(tmp, "valid_http.txt").read_text(encoding="utf-8").strip() == "http://1.1.1.1:80"

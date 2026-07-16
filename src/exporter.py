@@ -35,11 +35,10 @@ def export_valid(
     verified proxies.
 
     Produces:
-      - valid_proxies.json    classified dict + summary
-      - valid_proxies.txt     every usable address, grouped by protocol/anonymity
-      - valid_<protocol>.txt  one per protocol, flat address list
+      - valid_proxies.json    classified dict + summary (machine-readable)
+      - valid_<protocol>.txt  one flat file per protocol, one address per line
 
-    Returns a summary dict (counts by protocol/anonymity, file paths).
+    Returns a summary dict (counts by protocol, file paths).
     """
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -82,18 +81,7 @@ def export_valid(
     json_path = out_dir / "valid_proxies.json"
     json_path.write_text(json.dumps(json_obj, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    txt_path = out_dir / "valid_proxies.txt"
-    lines: list[str] = [f"# 可用代理 {len(records)} 条 (按协议/匿名度分类)", ""]
-    for protocol in sorted(grouped, key=lambda p: p.value):
-        by_anon = grouped[protocol]
-        for anon in sorted(by_anon, key=lambda a: a.value):
-            recs = by_anon[anon]
-            lines.append(f"## {protocol.value.upper()} / {anon.value} ({len(recs)})")
-            lines.extend(rec.address for rec in recs)
-            lines.append("")
-    txt_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-
-    # 单协议扁平文件, 方便只认某协议的工具直接吃
+    # 每个协议一个扁平文件, 每行一个地址, 方便只认单协议的工具直接吃
     per_protocol_files: list[str] = []
     for protocol, by_anon in grouped.items():
         flat = [rec.address for recs in by_anon.values() for rec in recs]
@@ -104,7 +92,7 @@ def export_valid(
     return {
         "total": len(records),
         "by_protocol": {p.value: sum(len(r) for r in a.values()) for p, a in grouped.items()},
-        "files": [str(json_path), str(txt_path), *per_protocol_files],
+        "files": [str(json_path), *per_protocol_files],
     }
 
 
@@ -114,7 +102,7 @@ def _clean_stale_files(out_dir: Path) -> None:
     Prevents a stale valid-proxy list from lingering after a run that produced
     zero usable proxies.
     """
-    for name in ("valid_proxies.json", "valid_proxies.txt"):
+    for name in ("valid_proxies.json",):
         (out_dir / name).unlink(missing_ok=True)
     for proto in ProxyProtocol:
         (out_dir / f"valid_{proto.value}.txt").unlink(missing_ok=True)

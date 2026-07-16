@@ -26,8 +26,9 @@ python main.py all                # 抓取 + 验证
 |------|------|
 | `serve` | 启动 HTTP API 服务，并开启周期自动刷新 |
 | `collect` | 从所有已配置的源抓取代理 |
-| `validate` | 验证库中尚未验证的代理 |
-| `all` | 依次执行抓取与验证 |
+| `validate` | 验证库中尚未验证的代理（完成后自动导出可用代理） |
+| `all` | 依次执行抓取与验证（完成后自动导出可用代理） |
+| `export` | 把库中已验证可用的代理导出到 `data/` 为 JSON / TXT |
 
 ### 选项
 
@@ -41,6 +42,20 @@ python main.py all                # 抓取 + 验证
 python main.py serve --host 0.0.0.0 --port 9000
 python main.py collect -c config.json
 ```
+
+### 验证后导出可用代理
+
+`validate` / `all` 跑完会自动把**可用代理**导出到 `data/` 目录（`--dir` 可改路径），方便手动复制或喂给其他工具。也可单独执行 `python main.py export`。
+
+导出文件（按**协议 × 匿名度**分类）：
+
+| 文件 | 内容 |
+|------|------|
+| `valid_proxies.json` | 结构化：总数、按协议/匿名度计数、每条含 `address`/`country`/`response_time` |
+| `valid_proxies.txt` | 分段文本：`## 协议 / 匿名度 (数量)` 标题下每行一个 `protocol://ip:port` |
+| `valid_<协议>.txt` | 每个协议一个扁平文件（如 `valid_socks5.txt`），直接给只认单协议的工具用 |
+
+> 地址均带协议前缀（`http://` / `https://` / `socks5://`），可直接粘进浏览器或代理客户端。
 
 ## API 接口
 

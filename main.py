@@ -44,6 +44,20 @@ def _get_store(config: dict[str, object]) -> ProxyStore:
     return store
 
 
+def _auto_export(config: dict[str, object], store: ProxyStore) -> None:
+    """Export validated proxies to disk after a validate/collect cycle."""
+    from src.exporter import export_valid  # noqa: PLC0415
+
+    out_dir = Path(str(config.get("db_path", "data/proxies.db"))).parent
+    summary = export_valid(
+        store,
+        out_dir,
+        expiry_hours=int(config.get("proxy_expiry_hours", 6)),  # type: ignore[arg-type]
+    )
+    if summary["total"]:  # type: ignore[attr-defined]
+        print(f"\nExported {summary['total']} valid proxies to {out_dir}")  # type: ignore[attr-defined]
+
+
 @app.command()
 def collect(config_path: str | None = typer.Option(None, "--config", "-c")) -> None:
     """Collect proxies from all configured sources."""
@@ -86,6 +100,7 @@ def validate(
     validator = ProxyValidator(config, store)
     valid = asyncio.run(validator.validate_all(unvalidated, max_conc, quick_probe=quick_probe))
     print(f"Valid proxies: {len(valid)}")
+    _auto_export(config, store)
 
 
 @app.command(name="all")
@@ -117,6 +132,7 @@ def all_cmd(
     validator = ProxyValidator(config, store)
     valid = asyncio.run(validator.validate_all(unvalidated, max_conc, quick_probe=quick_probe))
     print(f"Valid proxies: {len(valid)}")
+    _auto_export(config, store)
 
     counts = store.count()
     print(f"\nTotal in DB: {counts['total']}, Valid: {counts['valid']}")
@@ -160,6 +176,29 @@ def diagnose(
     store = _get_store(config)
     validator = ProxyValidator(config, store)
     asyncio.run(run_diagnose(store, validator, config, sample))
+
+
+@app.command()
+def export(
+    config_path: str | None = typer.Option(None, "--config", "-c"),
+    dir_path: str | None = typer.Option(None, "--dir", "-d", help="Output directory (default: alongside db)"),
+) -> None:
+    """Export validated proxies from the DB to data/ as JSON and text."""
+    from src.exporter import export_valid  # noqa: PLC0415
+
+    _print_header("Proxy Pool — Export")
+    config = _load_config(config_path)
+    store = _get_store(config)
+    out_dir = dir_path or str(Path(str(config.get("db_path", "data/proxies.db"))).parent)
+    summary = export_valid(
+        store,
+        out_dir,
+        expiry_hours=int(config.get("proxy_expiry_hours", 6)),  # type: ignore[arg-type]
+    )
+    total = summary["total"]
+    print(f"Exported {total} valid proxies to {out_dir}")
+    for f in summary.get("files", []):  # type: ignore[attr-defined]
+        print(f"  - {f}")
 
 
 if __name__ == "__main__":

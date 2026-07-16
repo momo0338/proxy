@@ -174,6 +174,7 @@ proxy/
 ├── requirements.txt     # 依赖
 ├── config.example.json  # 配置示例
 ├── Dockerfile           # 容器构建
+├── data/                # 运行产物: proxies.db + 导出的 valid_<协议>.txt / valid_proxies.json
 ├── src/
 │   ├── __init__.py
 │   ├── models.py        # ProxyRecord、ProxyProtocol、Anonymity
@@ -190,7 +191,6 @@ proxy/
 │   ├── test_sources.py
 │   ├── test_api.py
 │   └── test_config.py
-└── output/              # 旧版输出文件
 ```
 
 ## 代理源

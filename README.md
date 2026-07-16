@@ -136,9 +136,12 @@ curl -X POST http://localhost:8000/refresh
 | `max_workers` | 验证线程数 |
 | `verify_timeout` | 完整验证时连接超时（秒） |
 | `quick_probe_timeout` | 首轮快筛超时（秒）；死代理只磨这么久 |
+| `verify_hard_timeout` | 单代理硬性总超时（秒）；兜底黑洞 DNS/半开连接，0 = `verify_timeout`×2 |
 | `max_verify` | 单次最多验证的代理数 |
 
-> **性能说明**：验证默认开启「死代理快速跳过」——先用单个端点 + `quick_probe_timeout`(3s) 快筛，通了才走完整多端点验证（超时 `verify_timeout`=5s）。因为库里约 88% 是死代理，这能把整库重测时间从「每代理跑满所有端点超时」砍掉一大截。想关掉用 `python main.py validate --no-quick-probe`。
+> **性能与时间说明**：验证默认开启「死代理快速跳过」——先用单个端点 + `quick_probe_timeout`(3s) 快筛，通了才走完整多端点验证（超时 `verify_timeout`=5s）。因为库里约 88% 是死代理，这能把整库重测时间从「每代理跑满所有端点超时」砍掉一大截。想关掉用 `python main.py validate --no-quick-probe`。
+>
+> 每代理另有 `verify_hard_timeout`（默认 `verify_timeout`×2=10s）硬性总超时，套在 `asyncio.wait_for` 上——专门兜底黑洞 DNS / 半开 TCP 连接这类 httpx 自身超时兜不住的 stall，确保整批永远按「并发数 × 硬上限」有界收工（实测 50 代理并发 50、硬超时 8s 仅需 8.6s）。
 | `verify_endpoints` | 验证用端点列表（多端点取健康度评分） |
 | `anon_check_url` | 匿名度检测端点 |
 | `country_url` | 地理位置查询端点 |

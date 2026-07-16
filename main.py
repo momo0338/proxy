@@ -79,7 +79,7 @@ def validate(
         print("Nothing to validate")
         return
 
-    max_conc = int(config.get("max_concurrency", 50))  # type: ignore[arg-type]
+    max_conc = int(config.get("max_concurrency", 800))  # type: ignore[arg-type]
     validator = ProxyValidator(config, store)
     valid = asyncio.run(validator.validate_all(unvalidated, max_conc))
     print(f"Valid proxies: {len(valid)}")
@@ -107,7 +107,7 @@ def all_cmd(
 
     print("\nStep 2: Validating proxies...")
     unvalidated = store.get_unvalidated(include_failed=include_failed)
-    max_conc = int(config.get("max_concurrency", 50))  # type: ignore[arg-type]
+    max_conc = int(config.get("max_concurrency", 800))  # type: ignore[arg-type]
     validator = ProxyValidator(config, store)
     valid = asyncio.run(validator.validate_all(unvalidated, max_conc))
     print(f"Valid proxies: {len(valid)}")

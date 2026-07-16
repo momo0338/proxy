@@ -83,11 +83,14 @@ DEFAULT_CONFIG: dict[str, object] = {
     "db_path": "data/proxies.db",
     "refresh_interval_minutes": 30,
     "proxy_expiry_hours": 6,
-    "max_concurrency": 50,
+    # 单代理经代理链访问外部 echo 服务很慢, 靠高并发掩盖延迟而非堆超时。
+    # 默认 800 远低于机器线程上限(20480)与临时端口(16k), 留足余量。
+    "max_concurrency": 800,
     "verify_endpoints": [
         "https://ipinfo.io/json",
         "https://api.ipify.org?format=json",
         "http://httpbin.org/ip",
+        "https://ip.my-ip.io/json",
     ],
     "anon_check_url": "https://ipinfo.io/json",
     "country_url": "http://ip-api.com/json",

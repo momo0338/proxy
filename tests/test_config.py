@@ -24,11 +24,12 @@ class TestLoadConfig:
         assert config["db_path"] == "data/proxies.db"
         assert config["refresh_interval_minutes"] == 30
         assert config["proxy_expiry_hours"] == 6
-        assert config["max_concurrency"] == 50
+        assert config["max_concurrency"] == 800
         assert config["verify_endpoints"] == [
             "https://ipinfo.io/json",
             "https://api.ipify.org?format=json",
             "http://httpbin.org/ip",
+            "https://ip.my-ip.io/json",
         ]
 
     def test_load_from_file(self, tmp_path: Path) -> None:
@@ -40,7 +41,7 @@ class TestLoadConfig:
         assert config["db_path"] == "/custom/path.db"
         assert config["refresh_interval_minutes"] == 10
         # Default values preserved
-        assert config["max_concurrency"] == 50
+        assert config["max_concurrency"] == 800
 
     def test_nonexistent_file(self) -> None:
         config = load_config("/nonexistent/config.json")

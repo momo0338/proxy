@@ -168,11 +168,16 @@ class ProxyValidator:
         endpoints = self._echo_endpoints()
         timeout_val = self._config.get("verify_timeout", 8.0)
         timeout_sec = float(timeout_val) if isinstance(timeout_val, (int, float)) else 8.0
+        # 单代理经代理链访问外部 echo 服务很慢, 靠高并发掩盖延迟而非堆超时。
+        # 默认 800 远低于机器线程上限(20480)与临时端口(16k), 留足余量。
+        if max_concurrency <= 0:
+            max_concurrency = 800
         semaphore = asyncio.Semaphore(max_concurrency)
         valid: list[ProxyRecord] = []
         total = len(records)
         done = 0
         valid_so_far = 0
+        cycle_start = time.monotonic()
 
         async def _guarded(record: ProxyRecord) -> None:
             nonlocal done, valid_so_far
@@ -195,8 +200,11 @@ class ProxyValidator:
                         valid_so_far += 1
             done += 1
             if done % 100 == 0:
+                elapsed = time.monotonic() - cycle_start
+                rate = done / elapsed if elapsed > 0 else 0.0
                 print(
-                    f"  [validate] {done}/{total} checked, {valid_so_far} valid",
+                    f"  [validate] {done}/{total} checked, {valid_so_far} valid "
+                    f"({elapsed:.0f}s, {rate:.1f}/s)",
                     flush=True,
                 )
 

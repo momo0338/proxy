@@ -8,7 +8,7 @@
   "db_path": "data/proxies.db",
   "refresh_interval_minutes": 30,
   "proxy_expiry_hours": 6,
-  "max_concurrency": 50,
+  "max_concurrency": 800,
   "verify_endpoints": [
     "https://ipinfo.io/json",
     "https://api.ipify.org?format=json",

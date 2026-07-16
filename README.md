@@ -103,7 +103,7 @@ curl -X POST http://localhost:8000/refresh
   "db_path": "data/proxies.db",
   "refresh_interval_minutes": 30,
   "proxy_expiry_hours": 6,
-  "max_concurrency": 50,
+  "max_concurrency": 800,
   "timeout": 30,
   "max_workers": 20,
   "verify_timeout": 8.0,

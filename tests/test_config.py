@@ -25,6 +25,7 @@ class TestLoadConfig:
         assert config["refresh_interval_minutes"] == 30
         assert config["proxy_expiry_hours"] == 6
         assert config["max_concurrency"] == 800
+        assert config["quick_probe_timeout"] == 3.0
         assert config["verify_endpoints"] == [
             "https://ipinfo.io/json",
             "https://api.ipify.org?format=json",

@@ -106,7 +106,8 @@ curl -X POST http://localhost:8000/refresh
   "max_concurrency": 800,
   "timeout": 30,
   "max_workers": 20,
-  "verify_timeout": 8.0,
+  "verify_timeout": 5.0,
+  "quick_probe_timeout": 3.0,
   "max_verify": 200,
   "output_dir": "output",
   "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
@@ -133,8 +134,11 @@ curl -X POST http://localhost:8000/refresh
 | `max_concurrency` | 抓取并发数 |
 | `timeout` | 单源抓取超时（秒） |
 | `max_workers` | 验证线程数 |
-| `verify_timeout` | 验证时连接超时（秒） |
+| `verify_timeout` | 完整验证时连接超时（秒） |
+| `quick_probe_timeout` | 首轮快筛超时（秒）；死代理只磨这么久 |
 | `max_verify` | 单次最多验证的代理数 |
+
+> **性能说明**：验证默认开启「死代理快速跳过」——先用单个端点 + `quick_probe_timeout`(3s) 快筛，通了才走完整多端点验证（超时 `verify_timeout`=5s）。因为库里约 88% 是死代理，这能把整库重测时间从「每代理跑满所有端点超时」砍掉一大截。想关掉用 `python main.py validate --no-quick-probe`。
 | `verify_endpoints` | 验证用端点列表（多端点取健康度评分） |
 | `anon_check_url` | 匿名度检测端点 |
 | `country_url` | 地理位置查询端点 |

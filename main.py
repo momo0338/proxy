@@ -64,6 +64,9 @@ def validate(
     include_failed: bool = typer.Option(
         False, "--include-failed", help="Also retry proxies that were previously verified dead"
     ),
+    quick_probe: bool = typer.Option(
+        True, "--quick-probe/--no-quick-probe", help="Fast short-timeout probe first; only re-verify survivors fully"
+    ),
 ) -> None:
     """Validate unvalidated proxies in the store."""
     from src.validator import ProxyValidator  # noqa: PLC0415
@@ -81,7 +84,7 @@ def validate(
 
     max_conc = int(config.get("max_concurrency", 800))  # type: ignore[arg-type]
     validator = ProxyValidator(config, store)
-    valid = asyncio.run(validator.validate_all(unvalidated, max_conc))
+    valid = asyncio.run(validator.validate_all(unvalidated, max_conc, quick_probe=quick_probe))
     print(f"Valid proxies: {len(valid)}")
 
 
@@ -90,6 +93,9 @@ def all_cmd(
     config_path: str | None = typer.Option(None, "--config", "-c"),
     include_failed: bool = typer.Option(
         False, "--include-failed", help="Also retry proxies that were previously verified dead"
+    ),
+    quick_probe: bool = typer.Option(
+        True, "--quick-probe/--no-quick-probe", help="Fast short-timeout probe first; only re-verify survivors fully"
     ),
 ) -> None:
     """Collect and then validate all proxies."""
@@ -109,7 +115,7 @@ def all_cmd(
     unvalidated = store.get_unvalidated(include_failed=include_failed)
     max_conc = int(config.get("max_concurrency", 800))  # type: ignore[arg-type]
     validator = ProxyValidator(config, store)
-    valid = asyncio.run(validator.validate_all(unvalidated, max_conc))
+    valid = asyncio.run(validator.validate_all(unvalidated, max_conc, quick_probe=quick_probe))
     print(f"Valid proxies: {len(valid)}")
 
     counts = store.count()

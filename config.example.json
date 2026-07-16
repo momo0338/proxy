@@ -1,7 +1,8 @@
 {
   "timeout": 30,
   "max_workers": 20,
-  "verify_timeout": 8.0,
+  "verify_timeout": 5.0,
+  "quick_probe_timeout": 3.0,
   "max_verify": 200,
   "output_dir": "output",
   "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",

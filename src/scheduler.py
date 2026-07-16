@@ -29,11 +29,11 @@ async def run_refresh(
     collected = await collector.collect()
     log.info("Collected %d proxies", collected)
 
-    # 2. Validate unvalidated
+    # 2. Validate unvalidated (quick-probe on by default)
     max_conc = int(config.get("max_concurrency", 800))  # type: ignore[arg-type]
     validator = ProxyValidator(config, store)
     unvalidated = store.get_unvalidated()
-    valid = await validator.validate_all(unvalidated, max_conc)
+    valid = await validator.validate_all(unvalidated, max_conc, quick_probe=True)
     log.info("Validated %d proxies (valid: %d)", len(unvalidated), len(valid))
 
     # 3. Expire old

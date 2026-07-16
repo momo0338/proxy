@@ -47,15 +47,17 @@ python main.py collect -c config.json
 
 `validate` / `all` 跑完会自动把**可用代理**导出到 `data/` 目录（`--dir` 可改路径），方便手动复制或喂给其他工具。也可单独执行 `python main.py export`。
 
+默认导出**全部 `is_valid=1` 的代理**（不限新鲜度）；加 `--fresh` 只导最近验证过的。
+
 导出文件（按**协议 × 匿名度**分类）：
 
 | 文件 | 内容 |
 |------|------|
 | `valid_proxies.json` | 结构化：总数、按协议/匿名度计数、每条含 `address`/`country`/`response_time` |
 | `valid_proxies.txt` | 分段文本：`## 协议 / 匿名度 (数量)` 标题下每行一个 `protocol://ip:port` |
-| `valid_<协议>.txt` | 每个协议一个扁平文件（如 `valid_socks5.txt`），直接给只认单协议的工具用 |
+| `valid_<协议>.txt` | 每个协议一个扁平文件（如 `valid_http.txt` / `valid_socks5.txt`），直接给只认单协议的工具用 |
 
-> 地址均带协议前缀（`http://` / `https://` / `socks5://`），可直接粘进浏览器或代理客户端。
+> 地址均带协议前缀（`http://` / `https://` / `socks5://`），可直接粘进浏览器或代理客户端。当前库里实测可用约 1225 条（http 348 + socks5 877）。
 
 ## API 接口
 

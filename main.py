@@ -45,7 +45,11 @@ def _get_store(config: dict[str, object]) -> ProxyStore:
 
 
 def _auto_export(config: dict[str, object], store: ProxyStore) -> None:
-    """Export validated proxies to disk after a validate/collect cycle."""
+    """Export validated proxies to disk after a validate/collect cycle.
+
+    Defaults to the full usable list (fresh_only=False); freshness windows are
+    an on-demand serving concern, not a manual-export concern.
+    """
     from src.exporter import export_valid  # noqa: PLC0415
 
     out_dir = Path(str(config.get("db_path", "data/proxies.db"))).parent
@@ -53,6 +57,7 @@ def _auto_export(config: dict[str, object], store: ProxyStore) -> None:
         store,
         out_dir,
         expiry_hours=int(config.get("proxy_expiry_hours", 6)),  # type: ignore[arg-type]
+        fresh_only=False,
     )
     if summary["total"]:  # type: ignore[attr-defined]
         print(f"\nExported {summary['total']} valid proxies to {out_dir}")  # type: ignore[attr-defined]
@@ -182,6 +187,9 @@ def diagnose(
 def export(
     config_path: str | None = typer.Option(None, "--config", "-c"),
     dir_path: str | None = typer.Option(None, "--dir", "-d", help="Output directory (default: alongside db)"),
+    fresh_only: bool = typer.Option(
+        False, "--fresh/--all", help="--fresh = only recently verified; --all (default) = every valid proxy"
+    ),
 ) -> None:
     """Export validated proxies from the DB to data/ as JSON and text."""
     from src.exporter import export_valid  # noqa: PLC0415
@@ -194,6 +202,7 @@ def export(
         store,
         out_dir,
         expiry_hours=int(config.get("proxy_expiry_hours", 6)),  # type: ignore[arg-type]
+        fresh_only=fresh_only,
     )
     total = summary["total"]
     print(f"Exported {total} valid proxies to {out_dir}")

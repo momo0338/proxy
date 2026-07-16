@@ -13,8 +13,10 @@ from collections import defaultdict
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from src.models import ProxyProtocol
+
 if TYPE_CHECKING:
-    from src.models import Anonymity, ProxyProtocol, ProxyRecord
+    from src.models import Anonymity, ProxyRecord
     from src.store import ProxyStore
 
 
@@ -23,9 +25,14 @@ def export_valid(
     out_dir: str | Path,
     *,
     expiry_hours: int = 6,
-    fresh_only: bool = True,
+    fresh_only: bool = False,
 ) -> dict[str, object]:
     """Write all valid proxies in the store to ``out_dir``.
+
+    Defaults to every ``is_valid=1`` record (``fresh_only=False``) so a manual
+    export gives the full usable list; serve/API still apply freshness windows
+    when serving on demand. Pass ``fresh_only=True`` to restrict to recently
+    verified proxies.
 
     Produces:
       - valid_proxies.json    classified dict + summary
@@ -39,6 +46,7 @@ def export_valid(
 
     records = store.get_valid(only_fresh=fresh_only, expiry_hours=expiry_hours)
     if not records:
+        _clean_stale_files(out_dir)
         return {"total": 0, "files": []}
 
     # 分类: protocol -> anonymity -> [records]
@@ -98,3 +106,15 @@ def export_valid(
         "by_protocol": {p.value: sum(len(r) for r in a.values()) for p, a in grouped.items()},
         "files": [str(json_path), str(txt_path), *per_protocol_files],
     }
+
+
+def _clean_stale_files(out_dir: Path) -> None:
+    """Remove previously exported files when there is nothing to export.
+
+    Prevents a stale valid-proxy list from lingering after a run that produced
+    zero usable proxies.
+    """
+    for name in ("valid_proxies.json", "valid_proxies.txt"):
+        (out_dir / name).unlink(missing_ok=True)
+    for proto in ProxyProtocol:
+        (out_dir / f"valid_{proto.value}.txt").unlink(missing_ok=True)

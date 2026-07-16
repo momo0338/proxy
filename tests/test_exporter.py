@@ -69,4 +69,26 @@ def test_export_empty_store_writes_nothing(store: ProxyStore) -> None:
     with tempfile.TemporaryDirectory() as tmp:
         summary = export_valid(store, tmp)
         assert summary["total"] == 0  # type: ignore[attr-defined]
+
+
+def test_export_includes_stale_valid_by_default(store: ProxyStore) -> None:
+    rec = ProxyRecord("3.3.3.3", 3128, ProxyProtocol.HTTP, "s")
+    store.upsert(rec)
+    # 故意写一个远早于新鲜度窗口的 last_verified
+    old = __import__("datetime").datetime(2020, 1, 1, 0, 0, 0).isoformat()
+    store.record_validation(
+        rec.key, is_valid=True, response_time=2.0, anonymity=Anonymity.ELITE,
+        country="US", last_verified=old,
+    )
+    with tempfile.TemporaryDirectory() as tmp:
+        # 默认 fresh_only=False -> 过期但仍有效的代理也导出
+        summary = export_valid(store, tmp)
+        assert summary["total"] == 1  # type: ignore[attr-defined]
+        assert Path(tmp, "valid_http.txt").exists()
+
+        # 显式 fresh_only=True -> 被新鲜度过滤掉, 且残留文件被清理
+        summary2 = export_valid(store, tmp, fresh_only=True, expiry_hours=6)
+        assert summary2["total"] == 0  # type: ignore[attr-defined]
+        assert not Path(tmp, "valid_proxies.json").exists()
+        assert not Path(tmp, "valid_http.txt").exists()
         assert not Path(tmp, "valid_proxies.json").exists()

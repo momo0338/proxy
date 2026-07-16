@@ -24,7 +24,7 @@ class TestLoadConfig:
         assert config["db_path"] == "data/proxies.db"
         assert config["refresh_interval_minutes"] == 30
         assert config["proxy_expiry_hours"] == 6
-        assert config["max_concurrency"] == 800
+        assert config["max_concurrency"] == 100
         assert config["quick_probe_timeout"] == 3.0
         assert config["verify_hard_timeout"] == 0
         assert config["verify_endpoints"] == [
@@ -43,7 +43,7 @@ class TestLoadConfig:
         assert config["db_path"] == "/custom/path.db"
         assert config["refresh_interval_minutes"] == 10
         # Default values preserved
-        assert config["max_concurrency"] == 800
+        assert config["max_concurrency"] == 100
 
     def test_nonexistent_file(self) -> None:
         config = load_config("/nonexistent/config.json")

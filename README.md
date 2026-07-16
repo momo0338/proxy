@@ -103,7 +103,7 @@ curl -X POST http://localhost:8000/refresh
   "db_path": "data/proxies.db",
   "refresh_interval_minutes": 30,
   "proxy_expiry_hours": 6,
-  "max_concurrency": 800,
+  "max_concurrency": 100,
   "timeout": 30,
   "max_workers": 20,
   "verify_timeout": 5.0,
@@ -142,6 +142,8 @@ curl -X POST http://localhost:8000/refresh
 > **性能与时间说明**：验证默认开启「死代理快速跳过」——先用单个端点 + `quick_probe_timeout`(3s) 快筛，通了才走完整多端点验证（超时 `verify_timeout`=5s）。因为库里约 88% 是死代理，这能把整库重测时间从「每代理跑满所有端点超时」砍掉一大截。想关掉用 `python main.py validate --no-quick-probe`。
 >
 > 每代理另有 `verify_hard_timeout`（默认 `verify_timeout`×2=10s）硬性总超时，套在 `asyncio.wait_for` 上——专门兜底黑洞 DNS / 半开 TCP 连接这类 httpx 自身超时兜不住的 stall，确保整批永远按「并发数 × 硬上限」有界收工（实测 50 代理并发 50、硬超时 8s 仅需 8.6s）。
+>
+> **并发数与文件描述符**：`max_concurrency` 是同时打开的 socket 数。macOS 默认 `ulimit -n=256`，所以默认值 100 留了余量；若想开到 800，先放开口子：`ulimit -n 4096` 再跑，否则会撞 `Too many open files`。服务器环境通常 fd 上限很高，可直接调高。
 | `verify_endpoints` | 验证用端点列表（多端点取健康度评分） |
 | `anon_check_url` | 匿名度检测端点 |
 | `country_url` | 地理位置查询端点 |

@@ -310,9 +310,9 @@ class ProxyValidator:
         hard_timeout = _to_float(hard_val, 0.0) if hard_val else timeout_sec * 2
         probe_endpoint = endpoints[0] if endpoints else "https://ipinfo.io/json"
         # 单代理经代理链访问外部 echo 服务很慢, 靠高并发掩盖延迟而非堆超时。
-        # 默认 800 远低于机器线程上限(20480)与临时端口(16k), 留足余量。
+        # 默认 100 兼容 macOS ulimit -n=256; 服务器可配更高(需先放 fd 上限)。
         if max_concurrency <= 0:
-            max_concurrency = 800
+            max_concurrency = 100
         semaphore = asyncio.Semaphore(max_concurrency)
         total = len(records)
         progress = _Progress(total=total)

@@ -78,6 +78,8 @@ DEFAULT_CONFIG: dict[str, object] = {
     "verify_timeout": 5.0,
     # 死代理快速跳过: 首轮单端点 + 短超时快筛, 通了才走完整验证。
     "quick_probe_timeout": 3.0,
+    # 每个代理硬超时(秒); 兜底黑洞 DNS/半开连接。0 = verify_timeout * 2。
+    "verify_hard_timeout": 0,
     "max_verify": 200,
     "output_dir": "output",
     "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",

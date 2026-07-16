@@ -31,6 +31,16 @@ def _to_float(value: object, default: float) -> float:
     return float(value) if isinstance(value, (int, float)) else default
 
 
+def _httpx_timeout(seconds: float) -> httpx.Timeout:
+    """Explicit timeout covering connect/read/write/pool so stalls are bounded.
+
+    A bare ``timeout=seconds`` float only loosely maps to these; spelling them
+    out makes the connect (incl. DNS) cap unambiguous. DNS black-holes are still
+    additionally guarded by the asyncio.wait_for hard cap in _probe_or_full.
+    """
+    return httpx.Timeout(seconds, connect=seconds, read=seconds, write=seconds, pool=seconds)
+
+
 class _Progress:
     """Track validation progress and print a line every 100 records."""
 
@@ -195,24 +205,34 @@ class ProxyValidator:
         probe_endpoint: str,
         probe_timeout: float,
         timeout_sec: float,
+        hard_timeout: float,
         local_ip: str,
         endpoints: list[str],
     ) -> ProxyRecord:
-        """First-pass short probe, then full verification only for survivors."""
+        """First-pass short probe, then full verification only for survivors.
+
+        Every network call is wrapped in asyncio.wait_for(hard_timeout) so a
+        black-holed DNS or half-open TCP connection cannot hang past the cap and
+        stall the whole batch. httpx's own timeout only covers connect/read/write,
+        not all stall modes, so the hard cap is the real safety net.
+        """
+        proxy_url = self._proxy_url(record)
         if not quick_probe:
-            async with client_factory(proxy=self._proxy_url(record), timeout=timeout_sec) as client:
-                return await self._validate_with_fallback(
-                    record, client, local_ip, endpoints, timeout_sec
+            client = client_factory(proxy=proxy_url, timeout=_httpx_timeout(timeout_sec))
+            async with client:
+                return await self._safe_validate(
+                    record, client, local_ip, endpoints, timeout_sec, hard_timeout
                 )
         # 首轮: 单端点 + 短超时快筛。通了才算"疑似活", 进入完整复验。
         try:
             async with client_factory(
-                proxy=self._proxy_url(record), timeout=probe_timeout
+                proxy=proxy_url, timeout=_httpx_timeout(probe_timeout)
             ) as client:
-                probe = await self._attempt(
-                    record, client, local_ip, probe_endpoint, probe_timeout
+                probe = await asyncio.wait_for(
+                    self._attempt(record, client, local_ip, probe_endpoint, probe_timeout),
+                    timeout=hard_timeout,
                 )
-        except (httpx.HTTPError, OSError, ValueError):
+        except (httpx.HTTPError, OSError, ValueError, TimeoutError):
             probe = None
         if probe is None:
             # 快筛即死: 直接返回死标记, 不跑多端点回退。
@@ -228,6 +248,35 @@ class ProxyValidator:
                 is_valid=False,
             )
         return probe
+
+    async def _safe_validate(  # noqa: PLR0913
+        self,
+        record: ProxyRecord,
+        client: httpx.AsyncClient,
+        local_ip: str,
+        endpoints: list[str],
+        timeout_sec: float,
+        hard_timeout: float,
+    ) -> ProxyRecord:
+        """Full validation with a hard per-call timeout cap."""
+        try:
+            return await asyncio.wait_for(
+                self._validate_with_fallback(record, client, local_ip, endpoints, timeout_sec),
+                timeout=hard_timeout,
+            )
+        except (httpx.HTTPError, OSError, ValueError, TimeoutError):
+            now = datetime.now().isoformat()
+            return ProxyRecord(
+                ip=record.ip,
+                port=record.port,
+                protocol=record.protocol,
+                source=record.source,
+                country="",
+                anonymity=Anonymity.TRANSPARENT,
+                response_time=0.0,
+                last_verified=now,
+                is_valid=False,
+            )
 
     async def validate_all(
         self,
@@ -256,6 +305,9 @@ class ProxyValidator:
         timeout_sec = _to_float(timeout_val, 8.0)
         probe_timeout_val = self._config.get("quick_probe_timeout", 3.0)
         probe_timeout = _to_float(probe_timeout_val, 3.0)
+        # 硬性总超时: 兜底任何黑洞 DNS/半开连接, 不让单代理拖垮整批。
+        hard_val = self._config.get("verify_hard_timeout", 0)
+        hard_timeout = _to_float(hard_val, 0.0) if hard_val else timeout_sec * 2
         probe_endpoint = endpoints[0] if endpoints else "https://ipinfo.io/json"
         # 单代理经代理链访问外部 echo 服务很慢, 靠高并发掩盖延迟而非堆超时。
         # 默认 800 远低于机器线程上限(20480)与临时端口(16k), 留足余量。
@@ -274,6 +326,7 @@ class ProxyValidator:
                     probe_endpoint,
                     probe_timeout,
                     timeout_sec,
+                    hard_timeout,
                     local_ip,
                     endpoints,
                 )

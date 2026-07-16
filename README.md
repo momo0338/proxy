@@ -203,6 +203,27 @@ proxy/
 | HTTPS | roosterkid |
 | SOCKS5 | TheSpeedX、Monosans、Hookzof |
 
+## 导出为 Clash / mihomo 配置
+
+把已验证可用的代理转成本机 Clash（mihomo 内核）能吃的 YAML 片段，纯生成文件、**不修改任何系统代理设置**：
+
+```bash
+python scripts/gen_clash.py                 # 读 data/valid_*.txt, 写 data/clash_proxies.yaml
+python scripts/gen_clash.py --data-dir data --out /tmp/clash.yaml
+```
+
+产物 `data/clash_proxies.yaml` 含：
+
+- `proxies:` 全部节点（`type: http` / `type: socks5`，按 `protocol://host:port` 解析）
+- `proxy-groups:` 一个 `ValidatedPool` 手动选择组，收纳全部节点
+
+在 Clash Verge / mihomo 里二选一使用：
+
+1. 把 `proxies:` 与 `proxy-groups:` 合并进主配置；或
+2. 作为 file-based `proxy-provider` 加载（把生成内容包进 `proxy-providers` 的 `type: file` 源）。
+
+> 该脚本只写文件，不会触碰系统代理、环境变量、git/brew 配置或正在运行的代理客户端。
+
 ## Docker
 
 ```bash

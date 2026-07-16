@@ -63,3 +63,4 @@ reportCallInDefaultInitializer = "warning"  # typer.Option(...) used as CLI defa
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+pythonpath = ["."]

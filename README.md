@@ -224,6 +224,30 @@ python scripts/gen_clash.py --data-dir data --out /tmp/clash.yaml
 
 > 该脚本只写文件，不会触碰系统代理、环境变量、git/brew 配置或正在运行的代理客户端。
 
+## 自动部署（GitHub Actions）
+
+仓库已配置 `.github/workflows/daily.yml`：每天 **UTC 0 点（北京时间 8:00）** 自动执行一次完整链路 `collect → validate → export → gen_clash`，并把产物用 `GITHUB_TOKEN` 提交回本仓库的 `main` 分支。无需后端进程，纯 CI 驱动。
+
+- 手动触发：GitHub → Actions → Daily Proxy Check → Run workflow
+- 产物：每次 run 后 `data/valid_http.txt`、`data/valid_socks5.txt`、`data/valid_proxies.json`、`data/clash_proxies.yaml` 自动更新并回写
+
+### 直接食用（Raw 直链）
+
+仓库为公开仓库，其他应用/脚本可直接拉取最新清单，无需克隆：
+
+```bash
+# 可用 HTTP 代理（每行 protocol://host:port）
+curl -fsSL https://raw.githubusercontent.com/momo0338/proxy/main/data/valid_http.txt
+
+# 可用 SOCKS5 代理
+curl -fsSL https://raw.githubusercontent.com/momo0338/proxy/main/data/valid_socks5.txt
+
+# Clash / mihomo 配置片段（proxies + ValidatedPool 组）
+curl -fsSL https://raw.githubusercontent.com/momo0338/proxy/main/data/clash_proxies.yaml
+```
+
+Clash 用户可将 `clash_proxies.yaml` 的 `proxies:` 与 `proxy-groups:` 合并进主配置，或作为 file-based `proxy-provider` 加载。
+
 ## Docker
 
 ```bash

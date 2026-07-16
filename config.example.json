@@ -14,7 +14,9 @@
   "verify_endpoints": [
     "https://ipinfo.io/json",
     "https://api.ipify.org?format=json",
-    "http://httpbin.org/ip"
+    "http://httpbin.org/ip",
+    "https://ip.my-ip.io/json",
+    "https://myip.ipip.net/json"
   ],
   "anon_check_url": "https://ipinfo.io/json",
   "country_url": "http://ip-api.com/json",

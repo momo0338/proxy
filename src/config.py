@@ -96,6 +96,7 @@ DEFAULT_CONFIG: dict[str, object] = {
         "https://api.ipify.org?format=json",
         "http://httpbin.org/ip",
         "https://ip.my-ip.io/json",
+        "https://myip.ipip.net/json",  # 国内可达兜底, 返回 {"ip":...}
     ],
     "anon_check_url": "https://ipinfo.io/json",
     "country_url": "http://ip-api.com/json",

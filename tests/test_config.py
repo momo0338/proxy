@@ -32,6 +32,7 @@ class TestLoadConfig:
             "https://api.ipify.org?format=json",
             "http://httpbin.org/ip",
             "https://ip.my-ip.io/json",
+            "https://myip.ipip.net/json",
         ]
 
     def test_load_from_file(self, tmp_path: Path) -> None:

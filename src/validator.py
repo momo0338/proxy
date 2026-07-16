@@ -17,12 +17,16 @@ if TYPE_CHECKING:
     from src.store import ProxyStore
 
 # Endpoints tried, in order, until one succeeds. Both JSON shapes are
-# supported: {"ip": ...} (ipify / ipinfo) and {"origin": ...} (httpbin).
+# supported: {"ip": ...} (ipify / ipinfo / ipip) and {"origin": ...} (httpbin).
 # ipinfo is preferred because its payload also carries the country.
+# This list is only a fallback when config has no verify_endpoints;
+# keep it in sync with config.DEFAULT_CONFIG["verify_endpoints"].
 _DEFAULT_ENDPOINTS = [
     "https://ipinfo.io/json",
     "https://api.ipify.org?format=json",
     "http://httpbin.org/ip",
+    "https://ip.my-ip.io/json",
+    "https://myip.ipip.net/json",
 ]
 
 

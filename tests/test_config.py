@@ -28,11 +28,15 @@ class TestLoadConfig:
         assert config["quick_probe_timeout"] == 3.0
         assert config["verify_hard_timeout"] == 0
         assert config["verify_endpoints"] == [
-            "https://ipinfo.io/json",
             "https://api.ipify.org?format=json",
-            "http://httpbin.org/ip",
+            "https://ipinfo.io/json",
             "https://ip.my-ip.io/json",
+        ]
+        assert config["china_verify_endpoints"] == [
+            "https://connect.rom.miui.com/generate_204",
+            "https://connectivitycheck.platform.hicloud.com/generate_204",
             "https://myip.ipip.net/json",
+            "https://www.baidu.com",
         ]
 
     def test_load_from_file(self, tmp_path: Path) -> None:

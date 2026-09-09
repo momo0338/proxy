@@ -46,7 +46,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # data/ 在 .gitignore 中, 强制添加实际存在的产物文件
-          for f in data/valid_http.txt data/valid_socks5.txt data/valid_proxies.json data/clash_proxies.yaml; do
+          for f in data/valid_http.txt data/valid_socks5.txt data/valid_proxies.json data/clash_proxies.yaml data/clash_config.yaml; do
             [ -f "$f" ] && git add -f "$f"
           done
           if git diff --staged --quiet; then

@@ -21,13 +21,49 @@ if TYPE_CHECKING:
 # ipinfo is preferred because its payload also carries the country.
 # This list is only a fallback when config has no verify_endpoints;
 # keep it in sync with config.DEFAULT_CONFIG["verify_endpoints"].
+# All endpoints MUST use https:// to reject proxies without encrypted tunnel (CONNECT) support.
 _DEFAULT_ENDPOINTS = [
-    "https://ipinfo.io/json",
     "https://api.ipify.org?format=json",
-    "http://httpbin.org/ip",
+    "https://ipinfo.io/json",
     "https://ip.my-ip.io/json",
-    "https://myip.ipip.net/json",
 ]
+
+# 国内稳定 CDN / 高可用 HTTPS 端点: 专用于国内 IP 验证, 保证在境内高可用且验证加密隧道
+_DEFAULT_CHINA_ENDPOINTS = [
+    "https://connect.rom.miui.com/generate_204",
+    "https://connectivitycheck.platform.hicloud.com/generate_204",
+    "https://myip.ipip.net/json",
+    "https://www.baidu.com",
+]
+
+
+def is_china_ip(ip: str, country: str = "") -> bool:
+    """Check whether an IP is located in Mainland China."""
+    c = str(country).upper().strip()
+    if c in ("CN", "CHINA", "中国"):
+        return True
+
+    parts = (
+        [int(p) for p in ip.split(".")]
+        if ip.count(".") == 3 and all(p.isdigit() for p in ip.split("."))
+        else [0, 0, 0, 0]
+    )
+    first = parts[0]
+
+    # 中国大陆主要 IPv4 网段
+    if first in (
+        14, 27, 36, 39, 42, 49, 58, 59, 60, 61, 101, 106, 110, 111, 112, 113,
+        114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 171, 175,
+        180, 182, 183, 211, 218, 219, 220, 221, 222, 223,
+    ):
+        return True
+
+    # 常见国内云厂商特定 IP
+    return ip in (
+        "39.106.165.196", "39.106.170.168", "47.95.206.224", "123.57.213.24",
+        "111.229.76.29", "101.132.170.8", "120.26.171.55", "47.121.139.13",
+        "47.107.107.24", "47.107.82.96", "8.138.217.152", "49.234.4.115",
+    )
 
 
 def _to_float(value: object, default: float) -> float:
@@ -83,23 +119,33 @@ class ProxyValidator:
         """Return the proxy URL (already protocol-prefixed) for httpx."""
         return record.address
 
-    def _echo_endpoints(self) -> list[str]:
-        """Resolve the ordered list of echo endpoints to test against."""
+    def _echo_endpoints(self, record: ProxyRecord | None = None) -> list[str]:
+        """Resolve the ordered list of echo endpoints to test against.
+
+        If the record is identified as a China IP, prioritises reliable
+        domestic CDN / HTTPS endpoints.
+        """
+        if record is not None and is_china_ip(record.ip, record.country):
+            china_eps = self._config.get("china_verify_endpoints")
+            if isinstance(china_eps, list) and china_eps:
+                return [str(e) for e in china_eps if e and str(e).startswith("https://")]
+            return list(_DEFAULT_CHINA_ENDPOINTS)
+
         endpoints: list[str] = []
         eps = self._config.get("verify_endpoints")
         if isinstance(eps, list):
-            endpoints = [str(e) for e in eps if e]
+            endpoints = [str(e) for e in eps if e and str(e).startswith("https://")]
         if not endpoints:
             anon = self._config.get("anon_check_url")
-            if anon:
+            if anon and str(anon).startswith("https://"):
                 endpoints.append(str(anon))
         if not endpoints:
             endpoints = list(_DEFAULT_ENDPOINTS)
         # Always append anon_check_url as a final fallback for compatibility.
         anon = self._config.get("anon_check_url")
-        if anon and str(anon) not in endpoints:
+        if anon and str(anon) not in endpoints and str(anon).startswith("https://"):
             endpoints.append(str(anon))
-        return endpoints
+        return [e for e in endpoints if e.startswith("https://")]
 
     async def _resolve_local_ip(self) -> str:
         """Best-effort fetch of our own public IP."""
@@ -149,16 +195,43 @@ class ProxyValidator:
         try:
             resp = await client.get(endpoint, timeout=timeout_sec)
             resp.raise_for_status()
-            data = resp.json()
         except (httpx.HTTPError, OSError, ValueError):
             return None
 
-        origin_ip = str(data.get("ip") or data.get("origin") or "").strip()
+        origin_ip = ""
+        country = ""
+        status_code = getattr(resp, "status_code", 200)
+        # 1. 国内极速 CDN 204 端点 (如 connect.rom.miui.com)
+        if status_code == 204 or endpoint.endswith("generate_204"):
+            origin_ip = record.ip
+            country = "CN" if is_china_ip(record.ip, record.country) else (record.country or "CN")
+        else:
+            try:
+                data = resp.json()
+                if isinstance(data, dict):
+                    # 2. 常见回显结构 {"ip": ...} 或 {"origin": ...}
+                    origin_ip = str(data.get("ip") or data.get("origin") or "").strip()
+                    country = str(data.get("country") or "").strip()
+                    # 3. 国内 myip.ipip.net 结构
+                    if not origin_ip and isinstance(data.get("data"), dict):
+                        inner = data["data"]
+                        origin_ip = str(inner.get("ip", "")).strip()
+                        loc = inner.get("location", [])
+                        if isinstance(loc, list) and loc and ("中国" in loc or loc[0] == "中国"):
+                            country = "CN"
+            except (ValueError, AttributeError):
+                # 4. 国内网页探测 (如 baidu.com)
+                content = getattr(resp, "content", b"")
+                if status_code == 200 and ("baidu.com" in endpoint or len(content) > 100):
+                    origin_ip = record.ip
+                    country = "CN"
+                else:
+                    return None
+
         if not origin_ip:
             return None
 
         anonymity = self._classify(origin_ip, local_ip, record.ip)
-        country = str(data.get("country") or "").strip()
         if not country:
             country = await self._lookup_country(client, record.ip)
         elapsed = round(time.monotonic() - start, 3)
@@ -323,16 +396,26 @@ class ProxyValidator:
 
         async def _validate_one(record: ProxyRecord) -> None:
             async with semaphore:
+                rec_endpoints = self._echo_endpoints(record)
+                rec_probe_endpoint = (
+                    rec_endpoints[0]
+                    if rec_endpoints
+                    else (
+                        "https://connect.rom.miui.com/generate_204"
+                        if is_china_ip(record.ip, record.country)
+                        else probe_endpoint
+                    )
+                )
                 result = await self._probe_or_full(
                     record,
                     quick_probe,
                     client_factory,
-                    probe_endpoint,
+                    rec_probe_endpoint,
                     probe_timeout,
                     timeout_sec,
                     hard_timeout,
                     local_ip,
-                    endpoints,
+                    rec_endpoints,
                 )
                 self._store.record_validation(
                     record.key,

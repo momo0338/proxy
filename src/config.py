@@ -92,14 +92,19 @@ DEFAULT_CONFIG: dict[str, object] = {
     # 服务器可调高(如 800), 但需先 ulimit -n 4096 之类放开口子。
     "max_concurrency": 100,
     "verify_endpoints": [
-        "https://ipinfo.io/json",
         "https://api.ipify.org?format=json",
-        "http://httpbin.org/ip",
+        "https://ipinfo.io/json",
         "https://ip.my-ip.io/json",
-        "https://myip.ipip.net/json",  # 国内可达兜底, 返回 {"ip":...}
+    ],
+    # 国内 IP 专用验证端点: 严格 HTTPS 加密隧道 + 国内稳定 CDN/高可用端点
+    "china_verify_endpoints": [
+        "https://connect.rom.miui.com/generate_204",
+        "https://connectivitycheck.platform.hicloud.com/generate_204",
+        "https://myip.ipip.net/json",
+        "https://www.baidu.com",
     ],
     "anon_check_url": "https://ipinfo.io/json",
-    "country_url": "http://ip-api.com/json",
+    "country_url": "https://ip-api.com/json",
 }
 
 

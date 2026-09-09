@@ -205,31 +205,31 @@ proxy/
 
 ## 导出为 Clash / mihomo 配置
 
-把已验证可用的代理转成本机 Clash（mihomo 内核）能吃的 YAML 片段，纯生成文件、**不修改任何系统代理设置**：
+把已验证可用的代理转成 Clash Verge / mihomo 可直接导入使用的完整配置文件，纯生成文件、**不修改任何系统代理设置**：
 
 ```bash
-python scripts/gen_clash.py                 # 读 data/valid_*.txt, 写 data/clash_proxies.yaml
+python scripts/gen_clash.py                 # 生成 data/clash_config.yaml 与 data/clash_proxies.yaml
 python scripts/gen_clash.py --data-dir data --out /tmp/clash.yaml
 ```
 
-产物 `data/clash_proxies.yaml` 含：
+产物 `data/clash_config.yaml`（及 `clash_proxies.yaml`）包含完整 Profile：
 
-- `proxies:` 全部节点（`type: http` / `type: socks5`，按 `protocol://host:port` 解析）
-- `proxy-groups:` 一个 `ValidatedPool` 手动选择组，收纳全部节点
+- `mixed-port`, `dns` (Fake-IP 模式与国内优质 DNS), `rules` 基础配置
+- `proxies:` 全部可用节点（根据 IP 与归属地标注国家/省份/运营商/协议，如 `🇨🇳 江苏电信 ...`）
+- `proxy-groups:`
+  - `🚀 节点选择`：总控策略组
+  - `⚡ 自动优选(国内)`：基于国内测速端点的 `url-test` 延迟最低优选
+  - `🇨🇳 全部国内` / 各省份组（江苏、北京、上海、浙江、广东、四川等）
+  - `🌍 海外节点`
 
-在 Clash Verge / mihomo 里二选一使用：
-
-1. 把 `proxies:` 与 `proxy-groups:` 合并进主配置；或
-2. 作为 file-based `proxy-provider` 加载（把生成内容包进 `proxy-providers` 的 `type: file` 源）。
-
-> 该脚本只写文件，不会触碰系统代理、环境变量、git/brew 配置或正在运行的代理客户端。
+**使用方式**：可直接在 Clash Verge 的「配置 / 订阅」中点击「导入」，选择该 YAML 文件直接使用，无需手动合并配置。
 
 ## 自动部署（GitHub Actions）
 
 仓库已配置 `.github/workflows/daily.yml`：每天 **UTC 0 点（北京时间 8:00）** 自动执行一次完整链路 `collect → validate → export → gen_clash`，并把产物用 `GITHUB_TOKEN` 提交回本仓库的 `main` 分支。无需后端进程，纯 CI 驱动。
 
 - 手动触发：GitHub → Actions → Daily Proxy Check → Run workflow
-- 产物：每次 run 后 `data/valid_http.txt`、`data/valid_socks5.txt`、`data/valid_proxies.json`、`data/clash_proxies.yaml` 自动更新并回写
+- 产物：每次 run 后 `data/valid_http.txt`、`data/valid_socks5.txt`、`data/valid_proxies.json`、`data/clash_config.yaml`、`data/clash_proxies.yaml` 自动更新并回写
 
 ### 直接食用（Raw 直链）
 
@@ -242,11 +242,11 @@ curl -fsSL https://raw.githubusercontent.com/momo0338/proxy/main/data/valid_http
 # 可用 SOCKS5 代理
 curl -fsSL https://raw.githubusercontent.com/momo0338/proxy/main/data/valid_socks5.txt
 
-# Clash / mihomo 配置片段（proxies + ValidatedPool 组）
-curl -fsSL https://raw.githubusercontent.com/momo0338/proxy/main/data/clash_proxies.yaml
+# Clash Verge / mihomo 完整配置（可直接导入订阅/配置）
+curl -fsSL https://raw.githubusercontent.com/momo0338/proxy/main/data/clash_config.yaml
 ```
 
-Clash 用户可将 `clash_proxies.yaml` 的 `proxies:` 与 `proxy-groups:` 合并进主配置，或作为 file-based `proxy-provider` 加载。
+Clash Verge 用户可直接将 Raw 链接填入「新建订阅」或下载本地 YAML 文件导入配置，开箱即用。
 
 ## Docker
 

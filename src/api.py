@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING, Annotated, Final
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import Response
 from pydantic import BaseModel, ConfigDict
 
 from src.models import Anonymity, ProxyProtocol
@@ -117,12 +118,31 @@ def create_app(store: ProxyStore, config: dict[str, object]) -> FastAPI:
         protocol: Annotated[str | None, Query()] = None,
         anon: Annotated[str | None, Query()] = None,
         country: Annotated[str | None, Query()] = None,
+        fresh: Annotated[
+            bool, Query(description="Only return proxies verified within expiry window")
+        ] = True,
     ) -> ProxyOut:
         """Return a single random valid proxy."""
         assert _store is not None
         proto = ProxyProtocol(protocol) if protocol else None
         anonymity = Anonymity(anon) if anon else None
-        record = _store.random_valid(protocol=proto, anonymity=anonymity, country=country)
+        expiry_val = _config.get("proxy_expiry_hours", 6)
+        expiry = int(expiry_val) if isinstance(expiry_val, (int, float)) else 6
+        record = _store.random_valid(
+            protocol=proto,
+            anonymity=anonymity,
+            country=country,
+            only_fresh=fresh,
+            expiry_hours=expiry,
+        )
+        # Fallback to any valid if no fresh proxy found and not explicitly requested
+        if record is None and fresh:
+            record = _store.random_valid(
+                protocol=proto,
+                anonymity=anonymity,
+                country=country,
+                only_fresh=False,
+            )
         if record is None:
             raise HTTPException(status_code=404, detail="No valid proxies available")
         return ProxyOut(**record.to_dict())
@@ -152,5 +172,51 @@ def create_app(store: ProxyStore, config: dict[str, object]) -> FastAPI:
         global _refresh_task  # noqa: PLW0603
         _refresh_task = asyncio.create_task(run_refresh(_store, _config))
         return RefreshOut(status="accepted")
+
+    @fastapi_app.get("/clash", response_class=Response)
+    @fastapi_app.get("/subscription", response_class=Response)
+    async def clash_subscription(
+        country: Annotated[str | None, Query(description="Filter by country (e.g. CN)")] = None,
+    ) -> Response:
+        """Return a dynamic Clash Verge / Mihomo subscription YAML with province groups."""
+        assert _store is not None
+        from scripts.gen_clash import generate_full_clash_yaml, identify_node, make_unique_name
+
+        expiry_val = _config.get("proxy_expiry_hours", 6)
+        expiry = int(expiry_val) if isinstance(expiry_val, (int, float)) else 6
+        records = _store.get_valid(
+            country=country,
+            only_fresh=True,
+            expiry_hours=expiry,
+        )
+
+        nodes: list[dict[str, object]] = []
+        seen: set[tuple[str, int, str]] = set()
+        used_names: set[str] = set()
+        for r in records:
+            key = (r.ip, r.port, r.protocol.value)
+            if key in seen:
+                continue
+            seen.add(key)
+            base_name, group, ccode = identify_node(r.ip, r.port, r.protocol.value, r.country)
+            unique_name = make_unique_name(base_name, r.protocol.value, used_names)
+            nodes.append(
+                {
+                    "name": unique_name,
+                    "type": "socks5" if r.protocol.value == "socks5" else "http",
+                    "server": r.ip,
+                    "port": r.port,
+                    "udp": True,
+                    "group": group,
+                    "country_code": ccode,
+                }
+            )
+
+        yaml_content = generate_full_clash_yaml(nodes)
+        return Response(
+            content=yaml_content,
+            media_type="text/yaml; charset=utf-8",
+            headers={"Content-Disposition": 'inline; filename="clash_subscription.yaml"'},
+        )
 
     return fastapi_app

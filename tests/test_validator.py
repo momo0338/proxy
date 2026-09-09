@@ -9,7 +9,7 @@ import pytest
 
 from src.models import Anonymity, ProxyProtocol, ProxyRecord
 from src.store import ProxyStore
-from src.validator import ProxyValidator
+from src.validator import ProxyValidator, is_china_ip
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -162,3 +162,60 @@ async def test_quick_probe_alive_full_verify(
         ).fetchone()
     assert row["is_valid"] == 1
     assert row["country"] == "DE"
+
+
+def test_is_china_ip() -> None:
+    # 国内典型电信/联通/移动/阿里云 IP
+    assert is_china_ip("58.210.1.1") is True
+    assert is_china_ip("120.193.1.1") is True
+    assert is_china_ip("114.249.1.1") is True
+    assert is_china_ip("39.106.165.196") is True
+    assert is_china_ip("8.8.8.8", country="CN") is True
+
+    # 海外 IP
+    assert is_china_ip("8.8.8.8", country="US") is False
+    assert is_china_ip("185.214.101.27", country="GB") is False
+
+
+def test_china_endpoints_routing(store: ProxyStore) -> None:
+    cfg = {
+        "verify_endpoints": ["https://api.ipify.org?format=json"],
+        "china_verify_endpoints": ["https://connect.rom.miui.com/generate_204"],
+    }
+    v = ProxyValidator(cfg, store)
+    china_rec = ProxyRecord("58.210.1.1", 1080, ProxyProtocol.SOCKS5, "t")
+    overseas_rec = ProxyRecord("8.8.8.8", 1080, ProxyProtocol.SOCKS5, "t", country="US")
+
+    assert v._echo_endpoints(china_rec) == ["https://connect.rom.miui.com/generate_204"]
+    assert v._echo_endpoints(overseas_rec) == ["https://api.ipify.org?format=json"]
+
+
+@pytest.mark.asyncio
+async def test_china_cdn_204_verification(store: ProxyStore) -> None:
+    cfg = {
+        "china_verify_endpoints": ["https://connect.rom.miui.com/generate_204"],
+        "country_url": "",
+    }
+    v = ProxyValidator(cfg, store)
+    rec = ProxyRecord("58.210.1.1", 1080, ProxyProtocol.HTTP, "t")
+
+    class _Fake204Response:
+        status_code = 204
+        def raise_for_status(self) -> None:
+            pass
+        def json(self) -> dict:
+            raise ValueError("No JSON in 204")
+
+    class _Fake204Client:
+        async def __aenter__(self) -> Self:
+            return self
+        async def __aexit__(self, *_exc: object) -> bool:
+            return False
+        async def get(self, _url: str, **_kwargs: object) -> _Fake204Response:
+            return _Fake204Response()
+
+    result = await v._validate_with_fallback(
+        rec, _Fake204Client(), "1.1.1.1", v._echo_endpoints(rec), 5.0
+    )
+    assert result.is_valid is True
+    assert result.country == "CN"

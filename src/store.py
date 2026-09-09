@@ -214,10 +214,17 @@ class ProxyStore:
         protocol: ProxyProtocol | None = None,
         anonymity: Anonymity | None = None,
         country: str | None = None,
+        only_fresh: bool = False,
+        expiry_hours: int = 6,
     ) -> ProxyRecord | None:
         """Return a single random valid proxy."""
         clauses: list[str] = ["is_valid = 1"]
         params: list[object] = []
+
+        if only_fresh:
+            cutoff = (datetime.now() - timedelta(hours=expiry_hours)).isoformat()
+            clauses.append("last_verified >= ?")
+            params.append(cutoff)
 
         if protocol is not None:
             clauses.append("protocol = ?")

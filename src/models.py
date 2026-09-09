@@ -4,7 +4,13 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
+
+try:
+    from enum import StrEnum
+except ImportError:
+    class StrEnum(str, Enum):  # type: ignore[no-redef]
+        """Fallback StrEnum for Python < 3.11."""
 
 
 class ProxyProtocol(StrEnum):

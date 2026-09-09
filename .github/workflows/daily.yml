@@ -5,6 +5,12 @@ on:
     # 每天 UTC 0 点 = 北京时间 8:00, 自动采集+验证+导出
     - cron: "0 0 * * *"
   workflow_dispatch: {}  # 允许手动触发测试
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "data/**"
+      - "README.md"
 
 permissions:
   contents: write  # 允许 GITHUB_TOKEN 把产物提交回本仓库

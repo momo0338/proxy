@@ -208,11 +208,11 @@ proxy/
 把已验证可用的代理转成 Clash Verge / mihomo 可直接导入使用的完整配置文件，纯生成文件、**不修改任何系统代理设置**：
 
 ```bash
-python scripts/gen_clash.py                 # 生成 data/clash_config.yaml 与 data/clash_proxies.yaml
+python scripts/gen_clash.py                 # 生成 data/clash_config.yaml
 python scripts/gen_clash.py --data-dir data --out /tmp/clash.yaml
 ```
 
-产物 `data/clash_config.yaml`（及 `clash_proxies.yaml`）包含完整 Profile：
+产物 `data/clash_config.yaml` 包含完整 Profile：
 
 - `mixed-port`, `dns` (Fake-IP 模式与国内优质 DNS), `rules` 基础配置
 - `proxies:` 全部可用节点（根据 IP 与归属地标注国家/省份/运营商/协议，如 `🇨🇳 江苏电信 ...`）
@@ -229,7 +229,7 @@ python scripts/gen_clash.py --data-dir data --out /tmp/clash.yaml
 仓库已配置 `.github/workflows/daily.yml`：每天 **UTC 0 点（北京时间 8:00）** 自动执行一次完整链路 `collect → validate → export → gen_clash`，并把产物用 `GITHUB_TOKEN` 提交回本仓库的 `main` 分支。无需后端进程，纯 CI 驱动。
 
 - 手动触发：GitHub → Actions → Daily Proxy Check → Run workflow
-- 产物：每次 run 后 `data/valid_http.txt`、`data/valid_socks5.txt`、`data/valid_proxies.json`、`data/clash_config.yaml`、`data/clash_proxies.yaml` 自动更新并回写
+- 产物：每次 run 后 `data/valid_http.txt`、`data/valid_socks5.txt`、`data/valid_proxies.json`、`data/clash_config.yaml` 自动更新并回写
 
 ### 直接食用（Raw 直链）
 

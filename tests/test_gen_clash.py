@@ -43,7 +43,7 @@ def test_parse_skips_invalid_and_dedups(tmp_path: Path) -> None:
 def test_generated_yaml_is_valid(tmp_path: Path) -> None:
     (tmp_path / "valid_http.txt").write_text("http://1.1.1.1:80\n", encoding="utf-8")
     (tmp_path / "valid_socks5.txt").write_text("socks5://2.2.2.2:1080\n", encoding="utf-8")
-    out = tmp_path / "clash_proxies.yaml"
+    out = tmp_path / "clash_config.yaml"
     http_nodes = _parse(tmp_path / "valid_http.txt", "http")
     socks5_nodes = _parse(tmp_path / "valid_socks5.txt", "socks5")
     lines = ["proxies:", *_emit_nodes(http_nodes + socks5_nodes)]

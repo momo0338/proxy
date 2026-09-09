@@ -3,22 +3,21 @@
 
 Reads validated proxies (from ``data/valid_proxies.json``, SQLite DB, or flat
 text files) and generates:
-1. ``data/clash_config.yaml``: Full ready-to-use profile for Clash Verge with
+``data/clash_config.yaml``: Full ready-to-use profile for Clash Verge with
    province-level proxy groups (Jiangsu, Beijing, Shanghai, Zhejiang, Guangdong, etc.).
-2. ``data/clash_proxies.yaml``: Fragment containing proxies and proxy groups for providers.
 
 Usage:
-    python scripts/gen_clash.py [--data-dir data] [--out data/clash_proxies.yaml] [--full-config data/clash_config.yaml]
+    python scripts/gen_clash.py [--data-dir data] [--out data/clash_config.yaml]
 """
 
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timedelta
 import json
-from pathlib import Path
 import re
 import sqlite3
+from datetime import datetime, timedelta
+from pathlib import Path
 
 ADDR_RE = re.compile(r"^(?P<proto>https?|socks5)://(?P<host>[^:/]+):(?P<port>\d+)/?$")
 
@@ -411,16 +410,11 @@ def generate_full_clash_yaml(nodes: list[dict]) -> str:
 
 
 def main() -> None:
-    """Generate Clash/mihomo proxy lists and profiles."""
-    parser = argparse.ArgumentParser(description="Generate Clash proxy list with province groups")
+    """Generate Clash/mihomo proxy configuration profile."""
+    parser = argparse.ArgumentParser(description="Generate Clash proxy config with province groups")
     parser.add_argument("--data-dir", default="data", help="Directory with proxy data")
     parser.add_argument(
         "--out",
-        default=None,
-        help="Output YAML fragment path (default: <data-dir>/clash_proxies.yaml)",
-    )
-    parser.add_argument(
-        "--full-config",
         default=None,
         help="Output full Clash Verge config path (default: <data-dir>/clash_config.yaml)",
     )
@@ -432,30 +426,20 @@ def main() -> None:
         if repo_data.exists():
             data_dir = repo_data
 
-    out_fragment_path = Path(args.out) if args.out else data_dir / "clash_proxies.yaml"
-    full_config_path = (
-        Path(args.full_config) if args.full_config else data_dir / "clash_config.yaml"
-    )
+    out_path = Path(args.out) if args.out else data_dir / "clash_config.yaml"
 
     nodes = load_all_valid_proxies(data_dir)
     if not nodes:
         print(f"No validated proxies found in {data_dir} (run `python main.py validate` first)")
         return
 
-    # 1. Write full profile
     full_yaml = generate_full_clash_yaml(nodes)
-    full_config_path.parent.mkdir(parents=True, exist_ok=True)
-    full_config_path.write_text(full_yaml, encoding="utf-8")
-
-    # 2. Write fragment
-    out_fragment_path.parent.mkdir(parents=True, exist_ok=True)
-    out_fragment_path.write_text(full_yaml, encoding="utf-8")
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(full_yaml, encoding="utf-8")
 
     cn_count = sum(1 for n in nodes if n.get("country_code") == "CN")
     js_count = sum(1 for n in nodes if "江苏" in n.get("group", ""))
-    print(f"Wrote {len(nodes)} proxies ({cn_count} China, {js_count} Jiangsu) to:")
-    print(f"  - Full Profile: {full_config_path}")
-    print(f"  - Fragment:     {out_fragment_path}")
+    print(f"Wrote {len(nodes)} proxies ({cn_count} China, {js_count} Jiangsu) to {out_path}")
 
 
 if __name__ == "__main__":

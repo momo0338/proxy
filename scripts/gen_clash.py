@@ -40,8 +40,13 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         return f"🇨🇳 江苏{city}电信 {ip}:{port}", "🏛️ 江苏节点", "CN"
     if parts[0] == 120 and parts[1] in (193, 194, 195):
         return f"🇨🇳 江苏移动 {ip}:{port}", "🏛️ 江苏节点", "CN"
+    if parts[0] == 183 and 207 <= parts[1] <= 215:
+        return f"🇨🇳 江苏移动 {ip}:{port}", "🏛️ 江苏节点", "CN"
     if (
-        (parts[0] == 218 and 90 <= parts[1] <= 94)
+        (parts[0] == 114 and 220 <= parts[1] <= 239)
+        or (parts[0] == 121 and 224 <= parts[1] <= 239)
+        or (parts[0] == 117 and 80 <= parts[1] <= 95)
+        or (parts[0] == 218 and 90 <= parts[1] <= 94)
         or (parts[0] == 221 and 224 <= parts[1] <= 231)
         or (parts[0] == 222 and 184 <= parts[1] <= 191)
         or (parts[0] == 122 and 192 <= parts[1] <= 195)
@@ -72,7 +77,11 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         return f"🇨🇳 北京腾讯云 {ip}:{port}", "🗼 北京节点", "CN"
 
     # 3. 上海市 (Shanghai)
-    if (parts[0] == 61 and parts[1] == 152) or (parts[0] == 218 and parts[1] == 78):
+    if (
+        (parts[0] == 61 and parts[1] == 152)
+        or (parts[0] == 218 and parts[1] == 78)
+        or (parts[0] == 180 and parts[1] == 165)
+    ):
         return f"🇨🇳 上海电信 {ip}:{port}", "🏙️ 上海节点", "CN"
     if parts[0] == 112 and parts[1] == 64:
         return f"🇨🇳 上海联通 {ip}:{port}", "🏙️ 上海节点", "CN"
@@ -102,11 +111,13 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
     # 6. 其他省份
     if parts[0] == 123 and parts[1] == 129:
         return f"🇨🇳 山东济南电信 {ip}:{port}", "🌾 山东节点", "CN"
+    if parts[0] == 119 and parts[1] == 188:
+        return f"🇨🇳 山东联通 {ip}:{port}", "🌾 山东节点", "CN"
     if parts[0] == 111 and parts[1] == 79:
         return f"🇨🇳 江西吉安电信 {ip}:{port}", "🍃 江西节点", "CN"
     if parts[0] == 116 and parts[1] == 211:
         return f"🇨🇳 湖北武汉电信 {ip}:{port}", "🍂 湖北节点", "CN"
-    if parts[0] == 123 and parts[1] == 138:
+    if (parts[0] == 123 and parts[1] == 138) or (parts[0] == 113 and 140 <= parts[1] <= 143):
         return f"🇨🇳 陕西西安电信 {ip}:{port}", "🏔️ 陕西节点", "CN"
     if parts[0] == 183 and parts[1] == 201:
         return f"🇨🇳 陕西西安移动 {ip}:{port}", "🏔️ 陕西节点", "CN"

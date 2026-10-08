@@ -42,12 +42,35 @@ def is_china_ip(ip: str, country: str = "") -> bool:
     c = str(country).upper().strip()
     if c in ("CN", "CHINA", "中国"):
         return True
+    if c and c not in ("CN", "CHINA", "中国"):
+        return False
 
     parts = (
         [int(p) for p in ip.split(".")]
         if ip.count(".") == 3 and all(p.isdigit() for p in ip.split("."))
         else [0, 0, 0, 0]
     )
+
+    # 排除已知的海外/亚太跨国分配子网
+    if (
+        (parts[0] == 42 and parts[1] == 112)
+        or (parts[0] == 118 and parts[1] == 71)
+        or (parts[0] == 58 and parts[1] == 187)
+        or (parts[0] == 117 and parts[1] == 0)
+        or (parts[0] == 111 and parts[1] == 119)
+        or (parts[0] == 49 and parts[1] in (13, 156))
+        or (parts[0] == 116 and parts[1] in (68, 203))
+        or (parts[0] == 121 and parts[1] == 101)
+        or (parts[0] == 223 and parts[1] == 25)
+        or (parts[0] == 183 and parts[1] == 106)
+        or (parts[0] == 112 and parts[1] == 208)
+        or (parts[0] == 171 and parts[1] == 25)
+        or (parts[0] == 59 and parts[1] == 152)
+        or (parts[0] == 101 and parts[1] in (32, 36))
+        or (parts[0] == 123 and parts[1] == 58)
+    ):
+        return False
+
     first = parts[0]
 
     # 中国大陆主要 IPv4 网段
@@ -63,6 +86,7 @@ def is_china_ip(ip: str, country: str = "") -> bool:
         "39.106.165.196", "39.106.170.168", "47.95.206.224", "123.57.213.24",
         "111.229.76.29", "101.132.170.8", "120.26.171.55", "47.121.139.13",
         "47.107.107.24", "47.107.82.96", "8.138.217.152", "49.234.4.115",
+        "123.60.155.1", "123.57.0.163", "116.196.150.180",
     )
 
 
@@ -204,7 +228,7 @@ class ProxyValidator:
         # 1. 国内极速 CDN 204 端点 (如 connect.rom.miui.com)
         if status_code == 204 or endpoint.endswith("generate_204"):
             origin_ip = record.ip
-            country = "CN" if is_china_ip(record.ip, record.country) else (record.country or "CN")
+            country = "CN" if is_china_ip(record.ip, record.country) else (record.country or "")
         else:
             try:
                 data = resp.json()

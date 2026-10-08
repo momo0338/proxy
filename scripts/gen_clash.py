@@ -65,13 +65,14 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         or (parts[0] == 123 and 112 <= parts[1] <= 127)
         or (parts[0] == 124 and 64 <= parts[1] <= 65)
         or (parts[0] == 221 and parts[1] == 221)
+        or (parts[0] == 221 and parts[1] == 217)
         or (parts[0] == 222 and parts[1] == 128)
         or (parts[0] == 61 and parts[1] == 149)
     ):
         return f"🇨🇳 北京联通 {ip}:{port}", "🗼 北京节点", "CN"
     if parts[0] == 219 and parts[1] == 142:
         return f"🇨🇳 北京电信 {ip}:{port}", "🗼 北京节点", "CN"
-    if ip in ("39.106.165.196", "39.106.170.168", "47.95.206.224", "123.57.213.24"):
+    if ip in ("39.106.165.196", "39.106.170.168", "47.95.206.224", "123.57.213.24", "123.57.0.163"):
         return f"🇨🇳 北京阿里云 {ip}:{port}", "🗼 北京节点", "CN"
     if ip == "111.229.76.29":
         return f"🇨🇳 北京腾讯云 {ip}:{port}", "🗼 北京节点", "CN"
@@ -85,6 +86,8 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         return f"🇨🇳 上海电信 {ip}:{port}", "🏙️ 上海节点", "CN"
     if parts[0] == 112 and parts[1] == 64:
         return f"🇨🇳 上海联通 {ip}:{port}", "🏙️ 上海节点", "CN"
+    if parts[0] == 123 and parts[1] == 60:
+        return f"🇨🇳 上海华为云 {ip}:{port}", "🏙️ 上海节点", "CN"
     if ip == "101.132.170.8":
         return f"🇨🇳 上海阿里云 {ip}:{port}", "🏙️ 上海节点", "CN"
 
@@ -95,11 +98,13 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         return f"🇨🇳 浙江金华电信 {ip}:{port}", "🌊 浙江节点", "CN"
     if parts[0] == 183 and parts[1] == 248:
         return f"🇨🇳 浙江金华移动 {ip}:{port}", "🌊 浙江节点", "CN"
+    if parts[0] == 116 and parts[1] == 196:
+        return f"🇨🇳 浙江金华 {ip}:{port}", "🌊 浙江节点", "CN"
     if ip in ("120.26.171.55", "47.121.139.13"):
         return f"🇨🇳 浙江杭州阿里云 {ip}:{port}", "🌊 浙江节点", "CN"
 
     # 5. 广东省 (Guangdong)
-    if parts[0] == 120 and parts[1] == 232:
+    if (parts[0] == 120 and parts[1] == 232) or (parts[0] == 221 and parts[1] == 176):
         return f"🇨🇳 广东移动 {ip}:{port}", "🌴 广东节点", "CN"
     if parts[0] == 58 and parts[1] == 254:
         return f"🇨🇳 广东广州电信 {ip}:{port}", "🌴 广东节点", "CN"
@@ -107,6 +112,8 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         return f"🇨🇳 广东阿里云 {ip}:{port}", "🌴 广东节点", "CN"
     if ip == "49.234.4.115":
         return f"🇨🇳 广东腾讯云 {ip}:{port}", "🌴 广东节点", "CN"
+    if parts[0] == 113 and parts[1] == 45:
+        return f"🇨🇳 广东华为云 {ip}:{port}", "🌴 广东节点", "CN"
 
     # 6. 其他省份
     if parts[0] == 123 and parts[1] == 129:
@@ -127,14 +134,57 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         return f"🇨🇳 河北电信 {ip}:{port}", "🏮 河北节点", "CN"
     if parts[0] == 113 and parts[1] == 249:
         return f"🇨🇳 重庆电信 {ip}:{port}", "🌶️ 重庆节点", "CN"
-    if parts[0] == 113 and parts[1] == 45:
-        return f"🇨🇳 腾讯云 {ip}:{port}", "🌐 其他国内", "CN"
     if parts[0] == 47 and parts[1] == 84:
         return f"🇨🇳 阿里云 {ip}:{port}", "🌐 其他国内", "CN"
+
+    # 7. 海外及港澳台特征节点（先于国内通用兜底识别，避免亚太等跨国分配网段误归入国内）
+    if (
+        (parts[0] == 42 and parts[1] == 112)
+        or (parts[0] == 118 and parts[1] == 71)
+        or (parts[0] == 58 and parts[1] == 187)
+        or (parts[0] == 117 and parts[1] == 0)
+    ):
+        return f"🇻🇳 越南 {ip}:{port}", "🌍 海外节点", "VN"
+    if parts[0] == 111 and parts[1] == 119:
+        return f"🇵🇰 巴基斯坦 {ip}:{port}", "🌍 海外节点", "PK"
+    if (
+        (parts[0] == 101 and parts[1] == 32 and parts[2] == 60)
+        or (parts[0] == 101 and parts[1] == 36 and parts[2] == 112)
+        or (parts[0] == 123 and parts[1] == 58 and parts[2] == 219)
+    ):
+        return f"🇭🇰 香港 {ip}:{port}", "🌍 海外节点", "HK"
+    if (
+        (parts[0] == 101 and parts[1] == 32 and parts[2] == 94)
+        or (parts[0] == 101 and parts[1] == 36 and parts[2] == 104)
+    ):
+        return f"🇯🇵 日本 {ip}:{port}", "🌍 海外节点", "JP"
+    if (
+        (parts[0] == 49 and parts[1] == 13)
+        or (parts[0] == 116 and parts[1] == 203)
+    ):
+        return f"🇩🇪 德国 {ip}:{port}", "🌍 海外节点", "DE"
+    if (
+        (parts[0] == 116 and parts[1] == 68)
+        or (parts[0] == 121 and parts[1] == 101)
+        or (parts[0] == 223 and parts[1] == 25)
+    ):
+        return f"🇮🇩 印尼 {ip}:{port}", "🌍 海外节点", "ID"
+    if parts[0] == 183 and parts[1] == 106:
+        return f"🇰🇷 韩国 {ip}:{port}", "🌍 海外节点", "KR"
+    if parts[0] == 112 and parts[1] == 208:
+        return f"🇵🇭 菲律宾 {ip}:{port}", "🌍 海外节点", "PH"
+    if parts[0] == 171 and parts[1] == 25:
+        return f"🇸🇪 瑞典 {ip}:{port}", "🌍 海外节点", "SE"
+    if parts[0] == 49 and parts[1] == 156:
+        return f"🇰🇭 柬埔寨 {ip}:{port}", "🌍 海外节点", "KH"
+    if parts[0] == 59 and parts[1] == 152:
+        return f"🇧🇩 孟加拉 {ip}:{port}", "🌍 海外节点", "BD"
+
+    # 8. 国内通用兜底
     if str(country).upper() == "CN":
         return f"🇨🇳 中国节点 {ip}:{port}", "🌐 其他国内", "CN"
 
-    # 7. 海外节点
+    # 9. 海外通用国家映射
     c = str(country).upper()
     flag_map = {
         "US": ("🇺🇸 美国", "US"),
@@ -164,6 +214,10 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         "CH": ("🇨🇭 瑞士", "CH"),
         "AT": ("🇦🇹 奥地利", "AT"),
         "UA": ("🇺🇦 乌克兰", "UA"),
+        "PK": ("🇵🇰 巴基斯坦", "PK"),
+        "PH": ("🇵🇭 菲律宾", "PH"),
+        "KH": ("🇰🇭 柬埔寨", "KH"),
+        "BD": ("🇧🇩 孟加拉", "BD"),
     }
     for k, (prefix, code) in flag_map.items():
         if k == c or k in c:
@@ -363,7 +417,9 @@ def generate_full_clash_yaml(nodes: list[dict]) -> str:
     lines.append("proxy-groups:")
 
     # Top-level Selector
-    province_group_names = [g for g in groups if g != "🌍 海外节点"]
+    province_group_names = [g for g in groups if g not in ("🌍 海外节点", "🌐 其他国内")]
+    if "🌐 其他国内" in groups:
+        province_group_names.append("🌐 其他国内")
     lines.append("  - name: 🚀 节点选择")
     lines.append("    type: select")
     lines.append("    proxies:")
@@ -395,9 +451,8 @@ def generate_full_clash_yaml(nodes: list[dict]) -> str:
         lines.append("")
 
     # Specific Province Groups (e.g. 江苏, 北京, 上海, 浙江, 广东, etc.)
-    for gname, member_names in groups.items():
-        if gname == "🌍 海外节点":
-            continue
+    for gname in province_group_names:
+        member_names = groups.get(gname, [])
         lines.append(f"  - name: {gname}")
         lines.append("    type: select")
         lines.append("    proxies:")

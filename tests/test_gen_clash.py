@@ -58,6 +58,33 @@ def test_identify_node_and_unique_naming() -> None:
     assert group_js == "🏛️ 江苏节点"
     assert code_js == "CN"
 
+    # 新增省份节点测试
+    name_sh, group_sh, code_sh = identify_node("123.60.155.1", 3128, "http", "CN")
+    assert "上海" in name_sh
+    assert group_sh == "🏙️ 上海节点"
+    assert code_sh == "CN"
+
+    name_bj, group_bj, code_bj = identify_node("221.217.54.146", 9000, "http", "CN")
+    assert "北京" in name_bj
+    assert group_bj == "🗼 北京节点"
+    assert code_bj == "CN"
+
+    name_gd, group_gd, code_gd = identify_node("221.176.85.225", 1080, "socks5", "CN")
+    assert "广东" in name_gd
+    assert group_gd == "🌴 广东节点"
+    assert code_gd == "CN"
+
+    # APNIC/海外子网被纠正为海外节点
+    name_vn, group_vn, code_vn = identify_node("42.112.52.3", 20001, "socks5", "CN")
+    assert "越南" in name_vn
+    assert group_vn == "🌍 海外节点"
+    assert code_vn == "VN"
+
+    name_pk, group_pk, code_pk = identify_node("111.119.162.248", 10900, "socks5", "CN")
+    assert "巴基斯坦" in name_pk
+    assert group_pk == "🌍 海外节点"
+    assert code_pk == "PK"
+
     name_us, group_us, code_us = identify_node("1.2.3.4", 8080, "http", "US")
     assert "美国" in name_us
     assert group_us == "🌍 海外节点"

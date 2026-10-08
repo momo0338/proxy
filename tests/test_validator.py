@@ -165,14 +165,23 @@ async def test_quick_probe_alive_full_verify(
 
 
 def test_is_china_ip() -> None:
-    # 国内典型电信/联通/移动/阿里云 IP
+    # 国内典型电信/联通/移动/阿里云/华为云 IP
     assert is_china_ip("58.210.1.1") is True
     assert is_china_ip("120.193.1.1") is True
     assert is_china_ip("114.249.1.1") is True
     assert is_china_ip("39.106.165.196") is True
+    assert is_china_ip("123.60.155.1") is True
+    assert is_china_ip("221.217.54.146") is True
     assert is_china_ip("8.8.8.8", country="CN") is True
 
-    # 海外 IP
+    # 常见被误判为 CN 的亚太/海外 IP
+    assert is_china_ip("42.112.52.3") is False
+    assert is_china_ip("111.119.162.248") is False
+    assert is_china_ip("49.13.22.249") is False
+    assert is_china_ip("118.71.44.176") is False
+    assert is_china_ip("101.32.60.93") is False
+
+    # 海外 IP 带 country
     assert is_china_ip("8.8.8.8", country="US") is False
     assert is_china_ip("185.214.101.27", country="GB") is False
 

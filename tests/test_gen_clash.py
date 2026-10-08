@@ -90,6 +90,16 @@ def test_identify_node_and_unique_naming() -> None:
     assert group_us == "🌍 海外节点"
     assert code_us == "US"
 
+    # 英文国家全称解析
+    name_nl, group_nl, code_nl = identify_node("1.2.3.4", 8080, "http", "The Netherlands")
+    assert "荷兰" in name_nl
+    assert code_nl == "NL"
+
+    # 特征子网解析（荷兰 45.74.x.x）
+    name_subnet_nl, _, code_subnet_nl = identify_node("45.74.31.30", 1234, "socks5", "")
+    assert "荷兰" in name_subnet_nl
+    assert code_subnet_nl == "NL"
+
     used: set[str] = set()
     n1 = make_unique_name("TestNode", "http", used)
     n2 = make_unique_name("TestNode", "http", used)

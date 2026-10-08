@@ -179,13 +179,65 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         return f"🇰🇭 柬埔寨 {ip}:{port}", "🌍 海外节点", "KH"
     if parts[0] == 59 and parts[1] == 152:
         return f"🇧🇩 孟加拉 {ip}:{port}", "🌍 海外节点", "BD"
+    if parts[0] == 45 and parts[1] == 74:
+        return f"🇳🇱 荷兰 {ip}:{port}", "🌍 海外节点", "NL"
 
     # 8. 国内通用兜底
     if str(country).upper() == "CN":
         return f"🇨🇳 中国节点 {ip}:{port}", "🌐 其他国内", "CN"
 
     # 9. 海外通用国家映射
-    c = str(country).upper()
+    c = str(country).strip()
+    c_upper = c.upper()
+
+    name_to_code = {
+        "UNITED STATES": "US",
+        "THE NETHERLANDS": "NL",
+        "NETHERLANDS": "NL",
+        "RUSSIA": "RU",
+        "RUSSIAN FEDERATION": "RU",
+        "SINGAPORE": "SG",
+        "HONG KONG": "HK",
+        "GERMANY": "DE",
+        "JAPAN": "JP",
+        "FINLAND": "FI",
+        "VIETNAM": "VN",
+        "VIET NAM": "VN",
+        "FRANCE": "FR",
+        "BRAZIL": "BR",
+        "INDIA": "IN",
+        "BANGLADESH": "BD",
+        "MEXICO": "MX",
+        "UNITED KINGDOM": "GB",
+        "CAMEROON": "CM",
+        "INDONESIA": "ID",
+        "SAUDI ARABIA": "SA",
+        "SOUTH KOREA": "KR",
+        "KOREA": "KR",
+        "CANADA": "CA",
+        "BULGARIA": "BG",
+        "AUSTRIA": "AT",
+        "LATVIA": "LV",
+        "UKRAINE": "UA",
+        "MOLDOVA": "MD",
+        "IRELAND": "IE",
+        "LITHUANIA": "LT",
+        "SPAIN": "ES",
+        "POLAND": "PL",
+        "ALBANIA": "AL",
+        "TURKEY": "TR",
+        "TÜRKIYE": "TR",
+        "TURKIYE": "TR",
+        "SWITZERLAND": "CH",
+        "SWEDEN": "SE",
+        "PHILIPPINES": "PH",
+        "CAMBODIA": "KH",
+        "AUSTRALIA": "AU",
+        "THAILAND": "TH",
+        "SOUTH AFRICA": "ZA",
+    }
+    code = name_to_code.get(c_upper, c_upper)
+
     flag_map = {
         "US": ("🇺🇸 美国", "US"),
         "HK": ("🇭🇰 香港", "HK"),
@@ -218,10 +270,43 @@ def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[st
         "PH": ("🇵🇭 菲律宾", "PH"),
         "KH": ("🇰🇭 柬埔寨", "KH"),
         "BD": ("🇧🇩 孟加拉", "BD"),
+        "FI": ("🇫🇮 芬兰", "FI"),
+        "CM": ("🇨🇲 喀麦隆", "CM"),
+        "SA": ("🇸🇦 沙特阿拉伯", "SA"),
+        "BG": ("🇧🇬 保加利亚", "BG"),
+        "LV": ("🇱🇻 拉脱维亚", "LV"),
+        "MD": ("🇲🇩 摩尔多瓦", "MD"),
+        "IE": ("🇮🇪 爱尔兰", "IE"),
+        "LT": ("🇱🇹 立陶宛", "LT"),
+        "AL": ("🇦🇱 阿尔巴尼亚", "AL"),
+        "TR": ("🇹🇷 土耳其", "TR"),
+        "MY": ("🇲🇾 马来西亚", "MY"),
+        "AR": ("🇦🇷 阿根廷", "AR"),
+        "CL": ("🇨🇱 智利", "CL"),
+        "CO": ("🇨🇴 哥伦比亚", "CO"),
+        "EG": ("🇪🇬 埃及", "EG"),
+        "GR": ("🇬🇷 希腊", "GR"),
+        "HU": ("🇭🇺 匈牙利", "HU"),
+        "IL": ("🇮🇱 以色列", "IL"),
+        "IR": ("🇮🇷 伊朗", "IR"),
+        "KZ": ("🇰🇿 哈萨克斯坦", "KZ"),
+        "NO": ("🇳🇴 挪威", "NO"),
+        "NZ": ("🇳🇿 新西兰", "NZ"),
+        "PE": ("🇵🇪 秘鲁", "PE"),
+        "PT": ("🇵🇹 葡萄牙", "PT"),
+        "RO": ("🇷🇴 罗马尼亚", "RO"),
+        "RS": ("🇷🇸 塞尔维亚", "RS"),
+        "CZ": ("🇨🇿 捷克", "CZ"),
+        "DK": ("🇩🇰 丹麦", "DK"),
+        "BE": ("🇧🇪 比利时", "BE"),
     }
-    for k, (prefix, code) in flag_map.items():
-        if k == c or k in c:
-            return f"{prefix} {ip}:{port}", "🌍 海外节点", code
+    if code in flag_map:
+        prefix, code_val = flag_map[code]
+        return f"{prefix} {ip}:{port}", "🌍 海外节点", code_val
+
+    for k, (prefix, code_val) in flag_map.items():
+        if k == code or k in code:
+            return f"{prefix} {ip}:{port}", "🌍 海外节点", code_val
 
     return f"🌐 海外 {ip}:{port}", "🌍 海外节点", "OTHER"
 

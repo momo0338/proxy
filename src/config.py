@@ -104,7 +104,7 @@ DEFAULT_CONFIG: dict[str, object] = {
         "https://www.baidu.com",
     ],
     "anon_check_url": "https://ipinfo.io/json",
-    "country_url": "https://ip-api.com/json",
+    "country_url": "http://ip-api.com/json",
 }
 
 

@@ -192,14 +192,24 @@ class ProxyValidator:
 
     async def _lookup_country(self, client: httpx.AsyncClient, ip: str) -> str:
         """Best-effort country lookup (only when the echo payload lacked one)."""
-        country_url = self._config.get("country_url")
-        if not country_url:
-            return ""
+        country_url = self._config.get("country_url") or "http://ip-api.com/json"
+        base = str(country_url).rstrip("/")
+        url = f"{base}/{ip}" if "ip-api.com" in base else base
+        params = {} if "ip-api.com" in base else {"ip": ip}
         try:
-            resp = await client.get(str(country_url), params={"ip": ip}, timeout=5.0)
+            resp = await client.get(url, params=params, timeout=5.0)
             resp.raise_for_status()
-            return str(resp.json().get("country", "")).strip()
+            data = resp.json()
+            return str(data.get("countryCode") or data.get("country", "")).strip()
         except (httpx.HTTPError, OSError, ValueError):
+            pass
+        try:
+            async with httpx.AsyncClient(timeout=4.0) as direct_client:
+                resp = await direct_client.get(url, params=params)
+                resp.raise_for_status()
+                data = resp.json()
+                return str(data.get("countryCode") or data.get("country", "")).strip()
+        except Exception:
             return ""
 
     async def _attempt(

@@ -39,6 +39,8 @@ class ProxyRecord:
     protocol: ProxyProtocol
     source: str
     country: str = ""
+    province: str = ""
+    city: str = ""
     anonymity: Anonymity = Anonymity.TRANSPARENT
     response_time: float = 0.0
     last_verified: str = ""
@@ -62,6 +64,8 @@ class ProxyRecord:
             "protocol": self.protocol.value,
             "source": self.source,
             "country": self.country,
+            "province": self.province,
+            "city": self.city,
             "anonymity": self.anonymity.value,
             "response_time": self.response_time,
             "last_verified": self.last_verified,

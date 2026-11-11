@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Self
 import httpx
 import pytest
 
+from src.geo import GeoResolver, GeoResult
 from src.models import Anonymity, ProxyProtocol, ProxyRecord
 from src.store import ProxyStore
 from src.validator import ProxyValidator, is_china_ip
@@ -213,7 +214,8 @@ async def test_china_cdn_204_verification(store: ProxyStore) -> None:
         def raise_for_status(self) -> None:
             pass
         def json(self) -> dict:
-            raise ValueError("No JSON in 204")
+            msg = "No JSON in 204"
+            raise ValueError(msg)
 
     class _Fake204Client:
         async def __aenter__(self) -> Self:
@@ -228,3 +230,32 @@ async def test_china_cdn_204_verification(store: ProxyStore) -> None:
     )
     assert result.is_valid is True
     assert result.country == "CN"
+
+
+@pytest.mark.asyncio
+async def test_enrich_locations_writes_province(
+    store: ProxyStore, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """_enrich_locations persists resolved province/city and rewrites records."""
+    cfg = {"country_url": "http://ip-api.com/json"}
+    v = ProxyValidator(cfg, store)
+    rec = ProxyRecord("58.210.1.1", 1080, ProxyProtocol.SOCKS5, "t")
+    store.upsert(rec)
+
+    async def _fake_resolve(self, ips, *, timeout=8.0, proxy=None):  # noqa: ANN001, ANN202, ARG001, ASYNC109
+        return {
+            "58.210.1.1": GeoResult(country="CN", province="江苏", city="苏州"),
+        }
+
+    monkeypatch.setattr(GeoResolver, "resolve_many", _fake_resolve)
+    valid = [rec]
+    await v._enrich_locations(valid)
+
+    assert valid[0].province == "江苏"
+    assert valid[0].city == "苏州"
+    with store._connect() as conn:
+        row = conn.execute(
+            "SELECT province, city FROM proxies WHERE key = ?", (rec.key,)
+        ).fetchone()
+    assert row["province"] == "江苏"
+    assert row["city"] == "苏州"

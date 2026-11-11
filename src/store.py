@@ -21,12 +21,21 @@ CREATE TABLE IF NOT EXISTS proxies(
     protocol    TEXT    NOT NULL,
     source      TEXT    NOT NULL DEFAULT '',
     country     TEXT    NOT NULL DEFAULT '',
+    province    TEXT    NOT NULL DEFAULT '',
+    city        TEXT    NOT NULL DEFAULT '',
     anonymity   TEXT    NOT NULL DEFAULT 'transparent',
     response_time REAL  NOT NULL DEFAULT 0.0,
     last_verified TEXT NOT NULL DEFAULT '',
     is_valid    INTEGER NOT NULL DEFAULT 0
 );
 """
+
+# Columns added after the initial schema version. Applied idempotently on
+# startup so existing databases are migrated in place.
+_MIGRATION_COLUMNS = (
+    ("province", "TEXT NOT NULL DEFAULT ''"),
+    ("city", "TEXT NOT NULL DEFAULT ''"),
+)
 
 
 class ProxyStore:
@@ -52,10 +61,19 @@ class ProxyStore:
             conn.close()
 
     def init_schema(self) -> None:
-        """Create the proxies table if it doesn't exist."""
+        """Create the proxies table if it doesn't exist, then migrate columns."""
         with self._connect() as conn:
             conn.executescript(_SCHEMA)
+            self._migrate_columns(conn)
             self._normalize_timestamps(conn)
+
+    @staticmethod
+    def _migrate_columns(conn: sqlite3.Connection) -> None:
+        """Add any post-initial columns missing from an older database."""
+        existing = {row["name"] for row in conn.execute("PRAGMA table_info(proxies)")}
+        for name, decl in _MIGRATION_COLUMNS:
+            if name not in existing:
+                conn.execute(f"ALTER TABLE proxies ADD COLUMN {name} {decl}")
 
     def _normalize_timestamps(self, conn: sqlite3.Connection) -> None:
         """Convert legacy UTC timestamps (+00:00) to naive local time.
@@ -83,9 +101,9 @@ class ProxyStore:
         with self._connect() as conn:
             conn.execute(
                 """INSERT OR REPLACE INTO proxies
-                   (key, ip, port, protocol, source, country, anonymity,
-                    response_time, last_verified, is_valid)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                   (key, ip, port, protocol, source, country, province, city,
+                    anonymity, response_time, last_verified, is_valid)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 (
                     record.key,
                     record.ip,
@@ -93,6 +111,8 @@ class ProxyStore:
                     record.protocol.value,
                     record.source,
                     record.country,
+                    record.province,
+                    record.city,
                     record.anonymity.value,
                     record.response_time,
                     record.last_verified,
@@ -105,9 +125,9 @@ class ProxyStore:
         with self._connect() as conn:
             conn.executemany(
                 """INSERT OR REPLACE INTO proxies
-                   (key, ip, port, protocol, source, country, anonymity,
-                    response_time, last_verified, is_valid)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                   (key, ip, port, protocol, source, country, province, city,
+                    anonymity, response_time, last_verified, is_valid)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 [
                     (
                         r.key,
@@ -116,6 +136,8 @@ class ProxyStore:
                         r.protocol.value,
                         r.source,
                         r.country,
+                        r.province,
+                        r.city,
                         r.anonymity.value,
                         r.response_time,
                         r.last_verified,
@@ -134,33 +156,48 @@ class ProxyStore:
         anonymity: Anonymity,
         country: str,
         last_verified: str,
+        province: str = "",
+        city: str = "",
     ) -> None:
         """Update validation result for an existing record by key."""
         with self._connect() as conn:
             conn.execute(
                 """UPDATE proxies
                    SET is_valid = ?, response_time = ?, anonymity = ?,
-                       country = ?, last_verified = ?
+                       country = ?, province = ?, city = ?, last_verified = ?
                    WHERE key = ?""",
                 (
                     int(is_valid),
                     response_time,
                     anonymity.value,
                     country,
+                    province,
+                    city,
                     last_verified,
                     key,
                 ),
             )
 
+    def update_location(self, key: str, *, country: str, province: str, city: str) -> None:
+        """Update only the geo fields (province/city) for a record by key."""
+        with self._connect() as conn:
+            conn.execute(
+                "UPDATE proxies SET country = ?, province = ?, city = ? WHERE key = ?",
+                (country, province, city, key),
+            )
+
     @staticmethod
     def _row_to_record(row: sqlite3.Row) -> ProxyRecord:
         """Convert a database row to a ProxyRecord."""
+        keys = row.keys()
         return ProxyRecord(
             ip=row["ip"],
             port=row["port"],
             protocol=ProxyProtocol(row["protocol"]),
             source=row["source"],
             country=row["country"],
+            province=row["province"] if "province" in keys else "",
+            city=row["city"] if "city" in keys else "",
             anonymity=Anonymity(row["anonymity"]),
             response_time=row["response_time"],
             last_verified=row["last_verified"],

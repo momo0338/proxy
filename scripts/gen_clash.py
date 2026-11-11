@@ -21,9 +21,72 @@ from pathlib import Path
 
 ADDR_RE = re.compile(r"^(?P<proto>https?|socks5)://(?P<host>[^:/]+):(?P<port>\d+)/?$")
 
+# 省份名 -> (节点名前缀, 分组名)。ip-api 解析出的省份优先据此归类，
+# 网段规则只在省份未知时兜底。值里的 %s 填 ip:port。
+PROVINCE_GROUP: dict[str, tuple[str, str]] = {
+    "江苏": ("🇨🇳 江苏", "🏛️ 江苏节点"),
+    "北京": ("🇨🇳 北京", "🗼 北京节点"),
+    "上海": ("🇨🇳 上海", "🏙️ 上海节点"),
+    "浙江": ("🇨🇳 浙江", "🌊 浙江节点"),
+    "广东": ("🇨🇳 广东", "🌴 广东节点"),
+    "山东": ("🇨🇳 山东", "🌾 山东节点"),
+    "江西": ("🇨🇳 江西", "🍃 江西节点"),
+    "湖北": ("🇨🇳 湖北", "🍂 湖北节点"),
+    "陕西": ("🇨🇳 陕西", "🏔️ 陕西节点"),
+    "四川": ("🇨🇳 四川", "🏞️ 四川节点"),
+    "河北": ("🇨🇳 河北", "🏮 河北节点"),
+    "重庆": ("🇨🇳 重庆", "🌶️ 重庆节点"),
+    "福建": ("🇨🇳 福建", "🍵 福建节点"),
+    "湖南": ("🇨🇳 湖南", "🌸 湖南节点"),
+    "河南": ("🇨🇳 河南", "🌻 河南节点"),
+    "安徽": ("🇨🇳 安徽", "🌲 安徽节点"),
+    "辽宁": ("🇨🇳 辽宁", "❄️ 辽宁节点"),
+    "吉林": ("🇨🇳 吉林", "❄️ 吉林节点"),
+    "黑龙江": ("🇨🇳 黑龙江", "❄️ 黑龙江节点"),
+    "山西": ("🇨🇳 山西", "⛰️ 山西节点"),
+    "云南": ("🇨🇳 云南", "🌺 云南节点"),
+    "贵州": ("🇨🇳 贵州", "⛰️ 贵州节点"),
+    "广西": ("🇨🇳 广西", "🌴 广西节点"),
+    "海南": ("🇨🇳 海南", "🏝️ 海南节点"),
+    "甘肃": ("🇨🇳 甘肃", "🏜️ 甘肃节点"),
+    "青海": ("🇨🇳 青海", "🏔️ 青海节点"),
+    "宁夏": ("🇨🇳 宁夏", "🏜️ 宁夏节点"),
+    "新疆": ("🇨🇳 新疆", "🏔️ 新疆节点"),
+    "内蒙古": ("🇨🇳 内蒙古", "🌾 内蒙古节点"),
+    "西藏": ("🇨🇳 西藏", "🏔️ 西藏节点"),
+    "天津": ("🇨🇳 天津", "🏙️ 天津节点"),
+}
 
-def identify_node(ip: str, port: int, proto: str, country: str = "") -> tuple[str, str, str]:
-    """Identify location, province group, and country code from IP and country."""
+
+def _province_node(ip: str, port: int, province: str) -> tuple[str, str] | None:
+    """Build (node name, group) purely from a resolved province, if recognised."""
+    entry = PROVINCE_GROUP.get(province)
+    if entry is None:
+        return None
+    prefix, group = entry
+    return f"{prefix} {ip}:{port}", group
+
+
+def identify_node(
+    ip: str,
+    port: int,
+    proto: str,
+    country: str = "",
+    province: str = "",
+) -> tuple[str, str, str]:
+    """Identify location, province group, and country code from IP and country.
+
+    When ``province`` is supplied (resolved via ip-api during validation) it
+    takes precedence over the hard-coded network-range rules, which tend to
+    drift from the live IP pool. The range rules remain as a fallback for
+    records without resolved geo data.
+    """
+    if province:
+        by_prov = _province_node(ip, port, province)
+        if by_prov is not None:
+            name, group = by_prov
+            return name, group, "CN"
+
     parts = (
         [int(p) for p in ip.split(".")]
         if ip.count(".") == 3 and all(p.isdigit() for p in ip.split("."))
@@ -395,7 +458,9 @@ def load_all_valid_proxies(data_dir: Path) -> list[dict]:
                     key = (host, port, proto)
                     if key not in seen:
                         seen.add(key)
-                        base_name, group, ccode = identify_node(host, port, proto, p.get("country", ""))
+                        base_name, group, ccode = identify_node(
+                            host, port, proto, p.get("country", ""), p.get("province", "")
+                        )
                         unique_name = make_unique_name(base_name, proto, used_names)
                         nodes.append(
                             {
@@ -419,14 +484,14 @@ def load_all_valid_proxies(data_dir: Path) -> list[dict]:
             cursor = conn.cursor()
             cutoff = (datetime.now() - timedelta(hours=24)).isoformat()
             cursor.execute(
-                "SELECT ip, port, protocol, country FROM proxies WHERE is_valid=1 AND (last_verified >= ? OR last_verified = '');",
+                "SELECT ip, port, protocol, country, province FROM proxies WHERE is_valid=1 AND (last_verified >= ? OR last_verified = '');",
                 (cutoff,),
             )
-            for ip, port, proto, country in cursor.fetchall():
+            for ip, port, proto, country, province in cursor.fetchall():
                 key = (ip, port, proto)
                 if key not in seen:
                     seen.add(key)
-                    base_name, group, ccode = identify_node(ip, port, proto, country)
+                    base_name, group, ccode = identify_node(ip, port, proto, country, province or "")
                     unique_name = make_unique_name(base_name, proto, used_names)
                     nodes.append(
                         {

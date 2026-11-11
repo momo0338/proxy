@@ -29,6 +29,8 @@ class ProxyOut(BaseModel):
     protocol: str
     source: str
     country: str
+    province: str = ""
+    city: str = ""
     anonymity: str
     response_time: float
     last_verified: str
@@ -198,7 +200,9 @@ def create_app(store: ProxyStore, config: dict[str, object]) -> FastAPI:
             if key in seen:
                 continue
             seen.add(key)
-            base_name, group, ccode = identify_node(r.ip, r.port, r.protocol.value, r.country)
+            base_name, group, ccode = identify_node(
+                r.ip, r.port, r.protocol.value, r.country, r.province
+            )
             unique_name = make_unique_name(base_name, r.protocol.value, used_names)
             nodes.append(
                 {

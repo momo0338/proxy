@@ -73,6 +73,8 @@ def export_valid(
                         "protocol": rec.protocol.value,
                         "anonymity": rec.anonymity.value,
                         "country": rec.country,
+                        "province": rec.province,
+                        "city": rec.city,
                         "response_time": rec.response_time,
                     }
                 )

@@ -242,6 +242,36 @@ class TestProxyStoreRecordValidation:
         assert valid[0].country == "DE"
         assert valid[0].response_time == 0.3
 
+    def test_province_city_roundtrip(self, store: ProxyStore) -> None:
+        rec = ProxyRecord(
+            ip="58.210.1.1",
+            port=1080,
+            protocol=ProxyProtocol.SOCKS5,
+            source="t",
+            country="CN",
+            province="江苏",
+            city="苏州",
+            is_valid=True,
+            last_verified=datetime.now().isoformat(),
+        )
+        store.upsert(rec)
+        rows = store.get_valid(only_fresh=False)
+        assert len(rows) == 1
+        assert rows[0].province == "江苏"
+        assert rows[0].city == "苏州"
+
+    def test_update_location(self, store: ProxyStore, sample_record: ProxyRecord) -> None:
+        store.upsert(sample_record)
+        store.update_location(
+            sample_record.key, country="CN", province="浙江", city="杭州"
+        )
+        rows = store.get_valid(only_fresh=False)
+        assert len(rows) == 1
+        rec = rows[0]
+        assert rec.province == "浙江"
+        assert rec.city == "杭州"
+        assert rec.country == "CN"
+
 
 class TestProxyStoreUnvalidated:
     def test_get_unvalidated_skips_tested_dead(

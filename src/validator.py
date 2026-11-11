@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 
 import httpx
 
+from src.geo import GeoResolver
 from src.models import Anonymity, ProxyRecord
 
 if TYPE_CHECKING:
@@ -475,4 +476,76 @@ class ProxyValidator:
             flush=True,
         )
 
+        # 校验通过后再批量补齐省份/城市归属(带缓存, 每 100 个 IP 一次请求),
+        # 让 Clash 分省分组不再依赖写死的网段规则。
+        await self._enrich_locations(progress.valid_list)
+
         return progress.valid_list
+
+    async def _enrich_locations(self, valid: list[ProxyRecord]) -> None:
+        """Resolve province/city for validated proxies and persist them.
+
+        Best-effort: any resolver failure leaves the geo fields empty and the
+        existing country/network-rule fallback still applies downstream. Mutates
+        the records in ``valid`` in place (so callers see enriched objects) and
+        writes the results back to the store.
+        """
+        if not valid:
+            return
+        country_url = self._config.get("country_url")
+        # 未配置 country_url 时不做省份补齐(保持原有"只有显式启用才联网"的语义,
+        # 也便于离线/单元测试环境下跳过)。
+        if not country_url:
+            return
+        resolver = GeoResolver(str(country_url))
+        if not resolver.enabled:
+            return
+        ips = [r.ip for r in valid]
+        try:
+            mapping = await resolver.resolve_many(ips)
+        except Exception:  # noqa: BLE001
+            return
+        if not mapping:
+            return
+        enriched = 0
+        for rec in valid:
+            geo = mapping.get(rec.ip)
+            if geo is None:
+                continue
+            # 只信任 ip-api 校验时的实时国家(代理出口国): 该 IP 归属到的国家
+            # 才是它当前真实出口, 比一次性的 echo country 更可靠; ip-api 未判定
+            # 国家时回退到校验结果里的 country。
+            country = geo.country or rec.country
+            # 省份归属只对「真实出口为中国大陆」的节点有意义。ip-api 若把该 IP
+            # 判成境外(PK/BD/HK/VN…) 则清空省份, 避免把境外节点错标成国内省。
+            is_mainland = str(country).upper() == "CN"
+            province = geo.province if is_mainland else ""
+            city = geo.city if is_mainland else ""
+            # Persist the resolved location alongside the validation result.
+            self._store.update_location(
+                rec.key,
+                country=country,
+                province=province,
+                city=city,
+            )
+            # Reflect on the returned (frozen) record via a replacement.
+            idx = valid.index(rec)
+            valid[idx] = ProxyRecord(
+                ip=rec.ip,
+                port=rec.port,
+                protocol=rec.protocol,
+                source=rec.source,
+                country=country,
+                province=province,
+                city=city,
+                anonymity=rec.anonymity,
+                response_time=rec.response_time,
+                last_verified=rec.last_verified,
+                is_valid=rec.is_valid,
+            )
+            enriched += 1
+        if enriched:
+            print(
+                f"  [geo] resolved province/city for {enriched}/{len(valid)} valid proxies",
+                flush=True,
+            )

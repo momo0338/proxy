@@ -67,6 +67,77 @@ DEFAULT_PROXY_SOURCES: list[dict[str, object]] = [
         "format": "ip:port",
         "enabled": True,
     },
+    # --- Additional public ip:port sources (zero parser change) ---
+    {
+        "name": "TheSpeedX SOCKS4",
+        "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt",
+        "protocol": "socks4",
+        "format": "ip:port",
+        "enabled": True,
+    },
+    {
+        "name": "Monosans SOCKS4",
+        "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt",
+        "protocol": "socks4",
+        "format": "ip:port",
+        "enabled": True,
+    },
+    {
+        "name": "ShiftyTR SOCKS4",
+        "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks4.txt",
+        "protocol": "socks4",
+        "format": "ip:port",
+        "enabled": True,
+    },
+    {
+        "name": "ShiftyTR SOCKS5",
+        "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt",
+        "protocol": "socks5",
+        "format": "ip:port",
+        "enabled": True,
+    },
+    {
+        "name": "ShiftyTR HTTPS",
+        "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/https.txt",
+        "protocol": "https",
+        "format": "ip:port",
+        "enabled": True,
+    },
+    {
+        "name": "roosterkid SOCKS4",
+        "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS4_RAW.txt",
+        "protocol": "socks4",
+        "format": "ip:port",
+        "enabled": True,
+    },
+    {
+        "name": "roosterkid SOCKS5",
+        "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS5_RAW.txt",
+        "protocol": "socks5",
+        "format": "ip:port",
+        "enabled": True,
+    },
+    {
+        "name": "mmpx12 HTTP",
+        "url": "https://raw.githubusercontent.com/mmpx12/proxy-list/master/http.txt",
+        "protocol": "http",
+        "format": "ip:port",
+        "enabled": True,
+    },
+    {
+        "name": "ALIILAPRO SOCKS4",
+        "url": "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks4.txt",
+        "protocol": "socks4",
+        "format": "ip:port",
+        "enabled": True,
+    },
+    {
+        "name": "ALIILAPRO SOCKS5",
+        "url": "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks5.txt",
+        "protocol": "socks5",
+        "format": "ip:port",
+        "enabled": True,
+    },
 ]
 
 # ---------------------------------------------------------------------------

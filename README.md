@@ -244,13 +244,19 @@ proxy/
 
 ## 代理源
 
-已预配置 8 个 GitHub 文本源：
+已预配置 18 个 GitHub 文本源（均为裸 `ip:port` 纯文本格式）：
 
 | 协议 | 源 |
 |------|----|
-| HTTP | TheSpeedX、Monosans、clarketm、ShiftyTR |
-| HTTPS | roosterkid |
-| SOCKS5 | TheSpeedX、Monosans、Hookzof |
+| HTTP | TheSpeedX、Monosans、clarketm、ShiftyTR、mmpx12 |
+| HTTPS | roosterkid、ShiftyTR |
+| SOCKS4 | TheSpeedX、Monosans、ShiftyTR、roosterkid、ALIILAPRO |
+| SOCKS5 | TheSpeedX、Monosans、Hookzof、ShiftyTR、roosterkid、ALIILAPRO |
+
+> 其他格式需改解析器才能纳入：
+> - **proxifly/free-proxy-list**（`socks5://ip:port` 协议前缀，规模最大 ~1.1 万行）
+> - **zloi-user/hideip.me**（`ip:port:Country` 尾部带国家）
+> 这些源需要扩展 `ProxyRecord.from_line` 的解析分支后再启用。
 
 ## 导出为 Clash / mihomo 配置
 

@@ -66,10 +66,11 @@ class TestLoadProxySources:
 
     def test_default_sources(self) -> None:
         sources = load_proxy_sources()
-        assert len(sources) == 8
+        assert len(sources) == 18
         names = [s["name"] for s in sources]
         assert "TheSpeedX HTTP" in names
         assert "Hookzof SOCKS5" in names
+        assert "ALIILAPRO SOCKS5" in names
 
     def test_load_from_file(self, tmp_path: Path) -> None:
         config_file = tmp_path / "config.json"
@@ -92,10 +93,10 @@ class TestLoadProxySources:
 
 
 class TestDefaultProxySources:
-    """Verify all 8 original sources are preserved."""
+    """Verify all original sources are preserved plus added public sources."""
 
     def test_source_count(self) -> None:
-        assert len(DEFAULT_PROXY_SOURCES) == 8
+        assert len(DEFAULT_PROXY_SOURCES) == 18
 
     def test_all_enabled(self) -> None:
         for source in DEFAULT_PROXY_SOURCES:

@@ -18,594 +18,14 @@ dns:
     - 114.114.114.114
 
 proxies:
-  - name: "🇺🇸 美国 47.252.47.39:1080 [SOCKS5]"
-    type: socks5
-    server: 47.252.47.39
-    port: 1080
-    udp: true
-  - name: "🇺🇸 美国 209.97.150.167:1080 [SOCKS5]"
-    type: socks5
-    server: 209.97.150.167
-    port: 1080
-    udp: true
-  - name: "🇺🇸 美国 107.174.30.93:1080 [SOCKS5]"
-    type: socks5
-    server: 107.174.30.93
-    port: 1080
-    udp: true
-  - name: "🇺🇸 美国 45.61.188.134:44499 [SOCKS5]"
-    type: socks5
-    server: 45.61.188.134
-    port: 44499
-    udp: true
-  - name: "🇺🇸 美国 107.174.30.92:1080 [SOCKS5]"
-    type: socks5
-    server: 107.174.30.92
-    port: 1080
-    udp: true
-  - name: "🇺🇸 美国 69.55.49.177:38182 [SOCKS5]"
-    type: socks5
-    server: 69.55.49.177
-    port: 38182
-    udp: true
-  - name: "🇺🇸 美国 138.68.60.8:1080 [SOCKS5]"
-    type: socks5
-    server: 138.68.60.8
-    port: 1080
-    udp: true
-  - name: "🇩🇪 德国 161.35.70.249:1080 [SOCKS5]"
-    type: socks5
-    server: 161.35.70.249
-    port: 1080
-    udp: true
-  - name: "🇰🇷 韩国 121.169.46.116:1090 [SOCKS5]"
-    type: socks5
-    server: 121.169.46.116
-    port: 1090
-    udp: true
-  - name: "🇨🇳 北京 39.106.165.196:1080 [SOCKS5]"
-    type: socks5
-    server: 39.106.165.196
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 95.83.154.186:1080 [SOCKS5]"
-    type: socks5
-    server: 95.83.154.186
-    port: 1080
-    udp: true
-  - name: "🇨🇦 加拿大 159.203.61.169:1080 [SOCKS5]"
-    type: socks5
-    server: 159.203.61.169
-    port: 1080
-    udp: true
-  - name: "🇦🇹 奥地利 194.182.187.78:1080 [SOCKS5]"
-    type: socks5
-    server: 194.182.187.78
-    port: 1080
-    udp: true
-  - name: "🇯🇵 日本 139.162.78.109:1080 [SOCKS5]"
-    type: socks5
-    server: 139.162.78.109
-    port: 1080
-    udp: true
-  - name: "🇬🇧 英国 134.209.29.120:1080 [SOCKS5]"
-    type: socks5
-    server: 134.209.29.120
-    port: 1080
-    udp: true
-  - name: "🇨🇳 重庆 113.249.111.67:1080 [SOCKS5]"
-    type: socks5
-    server: 113.249.111.67
-    port: 1080
-    udp: true
-  - name: "🇩🇪 德国 92.5.68.29:1080 [SOCKS5]"
-    type: socks5
-    server: 92.5.68.29
-    port: 1080
-    udp: true
-  - name: "🇻🇳 越南 113.176.118.150:1080 [SOCKS5]"
-    type: socks5
-    server: 113.176.118.150
-    port: 1080
-    udp: true
-  - name: "🇵🇰 巴基斯坦 101.53.238.37:1080 [SOCKS5]"
-    type: socks5
-    server: 101.53.238.37
-    port: 1080
-    udp: true
-  - name: "🇬🇧 英国 45.67.84.116:9080 [SOCKS5]"
-    type: socks5
-    server: 45.67.84.116
-    port: 9080
-    udp: true
-  - name: "🇰🇷 韩国 43.155.215.149:20000 [SOCKS5]"
-    type: socks5
-    server: 43.155.215.149
-    port: 20000
-    udp: true
-  - name: "🇧🇩 孟加拉 119.148.20.109:22122 [SOCKS5]"
-    type: socks5
-    server: 119.148.20.109
-    port: 22122
-    udp: true
-  - name: "🇨🇳 广东 36.213.79.159:1080 [SOCKS5]"
-    type: socks5
-    server: 36.213.79.159
-    port: 1080
-    udp: true
-  - name: "🇧🇩 孟加拉 61.247.178.146:1080 [SOCKS5]"
-    type: socks5
-    server: 61.247.178.146
-    port: 1080
-    udp: true
-  - name: "🇮🇳 印度 139.59.1.14:1080 [SOCKS5]"
-    type: socks5
-    server: 139.59.1.14
-    port: 1080
-    udp: true
-  - name: "🇭🇰 香港 38.147.191.16:1081 [SOCKS5]"
-    type: socks5
-    server: 38.147.191.16
-    port: 1081
-    udp: true
-  - name: "🇻🇳 越南 116.101.73.52:1068 [SOCKS5]"
-    type: socks5
-    server: 116.101.73.52
-    port: 1068
-    udp: true
-  - name: "🇸🇬 新加坡 103.248.228.166:5555 [SOCKS5]"
-    type: socks5
-    server: 103.248.228.166
-    port: 5555
-    udp: true
-  - name: "🇺🇸 美国 155.138.221.32:1082 [SOCKS5]"
-    type: socks5
-    server: 155.138.221.32
-    port: 1082
-    udp: true
-  - name: "🇵🇰 巴基斯坦 58.27.213.133:1080 [SOCKS5]"
-    type: socks5
-    server: 58.27.213.133
-    port: 1080
-    udp: true
-  - name: "🇮🇳 印度 82.180.146.251:10800 [SOCKS5]"
-    type: socks5
-    server: 82.180.146.251
-    port: 10800
-    udp: true
-  - name: "🇻🇳 越南 116.101.73.161:1039 [SOCKS5]"
-    type: socks5
-    server: 116.101.73.161
-    port: 1039
-    udp: true
-  - name: "🇧🇩 孟加拉 119.148.31.170:22122 [SOCKS5]"
-    type: socks5
-    server: 119.148.31.170
-    port: 22122
-    udp: true
-  - name: "🇻🇳 越南 116.101.73.52:1085 [SOCKS5]"
-    type: socks5
-    server: 116.101.73.52
-    port: 1085
-    udp: true
-  - name: "🇧🇩 孟加拉 118.179.27.153:1080 [SOCKS5]"
-    type: socks5
-    server: 118.179.27.153
-    port: 1080
-    udp: true
-  - name: "🇭🇰 香港 172.81.111.156:10001 [SOCKS5]"
-    type: socks5
-    server: 172.81.111.156
-    port: 10001
-    udp: true
-  - name: "🇻🇳 越南 116.101.73.161:1054 [SOCKS5]"
-    type: socks5
-    server: 116.101.73.161
-    port: 1054
-    udp: true
-  - name: "🇻🇳 越南 116.101.73.52:1051 [SOCKS5]"
-    type: socks5
-    server: 116.101.73.52
-    port: 1051
-    udp: true
-  - name: "🇭🇰 香港 123.58.219.171:10808 [SOCKS5]"
-    type: socks5
-    server: 123.58.219.171
-    port: 10808
-    udp: true
-  - name: "🇺🇸 美国 209.50.255.91:1080 [SOCKS5]"
-    type: socks5
-    server: 209.50.255.91
-    port: 1080
-    udp: true
-  - name: "🇧🇩 孟加拉 118.179.155.202:9090 [SOCKS5]"
-    type: socks5
-    server: 118.179.155.202
-    port: 9090
-    udp: true
-  - name: "🇸🇬 新加坡 128.199.202.122:1080 [SOCKS5]"
-    type: socks5
-    server: 128.199.202.122
-    port: 1080
-    udp: true
-  - name: "🇨🇳 四川 222.211.216.201:7890 [SOCKS5]"
-    type: socks5
-    server: 222.211.216.201
-    port: 7890
-    udp: true
-  - name: "🇭🇰 香港 103.119.1.160:5555 [SOCKS5]"
-    type: socks5
-    server: 103.119.1.160
-    port: 5555
-    udp: true
-  - name: "🇸🇬 新加坡 43.128.107.122:7890 [SOCKS5]"
-    type: socks5
-    server: 43.128.107.122
-    port: 7890
-    udp: true
-  - name: "🇨🇳 北京 116.147.56.246:7890 [SOCKS5]"
-    type: socks5
-    server: 116.147.56.246
-    port: 7890
-    udp: true
-  - name: "🇨🇳 北京 114.253.59.75:7890 [SOCKS5]"
-    type: socks5
-    server: 114.253.59.75
-    port: 7890
-    udp: true
-  - name: "🇺🇸 美国 204.8.189.118:1080 [SOCKS5]"
-    type: socks5
-    server: 204.8.189.118
-    port: 1080
-    udp: true
-  - name: "🇲🇾 马来西亚 47.254.213.60:1081 [SOCKS5]"
-    type: socks5
-    server: 47.254.213.60
-    port: 1081
-    udp: true
-  - name: "🇨🇦 加拿大 162.254.178.133:1080 [SOCKS5]"
-    type: socks5
-    server: 162.254.178.133
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 83.237.92.106:1080 [SOCKS5]"
-    type: socks5
-    server: 83.237.92.106
-    port: 1080
-    udp: true
-  - name: "🌐 海外 212.237.125.216:6969 [SOCKS5]"
-    type: socks5
-    server: 212.237.125.216
-    port: 6969
-    udp: true
-  - name: "🇷🇺 俄罗斯 178.57.102.50:1080 [SOCKS5]"
-    type: socks5
-    server: 178.57.102.50
-    port: 1080
-    udp: true
-  - name: "🇨🇿 捷克 78.80.149.106:1080 [SOCKS5]"
-    type: socks5
-    server: 78.80.149.106
-    port: 1080
-    udp: true
-  - name: "🇭🇰 香港 45.194.33.12:30001 [SOCKS5]"
-    type: socks5
-    server: 45.194.33.12
-    port: 30001
-    udp: true
-  - name: "🇨🇿 捷克 176.62.229.17:1080 [SOCKS5]"
-    type: socks5
-    server: 176.62.229.17
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 109.194.174.104:1080 [SOCKS5]"
-    type: socks5
-    server: 109.194.174.104
-    port: 1080
-    udp: true
-  - name: "🇰🇭 柬埔寨 103.197.241.209:1080 [SOCKS5]"
-    type: socks5
-    server: 103.197.241.209
-    port: 1080
-    udp: true
-  - name: "🇧🇷 巴西 177.69.198.219:1080 [SOCKS5]"
-    type: socks5
-    server: 177.69.198.219
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 178.176.118.74:1080 [SOCKS5]"
-    type: socks5
-    server: 178.176.118.74
-    port: 1080
-    udp: true
-  - name: "🇮🇩 印尼 9.154.253.201:1080 [SOCKS5]"
-    type: socks5
-    server: 9.154.253.201
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 195.9.192.50:1080 [SOCKS5]"
-    type: socks5
-    server: 195.9.192.50
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 94.141.178.82:1088 [SOCKS5]"
-    type: socks5
-    server: 94.141.178.82
-    port: 1088
-    udp: true
-  - name: "🇺🇸 美国 66.231.128.103:1080 [SOCKS5]"
-    type: socks5
-    server: 66.231.128.103
-    port: 1080
-    udp: true
-  - name: "🇺🇦 乌克兰 46.174.120.163:8090 [SOCKS5]"
-    type: socks5
-    server: 46.174.120.163
-    port: 8090
-    udp: true
-  - name: "🇷🇺 俄罗斯 93.100.249.194:1080 [SOCKS5]"
-    type: socks5
-    server: 93.100.249.194
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 31.41.227.175:2080 [SOCKS5]"
-    type: socks5
-    server: 31.41.227.175
-    port: 2080
-    udp: true
-  - name: "🇮🇩 印尼 203.83.43.120:1080 [SOCKS5]"
-    type: socks5
-    server: 203.83.43.120
-    port: 1080
-    udp: true
-  - name: "🇸🇪 瑞典 46.246.12.31:1080 [SOCKS5]"
-    type: socks5
-    server: 46.246.12.31
-    port: 1080
-    udp: true
-  - name: "🇭🇰 香港 45.194.33.12:30002 [SOCKS5]"
-    type: socks5
-    server: 45.194.33.12
-    port: 30002
-    udp: true
-  - name: "🇵🇰 巴基斯坦 110.39.151.50:1080 [SOCKS5]"
-    type: socks5
-    server: 110.39.151.50
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 176.119.168.162:1080 [SOCKS5]"
-    type: socks5
-    server: 176.119.168.162
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 212.115.59.74:1080 [SOCKS5]"
-    type: socks5
-    server: 212.115.59.74
-    port: 1080
-    udp: true
-  - name: "🇷🇺 俄罗斯 93.153.222.83:1080 [SOCKS5]"
-    type: socks5
-    server: 93.153.222.83
-    port: 1080
-    udp: true
-  - name: "🇫🇮 芬兰 185.221.196.47:1080 [SOCKS5]"
-    type: socks5
-    server: 185.221.196.47
-    port: 1080
-    udp: true
-  - name: "🇰🇭 柬埔寨 203.189.135.140:1080 [SOCKS5]"
-    type: socks5
-    server: 203.189.135.140
-    port: 1080
-    udp: true
-  - name: "🇧🇩 孟加拉 103.136.107.70:1080 [SOCKS5]"
-    type: socks5
-    server: 103.136.107.70
-    port: 1080
-    udp: true
-  - name: "🇺🇸 美国 23.94.25.101:40001 [SOCKS5]"
-    type: socks5
-    server: 23.94.25.101
-    port: 40001
-    udp: true
-  - name: "🇺🇸 美国 167.99.3.26:9143 [SOCKS5]"
-    type: socks5
-    server: 167.99.3.26
-    port: 9143
-    udp: true
-  - name: "🇩🇪 德国 46.232.249.209:40001 [SOCKS5]"
-    type: socks5
-    server: 46.232.249.209
-    port: 40001
-    udp: true
-  - name: "🇩🇪 德国 5.75.133.113:10805 [SOCKS5]"
-    type: socks5
-    server: 5.75.133.113
-    port: 10805
-    udp: true
-  - name: "🇨🇿 捷克 91.199.137.149:2005 [SOCKS5]"
-    type: socks5
-    server: 91.199.137.149
-    port: 2005
-    udp: true
-  - name: "🇷🇺 俄罗斯 37.18.73.60:5566 [SOCKS5]"
-    type: socks5
-    server: 37.18.73.60
-    port: 5566
-    udp: true
-  - name: "🇩🇪 德国 157.90.113.23:9052 [SOCKS5]"
-    type: socks5
-    server: 157.90.113.23
-    port: 9052
-    udp: true
-  - name: "🇺🇸 美国 45.61.129.165:9050 [SOCKS5]"
-    type: socks5
-    server: 45.61.129.165
-    port: 9050
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.40:4218 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.40
-    port: 4218
-    udp: true
-  - name: "🇰🇷 韩国 183.106.215.208:1080 [SOCKS5]"
-    type: socks5
-    server: 183.106.215.208
-    port: 1080
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.40:4105 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.40
-    port: 4105
-    udp: true
-  - name: "🇺🇸 美国 141.148.65.110:1081 [SOCKS5]"
-    type: socks5
-    server: 141.148.65.110
-    port: 1081
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.47:4151 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.47
-    port: 4151
-    udp: true
-  - name: "🇷🇺 俄罗斯 95.31.91.242:2080 [SOCKS5]"
-    type: socks5
-    server: 95.31.91.242
-    port: 2080
-    udp: true
-  - name: "🇫🇮 芬兰 65.21.252.66:10805 [SOCKS5]"
-    type: socks5
-    server: 65.21.252.66
-    port: 10805
-    udp: true
-  - name: "🇨🇿 捷克 91.199.137.149:2001 [SOCKS5]"
-    type: socks5
-    server: 91.199.137.149
-    port: 2001
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.41:6675 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.41
-    port: 6675
-    udp: true
-  - name: "🇷🇺 俄罗斯 37.9.4.101:1088 [SOCKS5]"
-    type: socks5
-    server: 37.9.4.101
-    port: 1088
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.41:4035 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.41
-    port: 4035
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.41:7742 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.41
-    port: 7742
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.42:4362 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.42
-    port: 4362
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.42:22407 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.42
-    port: 22407
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.40:4032 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.40
-    port: 4032
-    udp: true
-  - name: "🇲🇽 墨西哥 201.165.172.3:1080 [SOCKS5]"
-    type: socks5
-    server: 201.165.172.3
-    port: 1080
-    udp: true
-  - name: "🇿🇦 南非 102.36.127.249:1080 [SOCKS5]"
-    type: socks5
-    server: 102.36.127.249
-    port: 1080
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.46:5083 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.46
-    port: 5083
-    udp: true
-  - name: "🇷🇺 俄罗斯 95.31.115.101:9150 [SOCKS5]"
-    type: socks5
-    server: 95.31.115.101
-    port: 9150
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.42:9475 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.42
-    port: 9475
-    udp: true
-  - name: "🇷🇺 俄罗斯 95.31.52.151:1080 [SOCKS5]"
-    type: socks5
-    server: 95.31.52.151
-    port: 1080
-    udp: true
-  - name: "🇩🇪 德国 5.75.133.113:10808 [SOCKS5]"
-    type: socks5
-    server: 5.75.133.113
-    port: 10808
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.42:6502 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.42
-    port: 6502
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.40:4052 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.40
-    port: 4052
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.47:4098 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.47
-    port: 4098
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.42:34054 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.42
-    port: 34054
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.47:4173 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.47
-    port: 4173
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.47:4050 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.47
-    port: 4050
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.46:4128 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.46
-    port: 4128
-    udp: true
-  - name: "🇺🇸 美国 23.134.76.173:1080 [SOCKS5]"
-    type: socks5
-    server: 23.134.76.173
-    port: 1080
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.47:4185 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.47
-    port: 4185
-    udp: true
-  - name: "🇳🇱 荷兰 45.74.31.41:4031 [SOCKS5]"
-    type: socks5
-    server: 45.74.31.41
-    port: 4031
-    udp: true
-  - name: "🇺🇸 美国 198.199.86.11:3128 [HTTP]"
+  - name: "🇺🇸 美国 138.68.60.8:80 [HTTP]"
     type: http
-    server: 198.199.86.11
+    server: 138.68.60.8
+    port: 80
+    udp: true
+  - name: "🇺🇸 美国 138.68.60.8:3128 [HTTP]"
+    type: http
+    server: 138.68.60.8
     port: 3128
     udp: true
   - name: "🇺🇸 美国 20.98.234.24:8080 [HTTP]"
@@ -613,9 +33,59 @@ proxies:
     server: 20.98.234.24
     port: 8080
     udp: true
-  - name: "🇺🇸 美国 172.235.157.127:3128 [HTTP]"
+  - name: "🇺🇸 美国 209.97.150.167:3128 [HTTP]"
     type: http
-    server: 172.235.157.127
+    server: 209.97.150.167
+    port: 3128
+    udp: true
+  - name: "🇺🇸 美国 198.199.86.11:3128 [HTTP]"
+    type: http
+    server: 198.199.86.11
+    port: 3128
+    udp: true
+  - name: "🇺🇸 美国 209.97.150.167:8080 [HTTP]"
+    type: http
+    server: 209.97.150.167
+    port: 8080
+    udp: true
+  - name: "🇨🇦 加拿大 159.203.61.169:3128 [HTTP]"
+    type: http
+    server: 159.203.61.169
+    port: 3128
+    udp: true
+  - name: "🇺🇸 美国 198.199.86.11:80 [HTTP]"
+    type: http
+    server: 198.199.86.11
+    port: 80
+    udp: true
+  - name: "🇺🇸 美国 198.46.249.70:1080 [HTTP]"
+    type: http
+    server: 198.46.249.70
+    port: 1080
+    udp: true
+  - name: "🇨🇳 北京 114.253.7.197:8888 [HTTP]"
+    type: http
+    server: 114.253.7.197
+    port: 8888
+    udp: true
+  - name: "🇨🇳 广东 218.207.164.174:7890 [HTTP]"
+    type: http
+    server: 218.207.164.174
+    port: 7890
+    udp: true
+  - name: "🇯🇵 日本 139.162.78.109:8080 [HTTP]"
+    type: http
+    server: 139.162.78.109
+    port: 8080
+    udp: true
+  - name: "🇨🇳 浙江 61.130.176.21:20827 [HTTP]"
+    type: http
+    server: 61.130.176.21
+    port: 20827
+    udp: true
+  - name: "🇬🇧 英国 134.209.29.120:3128 [HTTP]"
+    type: http
+    server: 134.209.29.120
     port: 3128
     udp: true
   - name: "🇩🇪 德国 161.35.70.249:80 [HTTP]"
@@ -623,334 +93,94 @@ proxies:
     server: 161.35.70.249
     port: 80
     udp: true
-  - name: "🇨🇦 加拿大 159.203.61.169:3128 [HTTP]"
+  - name: "🇨🇳 北京 123.115.143.194:8888 [HTTP]"
     type: http
-    server: 159.203.61.169
-    port: 3128
-    udp: true
-  - name: "🇺🇸 美国 209.97.150.167:3128 [HTTP]"
-    type: http
-    server: 209.97.150.167
-    port: 3128
-    udp: true
-  - name: "🇺🇸 美国 13.59.11.63:3128 [HTTP]"
-    type: http
-    server: 13.59.11.63
-    port: 3128
-    udp: true
-  - name: "🇺🇸 美国 45.66.156.107:8081 [HTTP]"
-    type: http
-    server: 45.66.156.107
-    port: 8081
-    udp: true
-  - name: "🇺🇸 美国 138.68.60.8:3128 [HTTP]"
-    type: http
-    server: 138.68.60.8
-    port: 3128
-    udp: true
-  - name: "🇨🇳 北京 114.244.218.227:8888 [HTTP]"
-    type: http
-    server: 114.244.218.227
+    server: 123.115.143.194
     port: 8888
     udp: true
-  - name: "🇨🇳 北京 114.248.85.85:8888 [HTTP]"
+  - name: "🇦🇺 澳大利亚 134.199.160.93:8888 [HTTP]"
     type: http
-    server: 114.248.85.85
+    server: 134.199.160.93
     port: 8888
-    udp: true
-  - name: "🇨🇳 北京 114.249.231.106:8888 [HTTP]"
-    type: http
-    server: 114.249.231.106
-    port: 8888
-    udp: true
-  - name: "🇨🇳 北京 114.253.7.197:8888 [HTTP]"
-    type: http
-    server: 114.253.7.197
-    port: 8888
-    udp: true
-  - name: "🇨🇳 北京 111.192.215.89:8888 [HTTP]"
-    type: http
-    server: 111.192.215.89
-    port: 8888
-    udp: true
-  - name: "🇨🇳 北京 114.244.212.147:8888 [HTTP]"
-    type: http
-    server: 114.244.212.147
-    port: 8888
-    udp: true
-  - name: "🇩🇪 德国 103.237.102.191:11111 [HTTP]"
-    type: http
-    server: 103.237.102.191
-    port: 11111
-    udp: true
-  - name: "🇨🇳 北京 114.252.191.93:8888 [HTTP]"
-    type: http
-    server: 114.252.191.93
-    port: 8888
-    udp: true
-  - name: "🇯🇵 日本 139.162.78.109:8080 [HTTP]"
-    type: http
-    server: 139.162.78.109
-    port: 8080
-    udp: true
-  - name: "🇨🇳 北京 114.253.67.30:8888 [HTTP]"
-    type: http
-    server: 114.253.67.30
-    port: 8888
-    udp: true
-  - name: "🇭🇰 香港 176.111.37.5:39811 [HTTP]"
-    type: http
-    server: 176.111.37.5
-    port: 39811
-    udp: true
-  - name: "🇭🇰 香港 45.155.226.177:3128 [HTTP]"
-    type: http
-    server: 45.155.226.177
-    port: 3128
-    udp: true
-  - name: "🇬🇧 英国 134.209.29.120:3128 [HTTP]"
-    type: http
-    server: 134.209.29.120
-    port: 3128
-    udp: true
-  - name: "🇨🇳 北京 123.113.149.19:8888 [HTTP]"
-    type: http
-    server: 123.113.149.19
-    port: 8888
-    udp: true
-  - name: "🇨🇳 北京 114.244.211.247:8888 [HTTP]"
-    type: http
-    server: 114.244.211.247
-    port: 8888
-    udp: true
-  - name: "🇲🇽 墨西哥 206.135.80.78:999 [HTTP]"
-    type: http
-    server: 206.135.80.78
-    port: 999
-    udp: true
-  - name: "🇨🇳 北京 114.244.223.68:8888 [HTTP]"
-    type: http
-    server: 114.244.223.68
-    port: 8888
-    udp: true
-  - name: "🇸🇦 沙特阿拉伯 130.110.103.245:3128 [HTTP]"
-    type: http
-    server: 130.110.103.245
-    port: 3128
-    udp: true
-  - name: "🇨🇳 广东 58.254.153.146:17981 [HTTP]"
-    type: http
-    server: 58.254.153.146
-    port: 17981
-    udp: true
-  - name: "🇨🇳 北京 114.254.50.184:8888 [HTTP]"
-    type: http
-    server: 114.254.50.184
-    port: 8888
-    udp: true
-  - name: "🌐 海外 87.192.233.75:3128 [HTTP]"
-    type: http
-    server: 87.192.233.75
-    port: 3128
-    udp: true
-  - name: "🇨🇳 北京 101.251.204.174:8080 [HTTP]"
-    type: http
-    server: 101.251.204.174
-    port: 8080
-    udp: true
-  - name: "🇩🇪 德国 217.154.195.87:8888 [HTTP]"
-    type: http
-    server: 217.154.195.87
-    port: 8888
-    udp: true
-  - name: "🇹🇭 泰国 61.91.162.126:8080 [HTTP]"
-    type: http
-    server: 61.91.162.126
-    port: 8080
-    udp: true
-  - name: "🇨🇭 瑞士 132.243.174.245:5002 [HTTP]"
-    type: http
-    server: 132.243.174.245
-    port: 5002
-    udp: true
-  - name: "🇮🇳 印度 45.195.105.20:8080 [HTTP]"
-    type: http
-    server: 45.195.105.20
-    port: 8080
-    udp: true
-  - name: "🇹🇭 泰国 49.229.100.235:8080 [HTTP]"
-    type: http
-    server: 49.229.100.235
-    port: 8080
-    udp: true
-  - name: "🇨🇳 四川 222.211.216.201:7890 [HTTP]"
-    type: http
-    server: 222.211.216.201
-    port: 7890
-    udp: true
-  - name: "🇨🇳 北京 114.249.211.7:8888 [HTTP]"
-    type: http
-    server: 114.249.211.7
-    port: 8888
-    udp: true
-  - name: "🇮🇳 印度 103.240.24.158:3128 [HTTP]"
-    type: http
-    server: 103.240.24.158
-    port: 3128
-    udp: true
-  - name: "🇭🇰 香港 43.99.60.244:8089 [HTTP]"
-    type: http
-    server: 43.99.60.244
-    port: 8089
     udp: true
   - name: "🇸🇬 新加坡 128.199.202.122:8080 [HTTP]"
     type: http
     server: 128.199.202.122
     port: 8080
     udp: true
+  - name: "🇩🇪 德国 103.237.102.191:11111 [HTTP]"
+    type: http
+    server: 103.237.102.191
+    port: 11111
+    udp: true
   - name: "🇮🇳 印度 139.59.1.14:8080 [HTTP]"
     type: http
     server: 139.59.1.14
     port: 8080
     udp: true
-  - name: "🇻🇳 越南 160.250.134.143:3128 [HTTP]"
+  - name: "🇮🇳 印度 139.59.1.14:80 [HTTP]"
     type: http
-    server: 160.250.134.143
-    port: 3128
-    udp: true
-  - name: "🇸🇬 新加坡 68.183.226.190:9090 [HTTP]"
-    type: http
-    server: 68.183.226.190
-    port: 9090
-    udp: true
-  - name: "🇹🇭 泰国 125.25.53.180:8080 [HTTP]"
-    type: http
-    server: 125.25.53.180
-    port: 8080
-    udp: true
-  - name: "🇻🇳 越南 27.67.54.178:8080 [HTTP]"
-    type: http
-    server: 27.67.54.178
-    port: 8080
-    udp: true
-  - name: "🇮🇳 印度 45.194.90.225:8080 [HTTP]"
-    type: http
-    server: 45.194.90.225
-    port: 8080
-    udp: true
-  - name: "🇨🇳 北京 123.115.143.194:8888 [HTTP]"
-    type: http
-    server: 123.115.143.194
-    port: 8888
-    udp: true
-  - name: "🇨🇳 北京 123.121.133.113:8888 [HTTP]"
-    type: http
-    server: 123.121.133.113
-    port: 8888
-    udp: true
-  - name: "🇨🇳 北京 114.253.7.235:8888 [HTTP]"
-    type: http
-    server: 114.253.7.235
-    port: 8888
-    udp: true
-  - name: "🇮🇳 印度 45.194.3.119:8080 [HTTP]"
-    type: http
-    server: 45.194.3.119
-    port: 8080
-    udp: true
-  - name: "🇺🇸 美国 107.210.56.161:80 [HTTP]"
-    type: http
-    server: 107.210.56.161
+    server: 139.59.1.14
     port: 80
     udp: true
-  - name: "🇮🇩 印尼 115.85.88.18:8080 [HTTP]"
+  - name: "🇭🇰 香港 176.111.37.5:39811 [HTTP]"
     type: http
-    server: 115.85.88.18
-    port: 8080
+    server: 176.111.37.5
+    port: 39811
     udp: true
-  - name: "🇮🇩 印尼 36.64.54.98:8080 [HTTP]"
+  - name: "🇧🇩 孟加拉 27.147.155.206:12051 [HTTP]"
     type: http
-    server: 36.64.54.98
-    port: 8080
+    server: 27.147.155.206
+    port: 12051
     udp: true
-  - name: "🌐 海外 85.132.108.42:3128 [HTTP]"
+  - name: "🇨🇳 北京 111.192.53.176:8888 [HTTP]"
     type: http
-    server: 85.132.108.42
-    port: 3128
-    udp: true
-  - name: "🇵🇭 菲律宾 180.191.122.179:5050 [HTTP]"
-    type: http
-    server: 180.191.122.179
-    port: 5050
-    udp: true
-  - name: "🇨🇳 北京 114.253.5.21:8888 [HTTP]"
-    type: http
-    server: 114.253.5.21
+    server: 111.192.53.176
     port: 8888
     udp: true
-  - name: "🇪🇸 西班牙 2.139.41.14:3128 [HTTP]"
+  - name: "🇺🇸 美国 165.154.162.73:8888 [HTTP]"
     type: http
-    server: 2.139.41.14
+    server: 165.154.162.73
+    port: 8888
+    udp: true
+  - name: "🇩🇪 德国 89.144.53.75:8080 [HTTP]"
+    type: http
+    server: 89.144.53.75
+    port: 8080
+    udp: true
+  - name: "🇵🇭 菲律宾 112.202.247.109:3128 [HTTP]"
+    type: http
+    server: 112.202.247.109
     port: 3128
     udp: true
-  - name: "🇨🇭 瑞士 91.92.155.207:3128 [HTTP]"
+  - name: "🇰🇷 韩国 222.111.130.73:8080 [HTTP]"
     type: http
-    server: 91.92.155.207
+    server: 222.111.130.73
+    port: 8080
+    udp: true
+  - name: "🇸🇦 沙特阿拉伯 130.110.103.245:3128 [HTTP]"
+    type: http
+    server: 130.110.103.245
     port: 3128
     udp: true
-  - name: "🇮🇩 印尼 144.79.37.51:8080 [HTTP]"
+  - name: "🇵🇭 菲律宾 122.3.121.231:8082 [HTTP]"
     type: http
-    server: 144.79.37.51
-    port: 8080
+    server: 122.3.121.231
+    port: 8082
     udp: true
-  - name: "🇰🇭 柬埔寨 111.118.149.40:8080 [HTTP]"
+  - name: "🇮🇩 印尼 101.255.209.250:3128 [HTTP]"
     type: http
-    server: 111.118.149.40
-    port: 8080
+    server: 101.255.209.250
+    port: 3128
     udp: true
-  - name: "🇹🇷 土耳其 116.204.166.51:8080 [HTTP]"
+  - name: "🇵🇭 菲律宾 122.2.122.10:3128 [HTTP]"
     type: http
-    server: 116.204.166.51
-    port: 8080
+    server: 122.2.122.10
+    port: 3128
     udp: true
-  - name: "🇮🇩 印尼 101.255.166.134:1111 [HTTP]"
+  - name: "🌐 海外 110.44.115.83:8080 [HTTP]"
     type: http
-    server: 101.255.166.134
-    port: 1111
-    udp: true
-  - name: "🇧🇩 孟加拉 144.48.163.108:8080 [HTTP]"
-    type: http
-    server: 144.48.163.108
-    port: 8080
-    udp: true
-  - name: "🇻🇳 越南 113.160.115.254:8080 [HTTP]"
-    type: http
-    server: 113.160.115.254
-    port: 8080
-    udp: true
-  - name: "🇵🇭 菲律宾 123.253.136.159:1256 [HTTP]"
-    type: http
-    server: 123.253.136.159
-    port: 1256
-    udp: true
-  - name: "🇰🇭 柬埔寨 175.100.35.103:8080 [HTTP]"
-    type: http
-    server: 175.100.35.103
-    port: 8080
-    udp: true
-  - name: "🇻🇳 越南 180.93.102.159:40007 [HTTP]"
-    type: http
-    server: 180.93.102.159
-    port: 40007
-    udp: true
-  - name: "🇵🇰 巴基斯坦 139.135.63.90:8080 [HTTP]"
-    type: http
-    server: 139.135.63.90
-    port: 8080
-    udp: true
-  - name: "🇵🇰 巴基斯坦 119.159.251.98:8080 [HTTP]"
-    type: http
-    server: 119.159.251.98
+    server: 110.44.115.83
     port: 8080
     udp: true
   - name: "🇮🇩 印尼 103.130.61.61:8081 [HTTP]"
@@ -958,390 +188,935 @@ proxies:
     server: 103.130.61.61
     port: 8081
     udp: true
-  - name: "🇨🇳 山东 113.120.110.50:1081 [HTTP]"
+  - name: "🇹🇭 泰国 182.52.113.61:80 [HTTP]"
     type: http
-    server: 113.120.110.50
-    port: 1081
+    server: 182.52.113.61
+    port: 80
     udp: true
-  - name: "🇺🇸 美国 129.146.163.237:8888 [HTTP]"
+  - name: "🇵🇭 菲律宾 180.190.80.43:5050 [HTTP]"
     type: http
-    server: 129.146.163.237
-    port: 8888
-    udp: true
-  - name: "🇺🇸 美国 207.177.122.144:8080 [HTTP]"
-    type: http
-    server: 207.177.122.144
-    port: 8080
-    udp: true
-  - name: "🇯🇵 日本 45.43.60.220:8080 [HTTP]"
-    type: http
-    server: 45.43.60.220
-    port: 8080
-    udp: true
-  - name: "🇮🇩 印尼 103.176.96.84:8082 [HTTP]"
-    type: http
-    server: 103.176.96.84
-    port: 8082
-    udp: true
-  - name: "🇵🇭 菲律宾 49.145.53.217:5050 [HTTP]"
-    type: http
-    server: 49.145.53.217
+    server: 180.190.80.43
     port: 5050
     udp: true
-  - name: "🇮🇷 伊朗 185.100.45.93:8080 [HTTP]"
+  - name: "🇵🇭 菲律宾 180.191.232.182:3128 [HTTP]"
     type: http
-    server: 185.100.45.93
-    port: 8080
-    udp: true
-  - name: "🇩🇪 德国 91.26.188.170:8080 [HTTP]"
-    type: http
-    server: 91.26.188.170
-    port: 8080
-    udp: true
-  - name: "🇧🇬 保加利亚 85.187.224.21:8080 [HTTP]"
-    type: http
-    server: 85.187.224.21
-    port: 8080
-    udp: true
-  - name: "🇺🇸 美国 209.141.62.12:5555 [HTTP]"
-    type: http
-    server: 209.141.62.12
-    port: 5555
-    udp: true
-  - name: "🌐 海外 186.96.72.103:999 [HTTP]"
-    type: http
-    server: 186.96.72.103
-    port: 999
-    udp: true
-  - name: "🌐 海外 102.0.28.78:8083 [HTTP]"
-    type: http
-    server: 102.0.28.78
-    port: 8083
-    udp: true
-  - name: "🇨🇴 哥伦比亚 181.79.95.65:999 [HTTP]"
-    type: http
-    server: 181.79.95.65
-    port: 999
-    udp: true
-  - name: "🌐 海外 195.158.8.123:3128 [HTTP]"
-    type: http
-    server: 195.158.8.123
+    server: 180.191.232.182
     port: 3128
     udp: true
-  - name: "🇯🇵 日本 140.238.32.108:3128 [HTTP]"
+  - name: "🇮🇳 印度 45.194.90.194:8080 [HTTP]"
     type: http
-    server: 140.238.32.108
-    port: 3128
-    udp: true
-  - name: "🇮🇩 印尼 103.152.239.127:3125 [HTTP]"
-    type: http
-    server: 103.152.239.127
-    port: 3125
-    udp: true
-  - name: "🇧🇷 巴西 170.246.146.192:8080 [HTTP]"
-    type: http
-    server: 170.246.146.192
+    server: 45.194.90.194
     port: 8080
     udp: true
-  - name: "🇮🇩 印尼 202.154.19.50:3125 [HTTP]"
+  - name: "🇨🇳 北京 123.121.122.125:8888 [HTTP]"
     type: http
-    server: 202.154.19.50
-    port: 3125
+    server: 123.121.122.125
+    port: 8888
     udp: true
-  - name: "🇮🇩 印尼 103.173.162.49:8818 [HTTP]"
+  - name: "🇲🇽 墨西哥 38.7.23.105:999 [HTTP]"
     type: http
-    server: 103.173.162.49
-    port: 8818
-    udp: true
-  - name: "🇵🇪 秘鲁 190.235.208.220:8080 [HTTP]"
-    type: http
-    server: 190.235.208.220
-    port: 8080
-    udp: true
-  - name: "🇮🇹 意大利 149.86.206.27:8080 [HTTP]"
-    type: http
-    server: 149.86.206.27
-    port: 8080
-    udp: true
-  - name: "🇺🇸 美国 23.185.192.66:8181 [HTTP]"
-    type: http
-    server: 23.185.192.66
-    port: 8181
-    udp: true
-  - name: "🇦🇱 阿尔巴尼亚 79.106.33.26:8079 [HTTP]"
-    type: http
-    server: 79.106.33.26
-    port: 8079
-    udp: true
-  - name: "🇧🇩 孟加拉 103.140.25.230:8080 [HTTP]"
-    type: http
-    server: 103.140.25.230
-    port: 8080
-    udp: true
-  - name: "🇿🇦 南非 41.57.139.93:6060 [HTTP]"
-    type: http
-    server: 41.57.139.93
-    port: 6060
-    udp: true
-  - name: "🇹🇭 泰国 1.20.101.26:80 [HTTP]"
-    type: http
-    server: 1.20.101.26
-    port: 80
-    udp: true
-  - name: "🇿🇦 南非 165.0.136.30:8080 [HTTP]"
-    type: http
-    server: 165.0.136.30
-    port: 8080
-    udp: true
-  - name: "🇮🇩 印尼 103.156.217.101:1111 [HTTP]"
-    type: http
-    server: 103.156.217.101
-    port: 1111
-    udp: true
-  - name: "🇮🇩 印尼 203.201.171.170:64321 [HTTP]"
-    type: http
-    server: 203.201.171.170
-    port: 64321
-    udp: true
-  - name: "🇵🇪 秘鲁 201.230.121.228:999 [HTTP]"
-    type: http
-    server: 201.230.121.228
+    server: 38.7.23.105
     port: 999
     udp: true
-  - name: "🇮🇩 印尼 160.19.16.148:8181 [HTTP]"
+  - name: "🇮🇳 印度 45.194.3.108:8080 [HTTP]"
     type: http
-    server: 160.19.16.148
-    port: 8181
-    udp: true
-  - name: "🇺🇸 美国 216.152.152.44:80 [HTTP]"
-    type: http
-    server: 216.152.152.44
-    port: 80
-    udp: true
-  - name: "🇮🇩 印尼 203.201.190.67:8080 [HTTP]"
-    type: http
-    server: 203.201.190.67
+    server: 45.194.3.108
     port: 8080
     udp: true
-  - name: "🇮🇩 印尼 103.162.16.7:8080 [HTTP]"
+  - name: "🇺🇸 美国 38.247.144.5:8080 [HTTP]"
     type: http
-    server: 103.162.16.7
+    server: 38.247.144.5
     port: 8080
     udp: true
-  - name: "🇮🇩 印尼 103.112.136.77:8080 [HTTP]"
+  - name: "🇮🇩 印尼 122.144.4.226:57413 [HTTP]"
     type: http
-    server: 103.112.136.77
+    server: 122.144.4.226
+    port: 57413
+    udp: true
+  - name: "🇹🇭 泰国 49.48.117.110:8080 [HTTP]"
+    type: http
+    server: 49.48.117.110
     port: 8080
     udp: true
-  - name: "🇮🇩 印尼 160.202.42.156:80 [HTTP]"
+  - name: "🌐 海外 90.156.160.234:3128 [HTTP]"
     type: http
-    server: 160.202.42.156
-    port: 80
+    server: 90.156.160.234
+    port: 3128
     udp: true
-  - name: "🇮🇩 印尼 103.145.149.230:80 [HTTP]"
+  - name: "🇵🇭 菲律宾 119.94.185.43:8082 [HTTP]"
     type: http
-    server: 103.145.149.230
-    port: 80
-    udp: true
-  - name: "🇺🇸 美国 104.218.199.61:16062 [HTTP]"
-    type: http
-    server: 104.218.199.61
-    port: 16062
-    udp: true
-  - name: "🇮🇩 印尼 157.20.207.39:8080 [HTTP]"
-    type: http
-    server: 157.20.207.39
-    port: 8080
-    udp: true
-  - name: "🇺🇦 乌克兰 176.118.150.178:8080 [HTTP]"
-    type: http
-    server: 176.118.150.178
-    port: 8080
-    udp: true
-  - name: "🇮🇩 印尼 103.193.144.91:8080 [HTTP]"
-    type: http
-    server: 103.193.144.91
-    port: 8080
-    udp: true
-  - name: "🇧🇬 保加利亚 213.169.33.7:8001 [HTTP]"
-    type: http
-    server: 213.169.33.7
-    port: 8001
-    udp: true
-  - name: "🇮🇩 印尼 103.147.134.79:8082 [HTTP]"
-    type: http
-    server: 103.147.134.79
+    server: 119.94.185.43
     port: 8082
     udp: true
-  - name: "🇲🇽 墨西哥 38.58.174.85:999 [HTTP]"
+  - name: "🇹🇭 泰国 180.180.156.68:80 [HTTP]"
     type: http
-    server: 38.58.174.85
-    port: 999
-    udp: true
-  - name: "🇮🇩 印尼 103.172.42.211:1111 [HTTP]"
-    type: http
-    server: 103.172.42.211
-    port: 1111
-    udp: true
-  - name: "🇿🇦 南非 102.135.142.234:12354 [HTTP]"
-    type: http
-    server: 102.135.142.234
-    port: 12354
-    udp: true
-  - name: "🇺🇸 美国 34.43.46.91:80 [HTTP]"
-    type: http
-    server: 34.43.46.91
+    server: 180.180.156.68
     port: 80
     udp: true
-  - name: "🇩🇪 德国 46.232.249.209:40001 [HTTP]"
+  - name: "🇭🇰 香港 45.155.226.177:3128 [HTTP]"
     type: http
-    server: 46.232.249.209
-    port: 40001
-    udp: true
-  - name: "🇸🇬 新加坡 4.144.146.21:80 [HTTP]"
-    type: http
-    server: 4.144.146.21
-    port: 80
-    udp: true
-  - name: "🇨🇲 喀麦隆 102.244.78.61:8084 [HTTP]"
-    type: http
-    server: 102.244.78.61
-    port: 8084
-    udp: true
-  - name: "🇨🇲 喀麦隆 102.244.78.61:8089 [HTTP]"
-    type: http
-    server: 102.244.78.61
-    port: 8089
-    udp: true
-  - name: "🇨🇲 喀麦隆 102.244.78.61:8090 [HTTP]"
-    type: http
-    server: 102.244.78.61
-    port: 8090
-    udp: true
-  - name: "🇺🇸 美国 34.43.46.91:443 [HTTP]"
-    type: http
-    server: 34.43.46.91
-    port: 443
-    udp: true
-  - name: "🇵🇱 波兰 185.238.238.169:58080 [HTTP]"
-    type: http
-    server: 185.238.238.169
-    port: 58080
-    udp: true
-  - name: "🌐 海外 177.234.217.45:999 [HTTP]"
-    type: http
-    server: 177.234.217.45
-    port: 999
-    udp: true
-  - name: "🇩🇪 德国 128.140.113.110:3128 [HTTP]"
-    type: http
-    server: 128.140.113.110
+    server: 45.155.226.177
     port: 3128
     udp: true
-  - name: "🇫🇮 芬兰 65.108.159.129:5153 [HTTP]"
+  - name: "🇰🇷 韩国 132.226.175.103:1080 [HTTP]"
     type: http
-    server: 65.108.159.129
-    port: 5153
+    server: 132.226.175.103
+    port: 1080
     udp: true
-  - name: "🇷🇺 俄罗斯 46.17.43.219:7890 [HTTP]"
+  - name: "🇵🇭 菲律宾 124.217.0.75:8082 [HTTP]"
     type: http
-    server: 46.17.43.219
-    port: 7890
+    server: 124.217.0.75
+    port: 8082
     udp: true
-  - name: "🇦🇷 阿根廷 45.65.226.173:999 [HTTP]"
+  - name: "🇮🇳 印度 45.195.90.142:8080 [HTTP]"
     type: http
-    server: 45.65.226.173
+    server: 45.195.90.142
+    port: 8080
+    udp: true
+  - name: "🇯🇵 日本 168.138.47.101:3128 [HTTP]"
+    type: http
+    server: 168.138.47.101
+    port: 3128
+    udp: true
+  - name: "🇲🇽 墨西哥 187.190.58.152:8081 [HTTP]"
+    type: http
+    server: 187.190.58.152
+    port: 8081
+    udp: true
+  - name: "🇮🇩 印尼 103.166.158.41:1080 [HTTP]"
+    type: http
+    server: 103.166.158.41
+    port: 1080
+    udp: true
+  - name: "🇺🇸 美国 75.109.189.86:8080 [HTTP]"
+    type: http
+    server: 75.109.189.86
+    port: 8080
+    udp: true
+  - name: "🇮🇩 印尼 103.80.82.7:8181 [HTTP]"
+    type: http
+    server: 103.80.82.7
+    port: 8181
+    udp: true
+  - name: "🇹🇷 土耳其 46.221.37.145:8080 [HTTP]"
+    type: http
+    server: 46.221.37.145
+    port: 8080
+    udp: true
+  - name: "🇮🇩 印尼 160.22.134.77:1111 [HTTP]"
+    type: http
+    server: 160.22.134.77
+    port: 1111
+    udp: true
+  - name: "🇹🇭 泰国 184.82.160.242:8080 [HTTP]"
+    type: http
+    server: 184.82.160.242
+    port: 8080
+    udp: true
+  - name: "🇦🇷 阿根廷 45.232.0.2:8080 [HTTP]"
+    type: http
+    server: 45.232.0.2
+    port: 8080
+    udp: true
+  - name: "🇮🇷 伊朗 188.136.208.242:8080 [HTTP]"
+    type: http
+    server: 188.136.208.242
+    port: 8080
+    udp: true
+  - name: "🇲🇽 墨西哥 187.249.158.194:999 [HTTP]"
+    type: http
+    server: 187.249.158.194
     port: 999
+    udp: true
+  - name: "🇺🇸 美国 24.172.82.94:53281 [HTTP]"
+    type: http
+    server: 24.172.82.94
+    port: 53281
+    udp: true
+  - name: "🇻🇳 越南 27.72.98.89:8443 [HTTP]"
+    type: http
+    server: 27.72.98.89
+    port: 8443
+    udp: true
+  - name: "🇮🇩 印尼 103.156.14.35:8080 [HTTP]"
+    type: http
+    server: 103.156.14.35
+    port: 8080
+    udp: true
+  - name: "🇮🇩 印尼 103.179.252.74:3128 [HTTP]"
+    type: http
+    server: 103.179.252.74
+    port: 3128
+    udp: true
+  - name: "🇮🇩 印尼 103.132.54.42:8080 [HTTP]"
+    type: http
+    server: 103.132.54.42
+    port: 8080
+    udp: true
+  - name: "🇮🇩 印尼 160.22.45.10:8080 [HTTP]"
+    type: http
+    server: 160.22.45.10
+    port: 8080
+    udp: true
+  - name: "🇧🇩 孟加拉 103.245.110.198:1452 [HTTP]"
+    type: http
+    server: 103.245.110.198
+    port: 1452
+    udp: true
+  - name: "🌐 海外 161.22.33.152:999 [HTTP]"
+    type: http
+    server: 161.22.33.152
+    port: 999
+    udp: true
+  - name: "🌐 海外 65.20.230.118:9090 [HTTP]"
+    type: http
+    server: 65.20.230.118
+    port: 9090
+    udp: true
+  - name: "🇮🇩 印尼 103.157.79.5:8080 [HTTP]"
+    type: http
+    server: 103.157.79.5
+    port: 8080
+    udp: true
+  - name: "🇮🇩 印尼 202.136.83.167:8090 [HTTP]"
+    type: http
+    server: 202.136.83.167
+    port: 8090
+    udp: true
+  - name: "🌐 海外 129.151.130.247:1111 [HTTP]"
+    type: http
+    server: 129.151.130.247
+    port: 1111
+    udp: true
+  - name: "🇮🇩 印尼 121.101.131.110:8080 [HTTP]"
+    type: http
+    server: 121.101.131.110
+    port: 8080
+    udp: true
+  - name: "🇹🇭 泰国 96.30.79.84:8081 [HTTP]"
+    type: http
+    server: 96.30.79.84
+    port: 8081
+    udp: true
+  - name: "🇮🇩 印尼 103.160.12.159:8080 [HTTP]"
+    type: http
+    server: 103.160.12.159
+    port: 8080
+    udp: true
+  - name: "🇷🇺 俄罗斯 62.213.13.54:3128 [HTTP]"
+    type: http
+    server: 62.213.13.54
+    port: 3128
+    udp: true
+  - name: "🇵🇰 巴基斯坦 206.42.117.129:8080 [HTTP]"
+    type: http
+    server: 206.42.117.129
+    port: 8080
+    udp: true
+  - name: "🌐 海外 185.166.27.208:2020 [HTTP]"
+    type: http
+    server: 185.166.27.208
+    port: 2020
+    udp: true
+  - name: "🌐 海外 128.0.7.188:8085 [HTTP]"
+    type: http
+    server: 128.0.7.188
+    port: 8085
+    udp: true
+  - name: "🇮🇩 印尼 203.175.103.179:3125 [HTTP]"
+    type: http
+    server: 203.175.103.179
+    port: 3125
     udp: true
   - name: "🌐 海外 200.52.148.212:999 [HTTP]"
     type: http
     server: 200.52.148.212
     port: 999
     udp: true
-  - name: "🇲🇽 墨西哥 206.135.47.108:999 [HTTP]"
+  - name: "🇺🇸 美国 34.43.46.91:443 [HTTP]"
     type: http
-    server: 206.135.47.108
-    port: 999
+    server: 34.43.46.91
+    port: 443
     udp: true
-  - name: "🇦🇷 阿根廷 200.70.35.2:8080 [HTTP]"
+  - name: "🇸🇬 新加坡 4.144.146.21:80 [HTTP]"
     type: http
-    server: 200.70.35.2
-    port: 8080
-    udp: true
-  - name: "🇨🇴 哥伦比亚 186.96.111.214:999 [HTTP]"
-    type: http
-    server: 186.96.111.214
-    port: 999
-    udp: true
-  - name: "🌐 海外 177.234.217.43:999 [HTTP]"
-    type: http
-    server: 177.234.217.43
-    port: 999
-    udp: true
-  - name: "🇧🇬 保加利亚 213.169.33.3:8001 [HTTP]"
-    type: http
-    server: 213.169.33.3
-    port: 8001
-    udp: true
-  - name: "🌐 海外 154.73.28.161:8080 [HTTP]"
-    type: http
-    server: 154.73.28.161
-    port: 8080
-    udp: true
-  - name: "🇮🇩 印尼 9.154.247.138:8080 [HTTP]"
-    type: http
-    server: 9.154.247.138
-    port: 8080
-    udp: true
-  - name: "🌐 海外 38.51.48.181:999 [HTTP]"
-    type: http
-    server: 38.51.48.181
-    port: 999
-    udp: true
-  - name: "🌐 海外 177.234.217.84:999 [HTTP]"
-    type: http
-    server: 177.234.217.84
-    port: 999
-    udp: true
-  - name: "🇮🇩 印尼 45.198.11.2:8080 [HTTP]"
-    type: http
-    server: 45.198.11.2
-    port: 8080
-    udp: true
-  - name: "🌐 海外 154.127.70.1:1981 [HTTP]"
-    type: http
-    server: 154.127.70.1
-    port: 1981
-    udp: true
-  - name: "🌐 海外 154.59.56.78:999 [HTTP]"
-    type: http
-    server: 154.59.56.78
-    port: 999
-    udp: true
-  - name: "🌐 海外 45.190.87.241:999 [HTTP]"
-    type: http
-    server: 45.190.87.241
-    port: 999
-    udp: true
-  - name: "🇺🇸 美国 104.36.237.230:8080 [HTTP]"
-    type: http
-    server: 104.36.237.230
-    port: 8080
-    udp: true
-  - name: "🇧🇩 孟加拉 103.93.141.249:8080 [HTTP]"
-    type: http
-    server: 103.93.141.249
-    port: 8080
-    udp: true
-  - name: "🇺🇸 美国 174.75.34.109:80 [HTTP]"
-    type: http
-    server: 174.75.34.109
+    server: 4.144.146.21
     port: 80
     udp: true
-  - name: "🇮🇩 印尼 202.58.75.98:7777 [HTTP]"
+  - name: "🇿🇦 南非 147.161.162.50:11368 [HTTP]"
     type: http
-    server: 202.58.75.98
-    port: 7777
+    server: 147.161.162.50
+    port: 11368
+    udp: true
+  - name: "🇿🇦 南非 147.161.162.50:13568 [HTTP]"
+    type: http
+    server: 147.161.162.50
+    port: 13568
+    udp: true
+  - name: "🇿🇦 南非 147.161.162.50:10118 [HTTP]"
+    type: http
+    server: 147.161.162.50
+    port: 10118
+    udp: true
+  - name: "🇺🇸 美国 34.43.46.91:80 [HTTP]"
+    type: http
+    server: 34.43.46.91
+    port: 80
+    udp: true
+  - name: "🇻🇳 越南 103.82.20.76:8080 [HTTP]"
+    type: http
+    server: 103.82.20.76
+    port: 8080
+    udp: true
+  - name: "🇩🇪 德国 128.140.113.110:4145 [HTTP]"
+    type: http
+    server: 128.140.113.110
+    port: 4145
+    udp: true
+  - name: "🇫🇮 芬兰 65.108.159.129:4145 [HTTP]"
+    type: http
+    server: 65.108.159.129
+    port: 4145
+    udp: true
+  - name: "🇨🇲 喀麦隆 102.244.78.61:8081 [HTTP]"
+    type: http
+    server: 102.244.78.61
+    port: 8081
+    udp: true
+  - name: "🇧🇩 孟加拉 203.76.222.172:1212 [HTTP]"
+    type: http
+    server: 203.76.222.172
+    port: 1212
+    udp: true
+  - name: "🇲🇽 墨西哥 201.159.126.85:8081 [HTTP]"
+    type: http
+    server: 201.159.126.85
+    port: 8081
+    udp: true
+  - name: "🌐 海外 177.234.217.45:999 [HTTP]"
+    type: http
+    server: 177.234.217.45
+    port: 999
+    udp: true
+  - name: "🇸🇬 新加坡 8.219.97.248:80 [HTTP]"
+    type: http
+    server: 8.219.97.248
+    port: 80
+    udp: true
+  - name: "🇲🇽 墨西哥 201.77.108.25:999 [HTTP]"
+    type: http
+    server: 201.77.108.25
+    port: 999
+    udp: true
+  - name: "🇮🇳 印度 103.48.70.200:83 [HTTP]"
+    type: http
+    server: 103.48.70.200
+    port: 83
+    udp: true
+  - name: "🇲🇽 墨西哥 206.135.47.110:999 [HTTP]"
+    type: http
+    server: 206.135.47.110
+    port: 999
+    udp: true
+  - name: "🇦🇷 阿根廷 64.76.33.108:999 [HTTP]"
+    type: http
+    server: 64.76.33.108
+    port: 999
+    udp: true
+  - name: "🇨🇲 喀麦隆 102.244.78.61:8084 [HTTP]"
+    type: http
+    server: 102.244.78.61
+    port: 8084
+    udp: true
+  - name: "🇮🇩 印尼 103.156.96.131:8080 [HTTP]"
+    type: http
+    server: 103.156.96.131
+    port: 8080
+    udp: true
+  - name: "🇮🇩 印尼 103.124.138.93:8080 [HTTP]"
+    type: http
+    server: 103.124.138.93
+    port: 8080
+    udp: true
+  - name: "🌐 海外 13.143.240.243:999 [HTTP]"
+    type: http
+    server: 13.143.240.243
+    port: 999
+    udp: true
+  - name: "🇲🇽 墨西哥 206.135.47.109:999 [HTTP]"
+    type: http
+    server: 206.135.47.109
+    port: 999
+    udp: true
+  - name: "🇫🇷 法国 80.65.211.149:8888 [HTTP]"
+    type: http
+    server: 80.65.211.149
+    port: 8888
+    udp: true
+  - name: "🇨🇴 哥伦比亚 179.1.127.91:999 [HTTP]"
+    type: http
+    server: 179.1.127.91
+    port: 999
+    udp: true
+  - name: "🇨🇲 喀麦隆 102.244.78.61:8083 [HTTP]"
+    type: http
+    server: 102.244.78.61
+    port: 8083
+    udp: true
+  - name: "🇺🇸 美国 138.68.60.8:1080 [SOCKS5]"
+    type: socks5
+    server: 138.68.60.8
+    port: 1080
+    udp: true
+  - name: "🇺🇸 美国 209.97.150.167:1080 [SOCKS5]"
+    type: socks5
+    server: 209.97.150.167
+    port: 1080
+    udp: true
+  - name: "🇺🇸 美国 198.199.86.11:1080 [SOCKS5]"
+    type: socks5
+    server: 198.199.86.11
+    port: 1080
+    udp: true
+  - name: "🇰🇷 韩国 121.169.46.116:1090 [SOCKS5]"
+    type: socks5
+    server: 121.169.46.116
+    port: 1090
+    udp: true
+  - name: "🇨🇦 加拿大 159.203.61.169:1080 [SOCKS5]"
+    type: socks5
+    server: 159.203.61.169
+    port: 1080
+    udp: true
+  - name: "🇭🇰 香港 123.203.138.220:1080 [SOCKS5]"
+    type: socks5
+    server: 123.203.138.220
+    port: 1080
+    udp: true
+  - name: "🇺🇸 美国 31.44.5.192:1081 [SOCKS5]"
+    type: socks5
+    server: 31.44.5.192
+    port: 1081
+    udp: true
+  - name: "🇨🇳 北京 39.106.165.196:1080 [SOCKS5]"
+    type: socks5
+    server: 39.106.165.196
+    port: 1080
+    udp: true
+  - name: "🇩🇪 德国 116.202.32.250:1089 [SOCKS5]"
+    type: socks5
+    server: 116.202.32.250
+    port: 1089
+    udp: true
+  - name: "🇯🇵 日本 101.36.104.239:10808 [SOCKS5]"
+    type: socks5
+    server: 101.36.104.239
+    port: 10808
+    udp: true
+  - name: "🇬🇧 英国 134.209.29.120:1080 [SOCKS5]"
+    type: socks5
+    server: 134.209.29.120
+    port: 1080
+    udp: true
+  - name: "🇨🇳 江西 218.77.50.79:6666 [SOCKS5]"
+    type: socks5
+    server: 218.77.50.79
+    port: 6666
+    udp: true
+  - name: "🇨🇳 广东 221.176.85.226:1080 [SOCKS5]"
+    type: socks5
+    server: 221.176.85.226
+    port: 1080
+    udp: true
+  - name: "🇩🇪 德国 161.35.70.249:1080 [SOCKS5]"
+    type: socks5
+    server: 161.35.70.249
+    port: 1080
+    udp: true
+  - name: "🇮🇩 印尼 27.112.79.97:1080 [SOCKS5]"
+    type: socks5
+    server: 27.112.79.97
+    port: 1080
+    udp: true
+  - name: "🇯🇵 日本 101.36.104.46:10808 [SOCKS5]"
+    type: socks5
+    server: 101.36.104.46
+    port: 10808
+    udp: true
+  - name: "🇨🇳 湖北 58.19.233.33:1080 [SOCKS5]"
+    type: socks5
+    server: 58.19.233.33
+    port: 1080
+    udp: true
+  - name: "🇯🇵 日本 43.133.21.24:3001 [SOCKS5]"
+    type: socks5
+    server: 43.133.21.24
+    port: 3001
+    udp: true
+  - name: "🇯🇵 日本 139.162.78.109:1080 [SOCKS5]"
+    type: socks5
+    server: 139.162.78.109
+    port: 1080
+    udp: true
+  - name: "🇨🇳 广东 221.176.85.228:1080 [SOCKS5]"
+    type: socks5
+    server: 221.176.85.228
+    port: 1080
+    udp: true
+  - name: "🇩🇪 德国 92.5.68.29:1080 [SOCKS5]"
+    type: socks5
+    server: 92.5.68.29
+    port: 1080
+    udp: true
+  - name: "🇯🇵 日本 103.13.19.219:10808 [SOCKS5]"
+    type: socks5
+    server: 103.13.19.219
+    port: 10808
+    udp: true
+  - name: "🇭🇰 香港 172.81.111.156:10001 [SOCKS5]"
+    type: socks5
+    server: 172.81.111.156
+    port: 10001
+    udp: true
+  - name: "🇸🇬 新加坡 128.199.202.122:1080 [SOCKS5]"
+    type: socks5
+    server: 128.199.202.122
+    port: 1080
+    udp: true
+  - name: "🇭🇰 香港 38.147.191.16:1081 [SOCKS5]"
+    type: socks5
+    server: 38.147.191.16
+    port: 1081
+    udp: true
+  - name: "🇵🇱 波兰 145.239.94.103:10084 [SOCKS5]"
+    type: socks5
+    server: 145.239.94.103
+    port: 10084
+    udp: true
+  - name: "🇭🇰 香港 103.119.1.160:5555 [SOCKS5]"
+    type: socks5
+    server: 103.119.1.160
+    port: 5555
+    udp: true
+  - name: "🇷🇺 俄罗斯 194.67.120.144:1080 [SOCKS5]"
+    type: socks5
+    server: 194.67.120.144
+    port: 1080
+    udp: true
+  - name: "🇳🇱 荷兰 5.255.103.55:1080 [SOCKS5]"
+    type: socks5
+    server: 5.255.103.55
+    port: 1080
+    udp: true
+  - name: "🇮🇳 印度 139.59.1.14:1080 [SOCKS5]"
+    type: socks5
+    server: 139.59.1.14
+    port: 1080
+    udp: true
+  - name: "🇭🇰 香港 45.194.33.12:30002 [SOCKS5]"
+    type: socks5
+    server: 45.194.33.12
+    port: 30002
+    udp: true
+  - name: "🇬🇧 英国 141.147.109.224:1080 [SOCKS5]"
+    type: socks5
+    server: 141.147.109.224
+    port: 1080
+    udp: true
+  - name: "🇨🇳 广东 221.176.85.234:1080 [SOCKS5]"
+    type: socks5
+    server: 221.176.85.234
+    port: 1080
+    udp: true
+  - name: "🇵🇱 波兰 145.239.95.118:10084 [SOCKS5]"
+    type: socks5
+    server: 145.239.95.118
+    port: 10084
+    udp: true
+  - name: "🇧🇩 孟加拉 119.148.7.10:22122 [SOCKS5]"
+    type: socks5
+    server: 119.148.7.10
+    port: 22122
+    udp: true
+  - name: "🇨🇿 捷克 176.62.229.17:1080 [SOCKS5]"
+    type: socks5
+    server: 176.62.229.17
+    port: 1080
+    udp: true
+  - name: "🇧🇩 孟加拉 118.179.93.24:9090 [SOCKS5]"
+    type: socks5
+    server: 118.179.93.24
+    port: 9090
+    udp: true
+  - name: "🇮🇳 印度 82.180.146.251:10800 [SOCKS5]"
+    type: socks5
+    server: 82.180.146.251
+    port: 10800
+    udp: true
+  - name: "🇻🇳 越南 118.68.15.86:1080 [SOCKS5]"
+    type: socks5
+    server: 118.68.15.86
+    port: 1080
+    udp: true
+  - name: "🇧🇩 孟加拉 118.179.155.202:9090 [SOCKS5]"
+    type: socks5
+    server: 118.179.155.202
+    port: 9090
+    udp: true
+  - name: "🇵🇰 巴基斯坦 175.107.30.110:1080 [SOCKS5]"
+    type: socks5
+    server: 175.107.30.110
+    port: 1080
+    udp: true
+  - name: "🇻🇳 越南 113.160.188.21:1080 [SOCKS5]"
+    type: socks5
+    server: 113.160.188.21
+    port: 1080
+    udp: true
+  - name: "🇺🇦 乌克兰 46.174.121.3:8090 [SOCKS5]"
+    type: socks5
+    server: 46.174.121.3
+    port: 8090
+    udp: true
+  - name: "🇧🇩 孟加拉 118.179.136.122:9090 [SOCKS5]"
+    type: socks5
+    server: 118.179.136.122
+    port: 9090
+    udp: true
+  - name: "🇺🇸 美国 69.55.49.177:38182 [SOCKS5]"
+    type: socks5
+    server: 69.55.49.177
+    port: 38182
+    udp: true
+  - name: "🇮🇳 印度 163.53.204.178:9813 [SOCKS5]"
+    type: socks5
+    server: 163.53.204.178
+    port: 9813
+    udp: true
+  - name: "🇹🇷 土耳其 95.3.92.2:1080 [SOCKS5]"
+    type: socks5
+    server: 95.3.92.2
+    port: 1080
+    udp: true
+  - name: "🇮🇳 印度 103.124.172.134:1080 [SOCKS5]"
+    type: socks5
+    server: 103.124.172.134
+    port: 1080
+    udp: true
+  - name: "🇸🇪 瑞典 46.246.12.31:1080 [SOCKS5]"
+    type: socks5
+    server: 46.246.12.31
+    port: 1080
+    udp: true
+  - name: "🇸🇪 瑞典 171.25.158.95:1080 [SOCKS5]"
+    type: socks5
+    server: 171.25.158.95
+    port: 1080
+    udp: true
+  - name: "🇹🇷 土耳其 85.97.190.88:1080 [SOCKS5]"
+    type: socks5
+    server: 85.97.190.88
+    port: 1080
+    udp: true
+  - name: "🇺🇸 美国 107.174.30.94:1080 [SOCKS5]"
+    type: socks5
+    server: 107.174.30.94
+    port: 1080
+    udp: true
+  - name: "🇮🇩 印尼 203.83.43.120:1080 [SOCKS5]"
+    type: socks5
+    server: 203.83.43.120
+    port: 1080
+    udp: true
+  - name: "🇵🇰 巴基斯坦 160.250.123.94:1080 [SOCKS5]"
+    type: socks5
+    server: 160.250.123.94
+    port: 1080
+    udp: true
+  - name: "🇺🇸 美国 66.170.46.17:1080 [SOCKS5]"
+    type: socks5
+    server: 66.170.46.17
+    port: 1080
+    udp: true
+  - name: "🇮🇩 印尼 202.43.165.140:10802 [SOCKS5]"
+    type: socks5
+    server: 202.43.165.140
+    port: 10802
+    udp: true
+  - name: "🇰🇭 柬埔寨 203.189.135.105:1080 [SOCKS5]"
+    type: socks5
+    server: 203.189.135.105
+    port: 1080
+    udp: true
+  - name: "🇰🇭 柬埔寨 103.239.52.100:1080 [SOCKS5]"
+    type: socks5
+    server: 103.239.52.100
+    port: 1080
+    udp: true
+  - name: "🇨🇳 上海 111.231.166.199:1080 [SOCKS5]"
+    type: socks5
+    server: 111.231.166.199
+    port: 1080
+    udp: true
+  - name: "🇭🇰 香港 45.194.33.12:30001 [SOCKS5]"
+    type: socks5
+    server: 45.194.33.12
+    port: 30001
+    udp: true
+  - name: "🇺🇸 美国 38.172.125.42:1080 [SOCKS5]"
+    type: socks5
+    server: 38.172.125.42
+    port: 1080
+    udp: true
+  - name: "🇧🇩 孟加拉 202.4.101.249:9090 [SOCKS5]"
+    type: socks5
+    server: 202.4.101.249
+    port: 9090
+    udp: true
+  - name: "🇮🇩 印尼 103.36.11.18:8199 [SOCKS5]"
+    type: socks5
+    server: 103.36.11.18
+    port: 8199
+    udp: true
+  - name: "🇮🇩 印尼 103.119.60.219:1080 [SOCKS5]"
+    type: socks5
+    server: 103.119.60.219
+    port: 1080
+    udp: true
+  - name: "🇰🇭 柬埔寨 43.230.192.242:1080 [SOCKS5]"
+    type: socks5
+    server: 43.230.192.242
+    port: 1080
+    udp: true
+  - name: "🇺🇸 美国 74.131.237.22:1080 [SOCKS5]"
+    type: socks5
+    server: 74.131.237.22
+    port: 1080
+    udp: true
+  - name: "🇧🇩 孟加拉 203.76.123.6:1080 [SOCKS5]"
+    type: socks5
+    server: 203.76.123.6
+    port: 1080
+    udp: true
+  - name: "🇬🇧 英国 78.129.141.197:1080 [SOCKS5]"
+    type: socks5
+    server: 78.129.141.197
+    port: 1080
+    udp: true
+  - name: "🇺🇸 美国 72.194.42.156:4145 [SOCKS5]"
+    type: socks5
+    server: 72.194.42.156
+    port: 4145
+    udp: true
+  - name: "🇰🇭 柬埔寨 202.62.55.95:1080 [SOCKS5]"
+    type: socks5
+    server: 202.62.55.95
+    port: 1080
+    udp: true
+  - name: "🇺🇦 乌克兰 194.44.255.112:8090 [SOCKS5]"
+    type: socks5
+    server: 194.44.255.112
+    port: 8090
+    udp: true
+  - name: "🌐 海外 103.96.233.10:1080 [SOCKS5]"
+    type: socks5
+    server: 103.96.233.10
+    port: 1080
+    udp: true
+  - name: "🇷🇺 俄罗斯 95.84.178.39:1080 [SOCKS5]"
+    type: socks5
+    server: 95.84.178.39
+    port: 1080
+    udp: true
+  - name: "🇹🇷 土耳其 79.98.32.62:1080 [SOCKS5]"
+    type: socks5
+    server: 79.98.32.62
+    port: 1080
+    udp: true
+  - name: "🇮🇩 印尼 103.135.226.234:1080 [SOCKS5]"
+    type: socks5
+    server: 103.135.226.234
+    port: 1080
+    udp: true
+  - name: "🇺🇦 乌克兰 212.3.127.242:10801 [SOCKS5]"
+    type: socks5
+    server: 212.3.127.242
+    port: 10801
+    udp: true
+  - name: "🇷🇺 俄罗斯 176.215.246.216:1080 [SOCKS5]"
+    type: socks5
+    server: 176.215.246.216
+    port: 1080
+    udp: true
+  - name: "🇿🇦 南非 102.211.132.75:1080 [SOCKS5]"
+    type: socks5
+    server: 102.211.132.75
+    port: 1080
+    udp: true
+  - name: "🇳🇱 荷兰 128.199.37.92:1080 [SOCKS5]"
+    type: socks5
+    server: 128.199.37.92
+    port: 1080
+    udp: true
+  - name: "🇦🇺 澳大利亚 159.196.163.64:80 [SOCKS5]"
+    type: socks5
+    server: 159.196.163.64
+    port: 80
+    udp: true
+  - name: "🇺🇸 美国 109.105.218.62:1080 [SOCKS5]"
+    type: socks5
+    server: 109.105.218.62
+    port: 1080
+    udp: true
+  - name: "🇭🇰 香港 151.158.134.29:1080 [SOCKS5]"
+    type: socks5
+    server: 151.158.134.29
+    port: 1080
+    udp: true
+  - name: "🇰🇷 韩国 183.106.215.208:1080 [SOCKS5]"
+    type: socks5
+    server: 183.106.215.208
+    port: 1080
+    udp: true
+  - name: "🇺🇸 美国 45.61.129.165:9050 [SOCKS5]"
+    type: socks5
+    server: 45.61.129.165
+    port: 9050
+    udp: true
+  - name: "🇩🇪 德国 49.13.22.249:10805 [SOCKS5]"
+    type: socks5
+    server: 49.13.22.249
+    port: 10805
+    udp: true
+  - name: "🇪🇸 西班牙 31.24.44.115:9050 [SOCKS5]"
+    type: socks5
+    server: 31.24.44.115
+    port: 9050
+    udp: true
+  - name: "🇩🇪 德国 5.75.133.113:10805 [SOCKS5]"
+    type: socks5
+    server: 5.75.133.113
+    port: 10805
+    udp: true
+  - name: "🇷🇺 俄罗斯 91.210.171.169:9050 [SOCKS5]"
+    type: socks5
+    server: 91.210.171.169
+    port: 9050
+    udp: true
+  - name: "🇫🇮 芬兰 65.21.252.66:10805 [SOCKS5]"
+    type: socks5
+    server: 65.21.252.66
+    port: 10805
+    udp: true
+  - name: "🇺🇦 乌克兰 193.218.118.128:1080 [SOCKS5]"
+    type: socks5
+    server: 193.218.118.128
+    port: 1080
+    udp: true
+  - name: "🇫🇷 法国 158.220.101.43:1080 [SOCKS5]"
+    type: socks5
+    server: 158.220.101.43
+    port: 1080
+    udp: true
+  - name: "🇻🇳 越南 160.187.1.225:9050 [SOCKS5]"
+    type: socks5
+    server: 160.187.1.225
+    port: 9050
+    udp: true
+  - name: "🇷🇺 俄罗斯 141.101.196.63:1080 [SOCKS5]"
+    type: socks5
+    server: 141.101.196.63
+    port: 1080
+    udp: true
+  - name: "🇩🇪 德国 49.13.22.249:10802 [SOCKS5]"
+    type: socks5
+    server: 49.13.22.249
+    port: 10802
+    udp: true
+  - name: "🇮🇩 印尼 103.18.78.156:1080 [SOCKS5]"
+    type: socks5
+    server: 103.18.78.156
+    port: 1080
+    udp: true
+  - name: "🇧🇩 孟加拉 103.118.85.146:1080 [SOCKS5]"
+    type: socks5
+    server: 103.118.85.146
+    port: 1080
+    udp: true
+  - name: "🇧🇩 孟加拉 103.9.185.33:1080 [SOCKS5]"
+    type: socks5
+    server: 103.9.185.33
+    port: 1080
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.42:35753 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.42
+    port: 35753
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.47:8128 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.47
+    port: 8128
+    udp: true
+  - name: "🇩🇪 德国 49.13.22.249:10813 [SOCKS5]"
+    type: socks5
+    server: 49.13.22.249
+    port: 10813
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.40:4172 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.40
+    port: 4172
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.46:4907 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.46
+    port: 4907
+    udp: true
+  - name: "🇮🇩 印尼 103.236.190.197:1080 [SOCKS5]"
+    type: socks5
+    server: 103.236.190.197
+    port: 1080
+    udp: true
+  - name: "🇷🇺 俄罗斯 188.226.27.24:1080 [SOCKS5]"
+    type: socks5
+    server: 188.226.27.24
+    port: 1080
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.42:4344 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.42
+    port: 4344
+    udp: true
+  - name: "🇦🇷 阿根廷 45.169.106.140:1086 [SOCKS5]"
+    type: socks5
+    server: 45.169.106.140
+    port: 1086
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.46:10993 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.46
+    port: 10993
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.40:4493 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.40
+    port: 4493
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.42:30325 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.42
+    port: 30325
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.40:4378 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.40
+    port: 4378
+    udp: true
+  - name: "🇳🇱 荷兰 45.74.31.46:5569 [SOCKS5]"
+    type: socks5
+    server: 45.74.31.46
+    port: 5569
     udp: true
 
 proxy-groups:
@@ -1351,10 +1126,11 @@ proxy-groups:
       - ⚡ 自动优选(国内)
       - 🇨🇳 全部国内
       - 🗼 北京节点
-      - 🌶️ 重庆节点
       - 🌴 广东节点
-      - 🏞️ 四川节点
-      - 🌾 山东节点
+      - 🌊 浙江节点
+      - 🍃 江西节点
+      - 🍂 湖北节点
+      - 🏙️ 上海节点
       - 🌍 海外节点
       - DIRECT
 
@@ -1364,353 +1140,284 @@ proxy-groups:
     interval: 300
     tolerance: 50
     proxies:
-      - 🇨🇳 北京 39.106.165.196:1080 [SOCKS5]
-      - 🇨🇳 重庆 113.249.111.67:1080 [SOCKS5]
-      - 🇨🇳 广东 36.213.79.159:1080 [SOCKS5]
-      - 🇨🇳 四川 222.211.216.201:7890 [SOCKS5]
-      - 🇨🇳 北京 116.147.56.246:7890 [SOCKS5]
-      - 🇨🇳 北京 114.253.59.75:7890 [SOCKS5]
-      - 🇨🇳 北京 114.244.218.227:8888 [HTTP]
-      - 🇨🇳 北京 114.248.85.85:8888 [HTTP]
-      - 🇨🇳 北京 114.249.231.106:8888 [HTTP]
       - 🇨🇳 北京 114.253.7.197:8888 [HTTP]
-      - 🇨🇳 北京 111.192.215.89:8888 [HTTP]
-      - 🇨🇳 北京 114.244.212.147:8888 [HTTP]
-      - 🇨🇳 北京 114.252.191.93:8888 [HTTP]
-      - 🇨🇳 北京 114.253.67.30:8888 [HTTP]
-      - 🇨🇳 北京 123.113.149.19:8888 [HTTP]
-      - 🇨🇳 北京 114.244.211.247:8888 [HTTP]
-      - 🇨🇳 北京 114.244.223.68:8888 [HTTP]
-      - 🇨🇳 广东 58.254.153.146:17981 [HTTP]
-      - 🇨🇳 北京 114.254.50.184:8888 [HTTP]
-      - 🇨🇳 北京 101.251.204.174:8080 [HTTP]
-      - 🇨🇳 四川 222.211.216.201:7890 [HTTP]
-      - 🇨🇳 北京 114.249.211.7:8888 [HTTP]
+      - 🇨🇳 广东 218.207.164.174:7890 [HTTP]
+      - 🇨🇳 浙江 61.130.176.21:20827 [HTTP]
       - 🇨🇳 北京 123.115.143.194:8888 [HTTP]
-      - 🇨🇳 北京 123.121.133.113:8888 [HTTP]
-      - 🇨🇳 北京 114.253.7.235:8888 [HTTP]
-      - 🇨🇳 北京 114.253.5.21:8888 [HTTP]
-      - 🇨🇳 山东 113.120.110.50:1081 [HTTP]
+      - 🇨🇳 北京 111.192.53.176:8888 [HTTP]
+      - 🇨🇳 北京 123.121.122.125:8888 [HTTP]
+      - 🇨🇳 北京 39.106.165.196:1080 [SOCKS5]
+      - 🇨🇳 江西 218.77.50.79:6666 [SOCKS5]
+      - 🇨🇳 广东 221.176.85.226:1080 [SOCKS5]
+      - 🇨🇳 湖北 58.19.233.33:1080 [SOCKS5]
+      - 🇨🇳 广东 221.176.85.228:1080 [SOCKS5]
+      - 🇨🇳 广东 221.176.85.234:1080 [SOCKS5]
+      - 🇨🇳 上海 111.231.166.199:1080 [SOCKS5]
 
   - name: 🇨🇳 全部国内
     type: select
     proxies:
-      - 🇨🇳 北京 39.106.165.196:1080 [SOCKS5]
-      - 🇨🇳 重庆 113.249.111.67:1080 [SOCKS5]
-      - 🇨🇳 广东 36.213.79.159:1080 [SOCKS5]
-      - 🇨🇳 四川 222.211.216.201:7890 [SOCKS5]
-      - 🇨🇳 北京 116.147.56.246:7890 [SOCKS5]
-      - 🇨🇳 北京 114.253.59.75:7890 [SOCKS5]
-      - 🇨🇳 北京 114.244.218.227:8888 [HTTP]
-      - 🇨🇳 北京 114.248.85.85:8888 [HTTP]
-      - 🇨🇳 北京 114.249.231.106:8888 [HTTP]
       - 🇨🇳 北京 114.253.7.197:8888 [HTTP]
-      - 🇨🇳 北京 111.192.215.89:8888 [HTTP]
-      - 🇨🇳 北京 114.244.212.147:8888 [HTTP]
-      - 🇨🇳 北京 114.252.191.93:8888 [HTTP]
-      - 🇨🇳 北京 114.253.67.30:8888 [HTTP]
-      - 🇨🇳 北京 123.113.149.19:8888 [HTTP]
-      - 🇨🇳 北京 114.244.211.247:8888 [HTTP]
-      - 🇨🇳 北京 114.244.223.68:8888 [HTTP]
-      - 🇨🇳 广东 58.254.153.146:17981 [HTTP]
-      - 🇨🇳 北京 114.254.50.184:8888 [HTTP]
-      - 🇨🇳 北京 101.251.204.174:8080 [HTTP]
-      - 🇨🇳 四川 222.211.216.201:7890 [HTTP]
-      - 🇨🇳 北京 114.249.211.7:8888 [HTTP]
+      - 🇨🇳 广东 218.207.164.174:7890 [HTTP]
+      - 🇨🇳 浙江 61.130.176.21:20827 [HTTP]
       - 🇨🇳 北京 123.115.143.194:8888 [HTTP]
-      - 🇨🇳 北京 123.121.133.113:8888 [HTTP]
-      - 🇨🇳 北京 114.253.7.235:8888 [HTTP]
-      - 🇨🇳 北京 114.253.5.21:8888 [HTTP]
-      - 🇨🇳 山东 113.120.110.50:1081 [HTTP]
+      - 🇨🇳 北京 111.192.53.176:8888 [HTTP]
+      - 🇨🇳 北京 123.121.122.125:8888 [HTTP]
+      - 🇨🇳 北京 39.106.165.196:1080 [SOCKS5]
+      - 🇨🇳 江西 218.77.50.79:6666 [SOCKS5]
+      - 🇨🇳 广东 221.176.85.226:1080 [SOCKS5]
+      - 🇨🇳 湖北 58.19.233.33:1080 [SOCKS5]
+      - 🇨🇳 广东 221.176.85.228:1080 [SOCKS5]
+      - 🇨🇳 广东 221.176.85.234:1080 [SOCKS5]
+      - 🇨🇳 上海 111.231.166.199:1080 [SOCKS5]
 
   - name: 🗼 北京节点
     type: select
     proxies:
-      - 🇨🇳 北京 39.106.165.196:1080 [SOCKS5]
-      - 🇨🇳 北京 116.147.56.246:7890 [SOCKS5]
-      - 🇨🇳 北京 114.253.59.75:7890 [SOCKS5]
-      - 🇨🇳 北京 114.244.218.227:8888 [HTTP]
-      - 🇨🇳 北京 114.248.85.85:8888 [HTTP]
-      - 🇨🇳 北京 114.249.231.106:8888 [HTTP]
       - 🇨🇳 北京 114.253.7.197:8888 [HTTP]
-      - 🇨🇳 北京 111.192.215.89:8888 [HTTP]
-      - 🇨🇳 北京 114.244.212.147:8888 [HTTP]
-      - 🇨🇳 北京 114.252.191.93:8888 [HTTP]
-      - 🇨🇳 北京 114.253.67.30:8888 [HTTP]
-      - 🇨🇳 北京 123.113.149.19:8888 [HTTP]
-      - 🇨🇳 北京 114.244.211.247:8888 [HTTP]
-      - 🇨🇳 北京 114.244.223.68:8888 [HTTP]
-      - 🇨🇳 北京 114.254.50.184:8888 [HTTP]
-      - 🇨🇳 北京 101.251.204.174:8080 [HTTP]
-      - 🇨🇳 北京 114.249.211.7:8888 [HTTP]
       - 🇨🇳 北京 123.115.143.194:8888 [HTTP]
-      - 🇨🇳 北京 123.121.133.113:8888 [HTTP]
-      - 🇨🇳 北京 114.253.7.235:8888 [HTTP]
-      - 🇨🇳 北京 114.253.5.21:8888 [HTTP]
-
-  - name: 🌶️ 重庆节点
-    type: select
-    proxies:
-      - 🇨🇳 重庆 113.249.111.67:1080 [SOCKS5]
+      - 🇨🇳 北京 111.192.53.176:8888 [HTTP]
+      - 🇨🇳 北京 123.121.122.125:8888 [HTTP]
+      - 🇨🇳 北京 39.106.165.196:1080 [SOCKS5]
 
   - name: 🌴 广东节点
     type: select
     proxies:
-      - 🇨🇳 广东 36.213.79.159:1080 [SOCKS5]
-      - 🇨🇳 广东 58.254.153.146:17981 [HTTP]
+      - 🇨🇳 广东 218.207.164.174:7890 [HTTP]
+      - 🇨🇳 广东 221.176.85.226:1080 [SOCKS5]
+      - 🇨🇳 广东 221.176.85.228:1080 [SOCKS5]
+      - 🇨🇳 广东 221.176.85.234:1080 [SOCKS5]
 
-  - name: 🏞️ 四川节点
+  - name: 🌊 浙江节点
     type: select
     proxies:
-      - 🇨🇳 四川 222.211.216.201:7890 [SOCKS5]
-      - 🇨🇳 四川 222.211.216.201:7890 [HTTP]
+      - 🇨🇳 浙江 61.130.176.21:20827 [HTTP]
 
-  - name: 🌾 山东节点
+  - name: 🍃 江西节点
     type: select
     proxies:
-      - 🇨🇳 山东 113.120.110.50:1081 [HTTP]
+      - 🇨🇳 江西 218.77.50.79:6666 [SOCKS5]
+
+  - name: 🍂 湖北节点
+    type: select
+    proxies:
+      - 🇨🇳 湖北 58.19.233.33:1080 [SOCKS5]
+
+  - name: 🏙️ 上海节点
+    type: select
+    proxies:
+      - 🇨🇳 上海 111.231.166.199:1080 [SOCKS5]
 
   - name: 🌍 海外节点
     type: select
     proxies:
-      - 🇺🇸 美国 47.252.47.39:1080 [SOCKS5]
-      - 🇺🇸 美国 209.97.150.167:1080 [SOCKS5]
-      - 🇺🇸 美国 107.174.30.93:1080 [SOCKS5]
-      - 🇺🇸 美国 45.61.188.134:44499 [SOCKS5]
-      - 🇺🇸 美国 107.174.30.92:1080 [SOCKS5]
-      - 🇺🇸 美国 69.55.49.177:38182 [SOCKS5]
-      - 🇺🇸 美国 138.68.60.8:1080 [SOCKS5]
-      - 🇩🇪 德国 161.35.70.249:1080 [SOCKS5]
-      - 🇰🇷 韩国 121.169.46.116:1090 [SOCKS5]
-      - 🇷🇺 俄罗斯 95.83.154.186:1080 [SOCKS5]
-      - 🇨🇦 加拿大 159.203.61.169:1080 [SOCKS5]
-      - 🇦🇹 奥地利 194.182.187.78:1080 [SOCKS5]
-      - 🇯🇵 日本 139.162.78.109:1080 [SOCKS5]
-      - 🇬🇧 英国 134.209.29.120:1080 [SOCKS5]
-      - 🇩🇪 德国 92.5.68.29:1080 [SOCKS5]
-      - 🇻🇳 越南 113.176.118.150:1080 [SOCKS5]
-      - 🇵🇰 巴基斯坦 101.53.238.37:1080 [SOCKS5]
-      - 🇬🇧 英国 45.67.84.116:9080 [SOCKS5]
-      - 🇰🇷 韩国 43.155.215.149:20000 [SOCKS5]
-      - 🇧🇩 孟加拉 119.148.20.109:22122 [SOCKS5]
-      - 🇧🇩 孟加拉 61.247.178.146:1080 [SOCKS5]
-      - 🇮🇳 印度 139.59.1.14:1080 [SOCKS5]
-      - 🇭🇰 香港 38.147.191.16:1081 [SOCKS5]
-      - 🇻🇳 越南 116.101.73.52:1068 [SOCKS5]
-      - 🇸🇬 新加坡 103.248.228.166:5555 [SOCKS5]
-      - 🇺🇸 美国 155.138.221.32:1082 [SOCKS5]
-      - 🇵🇰 巴基斯坦 58.27.213.133:1080 [SOCKS5]
-      - 🇮🇳 印度 82.180.146.251:10800 [SOCKS5]
-      - 🇻🇳 越南 116.101.73.161:1039 [SOCKS5]
-      - 🇧🇩 孟加拉 119.148.31.170:22122 [SOCKS5]
-      - 🇻🇳 越南 116.101.73.52:1085 [SOCKS5]
-      - 🇧🇩 孟加拉 118.179.27.153:1080 [SOCKS5]
-      - 🇭🇰 香港 172.81.111.156:10001 [SOCKS5]
-      - 🇻🇳 越南 116.101.73.161:1054 [SOCKS5]
-      - 🇻🇳 越南 116.101.73.52:1051 [SOCKS5]
-      - 🇭🇰 香港 123.58.219.171:10808 [SOCKS5]
-      - 🇺🇸 美国 209.50.255.91:1080 [SOCKS5]
-      - 🇧🇩 孟加拉 118.179.155.202:9090 [SOCKS5]
-      - 🇸🇬 新加坡 128.199.202.122:1080 [SOCKS5]
-      - 🇭🇰 香港 103.119.1.160:5555 [SOCKS5]
-      - 🇸🇬 新加坡 43.128.107.122:7890 [SOCKS5]
-      - 🇺🇸 美国 204.8.189.118:1080 [SOCKS5]
-      - 🇲🇾 马来西亚 47.254.213.60:1081 [SOCKS5]
-      - 🇨🇦 加拿大 162.254.178.133:1080 [SOCKS5]
-      - 🇷🇺 俄罗斯 83.237.92.106:1080 [SOCKS5]
-      - 🌐 海外 212.237.125.216:6969 [SOCKS5]
-      - 🇷🇺 俄罗斯 178.57.102.50:1080 [SOCKS5]
-      - 🇨🇿 捷克 78.80.149.106:1080 [SOCKS5]
-      - 🇭🇰 香港 45.194.33.12:30001 [SOCKS5]
-      - 🇨🇿 捷克 176.62.229.17:1080 [SOCKS5]
-      - 🇷🇺 俄罗斯 109.194.174.104:1080 [SOCKS5]
-      - 🇰🇭 柬埔寨 103.197.241.209:1080 [SOCKS5]
-      - 🇧🇷 巴西 177.69.198.219:1080 [SOCKS5]
-      - 🇷🇺 俄罗斯 178.176.118.74:1080 [SOCKS5]
-      - 🇮🇩 印尼 9.154.253.201:1080 [SOCKS5]
-      - 🇷🇺 俄罗斯 195.9.192.50:1080 [SOCKS5]
-      - 🇷🇺 俄罗斯 94.141.178.82:1088 [SOCKS5]
-      - 🇺🇸 美国 66.231.128.103:1080 [SOCKS5]
-      - 🇺🇦 乌克兰 46.174.120.163:8090 [SOCKS5]
-      - 🇷🇺 俄罗斯 93.100.249.194:1080 [SOCKS5]
-      - 🇷🇺 俄罗斯 31.41.227.175:2080 [SOCKS5]
-      - 🇮🇩 印尼 203.83.43.120:1080 [SOCKS5]
-      - 🇸🇪 瑞典 46.246.12.31:1080 [SOCKS5]
-      - 🇭🇰 香港 45.194.33.12:30002 [SOCKS5]
-      - 🇵🇰 巴基斯坦 110.39.151.50:1080 [SOCKS5]
-      - 🇷🇺 俄罗斯 176.119.168.162:1080 [SOCKS5]
-      - 🇷🇺 俄罗斯 212.115.59.74:1080 [SOCKS5]
-      - 🇷🇺 俄罗斯 93.153.222.83:1080 [SOCKS5]
-      - 🇫🇮 芬兰 185.221.196.47:1080 [SOCKS5]
-      - 🇰🇭 柬埔寨 203.189.135.140:1080 [SOCKS5]
-      - 🇧🇩 孟加拉 103.136.107.70:1080 [SOCKS5]
-      - 🇺🇸 美国 23.94.25.101:40001 [SOCKS5]
-      - 🇺🇸 美国 167.99.3.26:9143 [SOCKS5]
-      - 🇩🇪 德国 46.232.249.209:40001 [SOCKS5]
-      - 🇩🇪 德国 5.75.133.113:10805 [SOCKS5]
-      - 🇨🇿 捷克 91.199.137.149:2005 [SOCKS5]
-      - 🇷🇺 俄罗斯 37.18.73.60:5566 [SOCKS5]
-      - 🇩🇪 德国 157.90.113.23:9052 [SOCKS5]
-      - 🇺🇸 美国 45.61.129.165:9050 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.40:4218 [SOCKS5]
-      - 🇰🇷 韩国 183.106.215.208:1080 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.40:4105 [SOCKS5]
-      - 🇺🇸 美国 141.148.65.110:1081 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.47:4151 [SOCKS5]
-      - 🇷🇺 俄罗斯 95.31.91.242:2080 [SOCKS5]
-      - 🇫🇮 芬兰 65.21.252.66:10805 [SOCKS5]
-      - 🇨🇿 捷克 91.199.137.149:2001 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.41:6675 [SOCKS5]
-      - 🇷🇺 俄罗斯 37.9.4.101:1088 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.41:4035 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.41:7742 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.42:4362 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.42:22407 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.40:4032 [SOCKS5]
-      - 🇲🇽 墨西哥 201.165.172.3:1080 [SOCKS5]
-      - 🇿🇦 南非 102.36.127.249:1080 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.46:5083 [SOCKS5]
-      - 🇷🇺 俄罗斯 95.31.115.101:9150 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.42:9475 [SOCKS5]
-      - 🇷🇺 俄罗斯 95.31.52.151:1080 [SOCKS5]
-      - 🇩🇪 德国 5.75.133.113:10808 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.42:6502 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.40:4052 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.47:4098 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.42:34054 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.47:4173 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.47:4050 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.46:4128 [SOCKS5]
-      - 🇺🇸 美国 23.134.76.173:1080 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.47:4185 [SOCKS5]
-      - 🇳🇱 荷兰 45.74.31.41:4031 [SOCKS5]
-      - 🇺🇸 美国 198.199.86.11:3128 [HTTP]
-      - 🇺🇸 美国 20.98.234.24:8080 [HTTP]
-      - 🇺🇸 美国 172.235.157.127:3128 [HTTP]
-      - 🇩🇪 德国 161.35.70.249:80 [HTTP]
-      - 🇨🇦 加拿大 159.203.61.169:3128 [HTTP]
-      - 🇺🇸 美国 209.97.150.167:3128 [HTTP]
-      - 🇺🇸 美国 13.59.11.63:3128 [HTTP]
-      - 🇺🇸 美国 45.66.156.107:8081 [HTTP]
+      - 🇺🇸 美国 138.68.60.8:80 [HTTP]
       - 🇺🇸 美国 138.68.60.8:3128 [HTTP]
-      - 🇩🇪 德国 103.237.102.191:11111 [HTTP]
+      - 🇺🇸 美国 20.98.234.24:8080 [HTTP]
+      - 🇺🇸 美国 209.97.150.167:3128 [HTTP]
+      - 🇺🇸 美国 198.199.86.11:3128 [HTTP]
+      - 🇺🇸 美国 209.97.150.167:8080 [HTTP]
+      - 🇨🇦 加拿大 159.203.61.169:3128 [HTTP]
+      - 🇺🇸 美国 198.199.86.11:80 [HTTP]
+      - 🇺🇸 美国 198.46.249.70:1080 [HTTP]
       - 🇯🇵 日本 139.162.78.109:8080 [HTTP]
-      - 🇭🇰 香港 176.111.37.5:39811 [HTTP]
-      - 🇭🇰 香港 45.155.226.177:3128 [HTTP]
       - 🇬🇧 英国 134.209.29.120:3128 [HTTP]
-      - 🇲🇽 墨西哥 206.135.80.78:999 [HTTP]
-      - 🇸🇦 沙特阿拉伯 130.110.103.245:3128 [HTTP]
-      - 🌐 海外 87.192.233.75:3128 [HTTP]
-      - 🇩🇪 德国 217.154.195.87:8888 [HTTP]
-      - 🇹🇭 泰国 61.91.162.126:8080 [HTTP]
-      - 🇨🇭 瑞士 132.243.174.245:5002 [HTTP]
-      - 🇮🇳 印度 45.195.105.20:8080 [HTTP]
-      - 🇹🇭 泰国 49.229.100.235:8080 [HTTP]
-      - 🇮🇳 印度 103.240.24.158:3128 [HTTP]
-      - 🇭🇰 香港 43.99.60.244:8089 [HTTP]
+      - 🇩🇪 德国 161.35.70.249:80 [HTTP]
+      - 🇦🇺 澳大利亚 134.199.160.93:8888 [HTTP]
       - 🇸🇬 新加坡 128.199.202.122:8080 [HTTP]
+      - 🇩🇪 德国 103.237.102.191:11111 [HTTP]
       - 🇮🇳 印度 139.59.1.14:8080 [HTTP]
-      - 🇻🇳 越南 160.250.134.143:3128 [HTTP]
-      - 🇸🇬 新加坡 68.183.226.190:9090 [HTTP]
-      - 🇹🇭 泰国 125.25.53.180:8080 [HTTP]
-      - 🇻🇳 越南 27.67.54.178:8080 [HTTP]
-      - 🇮🇳 印度 45.194.90.225:8080 [HTTP]
-      - 🇮🇳 印度 45.194.3.119:8080 [HTTP]
-      - 🇺🇸 美国 107.210.56.161:80 [HTTP]
-      - 🇮🇩 印尼 115.85.88.18:8080 [HTTP]
-      - 🇮🇩 印尼 36.64.54.98:8080 [HTTP]
-      - 🌐 海外 85.132.108.42:3128 [HTTP]
-      - 🇵🇭 菲律宾 180.191.122.179:5050 [HTTP]
-      - 🇪🇸 西班牙 2.139.41.14:3128 [HTTP]
-      - 🇨🇭 瑞士 91.92.155.207:3128 [HTTP]
-      - 🇮🇩 印尼 144.79.37.51:8080 [HTTP]
-      - 🇰🇭 柬埔寨 111.118.149.40:8080 [HTTP]
-      - 🇹🇷 土耳其 116.204.166.51:8080 [HTTP]
-      - 🇮🇩 印尼 101.255.166.134:1111 [HTTP]
-      - 🇧🇩 孟加拉 144.48.163.108:8080 [HTTP]
-      - 🇻🇳 越南 113.160.115.254:8080 [HTTP]
-      - 🇵🇭 菲律宾 123.253.136.159:1256 [HTTP]
-      - 🇰🇭 柬埔寨 175.100.35.103:8080 [HTTP]
-      - 🇻🇳 越南 180.93.102.159:40007 [HTTP]
-      - 🇵🇰 巴基斯坦 139.135.63.90:8080 [HTTP]
-      - 🇵🇰 巴基斯坦 119.159.251.98:8080 [HTTP]
+      - 🇮🇳 印度 139.59.1.14:80 [HTTP]
+      - 🇭🇰 香港 176.111.37.5:39811 [HTTP]
+      - 🇧🇩 孟加拉 27.147.155.206:12051 [HTTP]
+      - 🇺🇸 美国 165.154.162.73:8888 [HTTP]
+      - 🇩🇪 德国 89.144.53.75:8080 [HTTP]
+      - 🇵🇭 菲律宾 112.202.247.109:3128 [HTTP]
+      - 🇰🇷 韩国 222.111.130.73:8080 [HTTP]
+      - 🇸🇦 沙特阿拉伯 130.110.103.245:3128 [HTTP]
+      - 🇵🇭 菲律宾 122.3.121.231:8082 [HTTP]
+      - 🇮🇩 印尼 101.255.209.250:3128 [HTTP]
+      - 🇵🇭 菲律宾 122.2.122.10:3128 [HTTP]
+      - 🌐 海外 110.44.115.83:8080 [HTTP]
       - 🇮🇩 印尼 103.130.61.61:8081 [HTTP]
-      - 🇺🇸 美国 129.146.163.237:8888 [HTTP]
-      - 🇺🇸 美国 207.177.122.144:8080 [HTTP]
-      - 🇯🇵 日本 45.43.60.220:8080 [HTTP]
-      - 🇮🇩 印尼 103.176.96.84:8082 [HTTP]
-      - 🇵🇭 菲律宾 49.145.53.217:5050 [HTTP]
-      - 🇮🇷 伊朗 185.100.45.93:8080 [HTTP]
-      - 🇩🇪 德国 91.26.188.170:8080 [HTTP]
-      - 🇧🇬 保加利亚 85.187.224.21:8080 [HTTP]
-      - 🇺🇸 美国 209.141.62.12:5555 [HTTP]
-      - 🌐 海外 186.96.72.103:999 [HTTP]
-      - 🌐 海外 102.0.28.78:8083 [HTTP]
-      - 🇨🇴 哥伦比亚 181.79.95.65:999 [HTTP]
-      - 🌐 海外 195.158.8.123:3128 [HTTP]
-      - 🇯🇵 日本 140.238.32.108:3128 [HTTP]
-      - 🇮🇩 印尼 103.152.239.127:3125 [HTTP]
-      - 🇧🇷 巴西 170.246.146.192:8080 [HTTP]
-      - 🇮🇩 印尼 202.154.19.50:3125 [HTTP]
-      - 🇮🇩 印尼 103.173.162.49:8818 [HTTP]
-      - 🇵🇪 秘鲁 190.235.208.220:8080 [HTTP]
-      - 🇮🇹 意大利 149.86.206.27:8080 [HTTP]
-      - 🇺🇸 美国 23.185.192.66:8181 [HTTP]
-      - 🇦🇱 阿尔巴尼亚 79.106.33.26:8079 [HTTP]
-      - 🇧🇩 孟加拉 103.140.25.230:8080 [HTTP]
-      - 🇿🇦 南非 41.57.139.93:6060 [HTTP]
-      - 🇹🇭 泰国 1.20.101.26:80 [HTTP]
-      - 🇿🇦 南非 165.0.136.30:8080 [HTTP]
-      - 🇮🇩 印尼 103.156.217.101:1111 [HTTP]
-      - 🇮🇩 印尼 203.201.171.170:64321 [HTTP]
-      - 🇵🇪 秘鲁 201.230.121.228:999 [HTTP]
-      - 🇮🇩 印尼 160.19.16.148:8181 [HTTP]
-      - 🇺🇸 美国 216.152.152.44:80 [HTTP]
-      - 🇮🇩 印尼 203.201.190.67:8080 [HTTP]
-      - 🇮🇩 印尼 103.162.16.7:8080 [HTTP]
-      - 🇮🇩 印尼 103.112.136.77:8080 [HTTP]
-      - 🇮🇩 印尼 160.202.42.156:80 [HTTP]
-      - 🇮🇩 印尼 103.145.149.230:80 [HTTP]
-      - 🇺🇸 美国 104.218.199.61:16062 [HTTP]
-      - 🇮🇩 印尼 157.20.207.39:8080 [HTTP]
-      - 🇺🇦 乌克兰 176.118.150.178:8080 [HTTP]
-      - 🇮🇩 印尼 103.193.144.91:8080 [HTTP]
-      - 🇧🇬 保加利亚 213.169.33.7:8001 [HTTP]
-      - 🇮🇩 印尼 103.147.134.79:8082 [HTTP]
-      - 🇲🇽 墨西哥 38.58.174.85:999 [HTTP]
-      - 🇮🇩 印尼 103.172.42.211:1111 [HTTP]
-      - 🇿🇦 南非 102.135.142.234:12354 [HTTP]
-      - 🇺🇸 美国 34.43.46.91:80 [HTTP]
-      - 🇩🇪 德国 46.232.249.209:40001 [HTTP]
-      - 🇸🇬 新加坡 4.144.146.21:80 [HTTP]
-      - 🇨🇲 喀麦隆 102.244.78.61:8084 [HTTP]
-      - 🇨🇲 喀麦隆 102.244.78.61:8089 [HTTP]
-      - 🇨🇲 喀麦隆 102.244.78.61:8090 [HTTP]
-      - 🇺🇸 美国 34.43.46.91:443 [HTTP]
-      - 🇵🇱 波兰 185.238.238.169:58080 [HTTP]
-      - 🌐 海外 177.234.217.45:999 [HTTP]
-      - 🇩🇪 德国 128.140.113.110:3128 [HTTP]
-      - 🇫🇮 芬兰 65.108.159.129:5153 [HTTP]
-      - 🇷🇺 俄罗斯 46.17.43.219:7890 [HTTP]
-      - 🇦🇷 阿根廷 45.65.226.173:999 [HTTP]
+      - 🇹🇭 泰国 182.52.113.61:80 [HTTP]
+      - 🇵🇭 菲律宾 180.190.80.43:5050 [HTTP]
+      - 🇵🇭 菲律宾 180.191.232.182:3128 [HTTP]
+      - 🇮🇳 印度 45.194.90.194:8080 [HTTP]
+      - 🇲🇽 墨西哥 38.7.23.105:999 [HTTP]
+      - 🇮🇳 印度 45.194.3.108:8080 [HTTP]
+      - 🇺🇸 美国 38.247.144.5:8080 [HTTP]
+      - 🇮🇩 印尼 122.144.4.226:57413 [HTTP]
+      - 🇹🇭 泰国 49.48.117.110:8080 [HTTP]
+      - 🌐 海外 90.156.160.234:3128 [HTTP]
+      - 🇵🇭 菲律宾 119.94.185.43:8082 [HTTP]
+      - 🇹🇭 泰国 180.180.156.68:80 [HTTP]
+      - 🇭🇰 香港 45.155.226.177:3128 [HTTP]
+      - 🇰🇷 韩国 132.226.175.103:1080 [HTTP]
+      - 🇵🇭 菲律宾 124.217.0.75:8082 [HTTP]
+      - 🇮🇳 印度 45.195.90.142:8080 [HTTP]
+      - 🇯🇵 日本 168.138.47.101:3128 [HTTP]
+      - 🇲🇽 墨西哥 187.190.58.152:8081 [HTTP]
+      - 🇮🇩 印尼 103.166.158.41:1080 [HTTP]
+      - 🇺🇸 美国 75.109.189.86:8080 [HTTP]
+      - 🇮🇩 印尼 103.80.82.7:8181 [HTTP]
+      - 🇹🇷 土耳其 46.221.37.145:8080 [HTTP]
+      - 🇮🇩 印尼 160.22.134.77:1111 [HTTP]
+      - 🇹🇭 泰国 184.82.160.242:8080 [HTTP]
+      - 🇦🇷 阿根廷 45.232.0.2:8080 [HTTP]
+      - 🇮🇷 伊朗 188.136.208.242:8080 [HTTP]
+      - 🇲🇽 墨西哥 187.249.158.194:999 [HTTP]
+      - 🇺🇸 美国 24.172.82.94:53281 [HTTP]
+      - 🇻🇳 越南 27.72.98.89:8443 [HTTP]
+      - 🇮🇩 印尼 103.156.14.35:8080 [HTTP]
+      - 🇮🇩 印尼 103.179.252.74:3128 [HTTP]
+      - 🇮🇩 印尼 103.132.54.42:8080 [HTTP]
+      - 🇮🇩 印尼 160.22.45.10:8080 [HTTP]
+      - 🇧🇩 孟加拉 103.245.110.198:1452 [HTTP]
+      - 🌐 海外 161.22.33.152:999 [HTTP]
+      - 🌐 海外 65.20.230.118:9090 [HTTP]
+      - 🇮🇩 印尼 103.157.79.5:8080 [HTTP]
+      - 🇮🇩 印尼 202.136.83.167:8090 [HTTP]
+      - 🌐 海外 129.151.130.247:1111 [HTTP]
+      - 🇮🇩 印尼 121.101.131.110:8080 [HTTP]
+      - 🇹🇭 泰国 96.30.79.84:8081 [HTTP]
+      - 🇮🇩 印尼 103.160.12.159:8080 [HTTP]
+      - 🇷🇺 俄罗斯 62.213.13.54:3128 [HTTP]
+      - 🇵🇰 巴基斯坦 206.42.117.129:8080 [HTTP]
+      - 🌐 海外 185.166.27.208:2020 [HTTP]
+      - 🌐 海外 128.0.7.188:8085 [HTTP]
+      - 🇮🇩 印尼 203.175.103.179:3125 [HTTP]
       - 🌐 海外 200.52.148.212:999 [HTTP]
-      - 🇲🇽 墨西哥 206.135.47.108:999 [HTTP]
-      - 🇦🇷 阿根廷 200.70.35.2:8080 [HTTP]
-      - 🇨🇴 哥伦比亚 186.96.111.214:999 [HTTP]
-      - 🌐 海外 177.234.217.43:999 [HTTP]
-      - 🇧🇬 保加利亚 213.169.33.3:8001 [HTTP]
-      - 🌐 海外 154.73.28.161:8080 [HTTP]
-      - 🇮🇩 印尼 9.154.247.138:8080 [HTTP]
-      - 🌐 海外 38.51.48.181:999 [HTTP]
-      - 🌐 海外 177.234.217.84:999 [HTTP]
-      - 🇮🇩 印尼 45.198.11.2:8080 [HTTP]
-      - 🌐 海外 154.127.70.1:1981 [HTTP]
-      - 🌐 海外 154.59.56.78:999 [HTTP]
-      - 🌐 海外 45.190.87.241:999 [HTTP]
-      - 🇺🇸 美国 104.36.237.230:8080 [HTTP]
-      - 🇧🇩 孟加拉 103.93.141.249:8080 [HTTP]
-      - 🇺🇸 美国 174.75.34.109:80 [HTTP]
-      - 🇮🇩 印尼 202.58.75.98:7777 [HTTP]
+      - 🇺🇸 美国 34.43.46.91:443 [HTTP]
+      - 🇸🇬 新加坡 4.144.146.21:80 [HTTP]
+      - 🇿🇦 南非 147.161.162.50:11368 [HTTP]
+      - 🇿🇦 南非 147.161.162.50:13568 [HTTP]
+      - 🇿🇦 南非 147.161.162.50:10118 [HTTP]
+      - 🇺🇸 美国 34.43.46.91:80 [HTTP]
+      - 🇻🇳 越南 103.82.20.76:8080 [HTTP]
+      - 🇩🇪 德国 128.140.113.110:4145 [HTTP]
+      - 🇫🇮 芬兰 65.108.159.129:4145 [HTTP]
+      - 🇨🇲 喀麦隆 102.244.78.61:8081 [HTTP]
+      - 🇧🇩 孟加拉 203.76.222.172:1212 [HTTP]
+      - 🇲🇽 墨西哥 201.159.126.85:8081 [HTTP]
+      - 🌐 海外 177.234.217.45:999 [HTTP]
+      - 🇸🇬 新加坡 8.219.97.248:80 [HTTP]
+      - 🇲🇽 墨西哥 201.77.108.25:999 [HTTP]
+      - 🇮🇳 印度 103.48.70.200:83 [HTTP]
+      - 🇲🇽 墨西哥 206.135.47.110:999 [HTTP]
+      - 🇦🇷 阿根廷 64.76.33.108:999 [HTTP]
+      - 🇨🇲 喀麦隆 102.244.78.61:8084 [HTTP]
+      - 🇮🇩 印尼 103.156.96.131:8080 [HTTP]
+      - 🇮🇩 印尼 103.124.138.93:8080 [HTTP]
+      - 🌐 海外 13.143.240.243:999 [HTTP]
+      - 🇲🇽 墨西哥 206.135.47.109:999 [HTTP]
+      - 🇫🇷 法国 80.65.211.149:8888 [HTTP]
+      - 🇨🇴 哥伦比亚 179.1.127.91:999 [HTTP]
+      - 🇨🇲 喀麦隆 102.244.78.61:8083 [HTTP]
+      - 🇺🇸 美国 138.68.60.8:1080 [SOCKS5]
+      - 🇺🇸 美国 209.97.150.167:1080 [SOCKS5]
+      - 🇺🇸 美国 198.199.86.11:1080 [SOCKS5]
+      - 🇰🇷 韩国 121.169.46.116:1090 [SOCKS5]
+      - 🇨🇦 加拿大 159.203.61.169:1080 [SOCKS5]
+      - 🇭🇰 香港 123.203.138.220:1080 [SOCKS5]
+      - 🇺🇸 美国 31.44.5.192:1081 [SOCKS5]
+      - 🇩🇪 德国 116.202.32.250:1089 [SOCKS5]
+      - 🇯🇵 日本 101.36.104.239:10808 [SOCKS5]
+      - 🇬🇧 英国 134.209.29.120:1080 [SOCKS5]
+      - 🇩🇪 德国 161.35.70.249:1080 [SOCKS5]
+      - 🇮🇩 印尼 27.112.79.97:1080 [SOCKS5]
+      - 🇯🇵 日本 101.36.104.46:10808 [SOCKS5]
+      - 🇯🇵 日本 43.133.21.24:3001 [SOCKS5]
+      - 🇯🇵 日本 139.162.78.109:1080 [SOCKS5]
+      - 🇩🇪 德国 92.5.68.29:1080 [SOCKS5]
+      - 🇯🇵 日本 103.13.19.219:10808 [SOCKS5]
+      - 🇭🇰 香港 172.81.111.156:10001 [SOCKS5]
+      - 🇸🇬 新加坡 128.199.202.122:1080 [SOCKS5]
+      - 🇭🇰 香港 38.147.191.16:1081 [SOCKS5]
+      - 🇵🇱 波兰 145.239.94.103:10084 [SOCKS5]
+      - 🇭🇰 香港 103.119.1.160:5555 [SOCKS5]
+      - 🇷🇺 俄罗斯 194.67.120.144:1080 [SOCKS5]
+      - 🇳🇱 荷兰 5.255.103.55:1080 [SOCKS5]
+      - 🇮🇳 印度 139.59.1.14:1080 [SOCKS5]
+      - 🇭🇰 香港 45.194.33.12:30002 [SOCKS5]
+      - 🇬🇧 英国 141.147.109.224:1080 [SOCKS5]
+      - 🇵🇱 波兰 145.239.95.118:10084 [SOCKS5]
+      - 🇧🇩 孟加拉 119.148.7.10:22122 [SOCKS5]
+      - 🇨🇿 捷克 176.62.229.17:1080 [SOCKS5]
+      - 🇧🇩 孟加拉 118.179.93.24:9090 [SOCKS5]
+      - 🇮🇳 印度 82.180.146.251:10800 [SOCKS5]
+      - 🇻🇳 越南 118.68.15.86:1080 [SOCKS5]
+      - 🇧🇩 孟加拉 118.179.155.202:9090 [SOCKS5]
+      - 🇵🇰 巴基斯坦 175.107.30.110:1080 [SOCKS5]
+      - 🇻🇳 越南 113.160.188.21:1080 [SOCKS5]
+      - 🇺🇦 乌克兰 46.174.121.3:8090 [SOCKS5]
+      - 🇧🇩 孟加拉 118.179.136.122:9090 [SOCKS5]
+      - 🇺🇸 美国 69.55.49.177:38182 [SOCKS5]
+      - 🇮🇳 印度 163.53.204.178:9813 [SOCKS5]
+      - 🇹🇷 土耳其 95.3.92.2:1080 [SOCKS5]
+      - 🇮🇳 印度 103.124.172.134:1080 [SOCKS5]
+      - 🇸🇪 瑞典 46.246.12.31:1080 [SOCKS5]
+      - 🇸🇪 瑞典 171.25.158.95:1080 [SOCKS5]
+      - 🇹🇷 土耳其 85.97.190.88:1080 [SOCKS5]
+      - 🇺🇸 美国 107.174.30.94:1080 [SOCKS5]
+      - 🇮🇩 印尼 203.83.43.120:1080 [SOCKS5]
+      - 🇵🇰 巴基斯坦 160.250.123.94:1080 [SOCKS5]
+      - 🇺🇸 美国 66.170.46.17:1080 [SOCKS5]
+      - 🇮🇩 印尼 202.43.165.140:10802 [SOCKS5]
+      - 🇰🇭 柬埔寨 203.189.135.105:1080 [SOCKS5]
+      - 🇰🇭 柬埔寨 103.239.52.100:1080 [SOCKS5]
+      - 🇭🇰 香港 45.194.33.12:30001 [SOCKS5]
+      - 🇺🇸 美国 38.172.125.42:1080 [SOCKS5]
+      - 🇧🇩 孟加拉 202.4.101.249:9090 [SOCKS5]
+      - 🇮🇩 印尼 103.36.11.18:8199 [SOCKS5]
+      - 🇮🇩 印尼 103.119.60.219:1080 [SOCKS5]
+      - 🇰🇭 柬埔寨 43.230.192.242:1080 [SOCKS5]
+      - 🇺🇸 美国 74.131.237.22:1080 [SOCKS5]
+      - 🇧🇩 孟加拉 203.76.123.6:1080 [SOCKS5]
+      - 🇬🇧 英国 78.129.141.197:1080 [SOCKS5]
+      - 🇺🇸 美国 72.194.42.156:4145 [SOCKS5]
+      - 🇰🇭 柬埔寨 202.62.55.95:1080 [SOCKS5]
+      - 🇺🇦 乌克兰 194.44.255.112:8090 [SOCKS5]
+      - 🌐 海外 103.96.233.10:1080 [SOCKS5]
+      - 🇷🇺 俄罗斯 95.84.178.39:1080 [SOCKS5]
+      - 🇹🇷 土耳其 79.98.32.62:1080 [SOCKS5]
+      - 🇮🇩 印尼 103.135.226.234:1080 [SOCKS5]
+      - 🇺🇦 乌克兰 212.3.127.242:10801 [SOCKS5]
+      - 🇷🇺 俄罗斯 176.215.246.216:1080 [SOCKS5]
+      - 🇿🇦 南非 102.211.132.75:1080 [SOCKS5]
+      - 🇳🇱 荷兰 128.199.37.92:1080 [SOCKS5]
+      - 🇦🇺 澳大利亚 159.196.163.64:80 [SOCKS5]
+      - 🇺🇸 美国 109.105.218.62:1080 [SOCKS5]
+      - 🇭🇰 香港 151.158.134.29:1080 [SOCKS5]
+      - 🇰🇷 韩国 183.106.215.208:1080 [SOCKS5]
+      - 🇺🇸 美国 45.61.129.165:9050 [SOCKS5]
+      - 🇩🇪 德国 49.13.22.249:10805 [SOCKS5]
+      - 🇪🇸 西班牙 31.24.44.115:9050 [SOCKS5]
+      - 🇩🇪 德国 5.75.133.113:10805 [SOCKS5]
+      - 🇷🇺 俄罗斯 91.210.171.169:9050 [SOCKS5]
+      - 🇫🇮 芬兰 65.21.252.66:10805 [SOCKS5]
+      - 🇺🇦 乌克兰 193.218.118.128:1080 [SOCKS5]
+      - 🇫🇷 法国 158.220.101.43:1080 [SOCKS5]
+      - 🇻🇳 越南 160.187.1.225:9050 [SOCKS5]
+      - 🇷🇺 俄罗斯 141.101.196.63:1080 [SOCKS5]
+      - 🇩🇪 德国 49.13.22.249:10802 [SOCKS5]
+      - 🇮🇩 印尼 103.18.78.156:1080 [SOCKS5]
+      - 🇧🇩 孟加拉 103.118.85.146:1080 [SOCKS5]
+      - 🇧🇩 孟加拉 103.9.185.33:1080 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.42:35753 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.47:8128 [SOCKS5]
+      - 🇩🇪 德国 49.13.22.249:10813 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.40:4172 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.46:4907 [SOCKS5]
+      - 🇮🇩 印尼 103.236.190.197:1080 [SOCKS5]
+      - 🇷🇺 俄罗斯 188.226.27.24:1080 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.42:4344 [SOCKS5]
+      - 🇦🇷 阿根廷 45.169.106.140:1086 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.46:10993 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.40:4493 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.42:30325 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.40:4378 [SOCKS5]
+      - 🇳🇱 荷兰 45.74.31.46:5569 [SOCKS5]
 
 rules:
   - MATCH,🚀 节点选择

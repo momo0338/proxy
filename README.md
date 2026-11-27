@@ -259,7 +259,7 @@ proxy/
 | SOCKS4 | proxifly(ALL)、ProxyScraper |
 | SOCKS5 | TheSpeedX、Monosans、Hookzof、ShiftyTR、roosterkid、ALIILAPRO、mmpx12、Zaeem20、Tsprnay、vakhov、proxifly(ALL)、ProxyScraper |
 
-> **默认不设上限（拉全量）**：当前每个源与全局都不设上限（`max`、`collect_limit`、`collect_per_source_default` 均为 0），先跑一段时间收基线数据，再按实测调整。若要防止 Tsprnay 这类十几万行的巨型源撑爆库，可在 `sources` 各项加 `max`、或设全局 `collect_limit` 封顶。
+> **按基线限流**：CI 全量基线（304,942 候选 / 42m36s / 325 有效）显示 Tsprnay 两个源占约 94% 候选、约 93% 时间却只产出 22 个有效，proxifly 3,949 条 0 有效。故这三项设 `max: 2000` 限流；其余源不设上限（`max`/`collect_limit`/`collect_per_source_default` 均为 0）。限流后候选降到约 2 万、单次约 3 分钟，仍产约 300 个有效节点。
 > `weight` 已随源配置保留，当前版本尚未用于加权采样（留待后续优化）。
 
 ## 导出为 Clash / mihomo 配置

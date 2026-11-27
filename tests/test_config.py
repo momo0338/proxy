@@ -110,11 +110,19 @@ class TestDefaultProxySources:
     def test_source_count(self) -> None:
         assert len(DEFAULT_PROXY_SOURCES) == 22
 
-    def test_source_weight(self) -> None:
+    def test_source_weight_and_max(self) -> None:
         for source in DEFAULT_PROXY_SOURCES:
             assert isinstance(source.get("weight"), int)
-            # 默认不设每源上限: max 未配置(或 0) 表示拉全部
-            assert source.get("max", 0) == 0
+            # max 可选: 未配置表示拉全部; 配了必须是正整数
+            if "max" in source:
+                assert isinstance(source["max"], int)
+                assert source["max"] > 0
+
+    def test_low_yield_sources_capped(self) -> None:
+        by_name = {s["name"]: s for s in DEFAULT_PROXY_SOURCES}
+        assert by_name["Tsprnay HTTP"]["max"] == 2000
+        assert by_name["Tsprnay SOCKS5"]["max"] == 2000
+        assert by_name["proxifly ALL"]["max"] == 2000
 
     def test_all_enabled(self) -> None:
         for source in DEFAULT_PROXY_SOURCES:

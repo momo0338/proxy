@@ -143,6 +143,7 @@ DEFAULT_PROXY_SOURCES: list[dict[str, object]] = [
         "protocol": "http",
         "enabled": True,
         "weight": 1,
+        "max": 2000,
     },
     {
         "name": "Tsprnay SOCKS5",
@@ -150,6 +151,7 @@ DEFAULT_PROXY_SOURCES: list[dict[str, object]] = [
         "protocol": "socks5",
         "enabled": True,
         "weight": 1,
+        "max": 2000,
     },
     {
         "name": "proxifly ALL",
@@ -157,6 +159,7 @@ DEFAULT_PROXY_SOURCES: list[dict[str, object]] = [
         "protocol": "http",
         "enabled": True,
         "weight": 1,
+        "max": 2000,
     },
     {
         "name": "clarketm HTTP",

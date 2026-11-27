@@ -63,6 +63,9 @@ class ProxyStore:
     def init_schema(self) -> None:
         """Create the proxies table if it doesn't exist, then migrate columns."""
         with self._connect() as conn:
+            # WAL + NORMAL: 大幅提升批量写入吞吐, 且崩溃后仍安全。
+            conn.execute("PRAGMA journal_mode=WAL")
+            conn.execute("PRAGMA synchronous=NORMAL")
             conn.executescript(_SCHEMA)
             self._migrate_columns(conn)
             self._normalize_timestamps(conn)
@@ -184,6 +187,47 @@ class ProxyStore:
             conn.execute(
                 "UPDATE proxies SET country = ?, province = ?, city = ? WHERE key = ?",
                 (country, province, city, key),
+            )
+
+    def record_many_validations(self, records: list[ProxyRecord]) -> None:
+        """Batch-update validation results for many records in one transaction.
+
+        This is the hot path of a full validate run: writing tens of thousands of
+        results one connection-per-record would dominate wall-clock and block the
+        event loop. A single executemany keeps it fast.
+        """
+        if not records:
+            return
+        rows = [
+            (
+                int(r.is_valid),
+                r.response_time,
+                r.anonymity.value,
+                r.country,
+                r.province,
+                r.city,
+                r.last_verified,
+                r.key,
+            )
+            for r in records
+        ]
+        with self._connect() as conn:
+            conn.executemany(
+                """UPDATE proxies
+                   SET is_valid = ?, response_time = ?, anonymity = ?,
+                       country = ?, province = ?, city = ?, last_verified = ?
+                   WHERE key = ?""",
+                rows,
+            )
+
+    def update_many_locations(self, rows: list[tuple[str, str, str, str]]) -> None:
+        """Batch-update geo fields. Each row is (country, province, city, key)."""
+        if not rows:
+            return
+        with self._connect() as conn:
+            conn.executemany(
+                "UPDATE proxies SET country = ?, province = ?, city = ? WHERE key = ?",
+                rows,
             )
 
     @staticmethod

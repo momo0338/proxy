@@ -147,10 +147,8 @@ curl -X POST http://localhost:8000/refresh
   "proxy_expiry_hours": 6,
   "max_concurrency": 100,
   "timeout": 30,
-  "max_workers": 20,
   "verify_timeout": 5.0,
   "quick_probe_timeout": 3.0,
-  "max_verify": 200,
   "output_dir": "output",
   "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
   "verify_endpoints": [
@@ -166,13 +164,17 @@ curl -X POST http://localhost:8000/refresh
   ],
   "anon_check_url": "https://ipinfo.io/json",
   "country_url": "https://ip-api.com/json",
+  "settings": {
+    "collect_limit": 0,
+    "collect_per_source_default": 0
+  },
   "sources": [
     {
-      "name": "TheSpeedX HTTP",
-      "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
-      "protocol": "http",
-      "format": "ip:port",
-      "enabled": true
+      "name": "Hookzof SOCKS5",
+      "url": "https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
+      "protocol": "socks5",
+      "enabled": true,
+      "weight": 3
     }
   ]
 }
@@ -185,16 +187,16 @@ curl -X POST http://localhost:8000/refresh
 | `proxy_expiry_hours` | 代理过期时间（小时）；超过则视为失效并清理 |
 | `max_concurrency` | 验证并发数（默认 100 兼容 macOS fd 上限；服务器可调高） |
 | `timeout` | 单源抓取超时（秒） |
-| `max_workers` | 验证线程数 |
 | `verify_timeout` | 完整验证时连接超时（秒） |
 | `quick_probe_timeout` | 首轮快筛超时（秒）；死代理只磨这么久 |
 | `verify_hard_timeout` | 单代理硬性总超时（秒）；兜底黑洞 DNS/半开连接，0 = `verify_timeout`×2 |
-| `max_verify` | 单次最多验证的代理数 |
 | `verify_endpoints` | 通用 HTTPS 验证端点列表（严格走 HTTPS CONNECT 加密隧道） |
 | `china_verify_endpoints` | 国内节点专用测试端点列表（包含国内高可用 CDN 204 与 IPIP/百度） |
 | `anon_check_url` | 匿名度检测端点 |
 | `country_url` | 地理位置查询端点 |
-| `sources` | 代理源列表，每项含 `name` / `url` / `protocol` / `format` / `enabled` |
+| `collect_limit` | 单次采集总量上限（去重后），0 = 不限制，默认 0（不限制，拉全量） |
+| `collect_per_source_default` | 未显式配置 `max` 的源，每源默认保留条数，默认 0（不限制，拉全量） |
+| `sources` | 代理源列表，每项含 `name` / `url` / `protocol` / `enabled` / `weight`，可选 `max` |
 
 > **性能与验证安全说明**：
 > 1. **全链路 HTTPS 隧道**：所有测试端点强制使用 HTTPS。不支持 `CONNECT` 加密隧道的明文 HTTP 代理会在握手阶段直接报错淘汰，避免导出不能走 HTTPS 流量的残废节点。
@@ -244,19 +246,21 @@ proxy/
 
 ## 代理源
 
-已预配置 18 个 GitHub 文本源（均为裸 `ip:port` 纯文本格式）：
+已预配置 22 个 GitHub 文本源。采集器会自动识别三种行格式，`protocol` 仅作为裸 `ip:port` 行的回退：
+
+- `ip:port`（绝大多数源）
+- `scheme://ip:port`（如 proxifly 的混合协议大列表，按行内协议入库）
+- `ip:port:PROTOCOL`（如 ProxyScraper 的带后缀列表）
 
 | 协议 | 源 |
 |------|----|
-| HTTP | TheSpeedX、Monosans、clarketm、ShiftyTR、mmpx12 |
-| HTTPS | roosterkid、ShiftyTR |
-| SOCKS4 | TheSpeedX、Monosans、ShiftyTR、roosterkid、ALIILAPRO |
-| SOCKS5 | TheSpeedX、Monosans、Hookzof、ShiftyTR、roosterkid、ALIILAPRO |
+| HTTP | TheSpeedX、Monosans、clarketm、ShiftyTR、mmpx12、ALIILAPRO、Zaeem20、Tsprnay、vakhov、proxifly(ALL)、ProxyScraper |
+| HTTPS | roosterkid、ProxyScraper、proxifly(ALL) |
+| SOCKS4 | proxifly(ALL)、ProxyScraper |
+| SOCKS5 | TheSpeedX、Monosans、Hookzof、ShiftyTR、roosterkid、ALIILAPRO、mmpx12、Zaeem20、Tsprnay、vakhov、proxifly(ALL)、ProxyScraper |
 
-> 其他格式需改解析器才能纳入：
-> - **proxifly/free-proxy-list**（`socks5://ip:port` 协议前缀，规模最大 ~1.1 万行）
-> - **zloi-user/hideip.me**（`ip:port:Country` 尾部带国家）
-> 这些源需要扩展 `ProxyRecord.from_line` 的解析分支后再启用。
+> **默认不设上限（拉全量）**：当前每个源与全局都不设上限（`max`、`collect_limit`、`collect_per_source_default` 均为 0），先跑一段时间收基线数据，再按实测调整。若要防止 Tsprnay 这类十几万行的巨型源撑爆库，可在 `sources` 各项加 `max`、或设全局 `collect_limit` 封顶。
+> `weight` 已随源配置保留，当前版本尚未用于加权采样（留待后续优化）。
 
 ## 导出为 Clash / mihomo 配置
 

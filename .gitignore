@@ -16,3 +16,6 @@ build/
 # agent/runtime metadata
 .cortexkit/
 .omo/
+
+# 本地工具/临时状态(不入库)
+.tccli-home/

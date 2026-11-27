@@ -22,7 +22,7 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 180
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -41,7 +41,11 @@ jobs:
 
       - name: Run full cycle (collect + validate + export)
         run: |
-          python main.py all
+          # 放文件描述符上限, 让高并发验证跑得开
+          ulimit -n 4096 || true
+          # CI 全量运行: 提高验证并发(本地默认 100, 这里 400), 其余沿用默认配置
+          echo '{"max_concurrency": 400}' > config.ci.json
+          python main.py all --config config.ci.json
 
       - name: Generate Clash config
         run: |
@@ -52,7 +56,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # data/ 在 .gitignore 中, 强制添加实际存在的产物文件
-          for f in data/valid_http.txt data/valid_socks5.txt data/valid_proxies.json data/clash_config.yaml; do
+          # 用通配符覆盖所有协议(valid_http/https/socks4/socks5.txt)
+          for f in data/valid_*.txt data/valid_proxies.json data/clash_config.yaml; do
             [ -f "$f" ] && git add -f "$f"
           done
           if git diff --staged --quiet; then

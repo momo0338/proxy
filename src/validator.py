@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import time
+from collections import Counter
 from datetime import datetime
 from typing import TYPE_CHECKING
 
@@ -210,7 +211,7 @@ class ProxyValidator:
                 resp.raise_for_status()
                 data = resp.json()
                 return str(data.get("countryCode") or data.get("country", "")).strip()
-        except Exception:
+        except Exception:  # noqa: BLE001
             return ""
 
     async def _attempt(
@@ -428,6 +429,7 @@ class ProxyValidator:
         semaphore = asyncio.Semaphore(max_concurrency)
         total = len(records)
         progress = _Progress(total=total)
+        results: list[ProxyRecord] = []
 
         async def _validate_one(record: ProxyRecord) -> None:
             async with semaphore:
@@ -452,14 +454,7 @@ class ProxyValidator:
                     local_ip,
                     rec_endpoints,
                 )
-                self._store.record_validation(
-                    record.key,
-                    is_valid=result.is_valid,
-                    response_time=result.response_time,
-                    anonymity=result.anonymity,
-                    country=result.country,
-                    last_verified=result.last_verified,
-                )
+                results.append(result)
                 progress.tick(result)
 
         print(
@@ -476,6 +471,20 @@ class ProxyValidator:
             flush=True,
         )
 
+        # 批量落库: 一次性 UPDATE 全部结果, 避免逐条连接/提交阻塞事件循环。
+        if results:
+            self._store.record_many_validations(results)
+
+        # 每源产出统计(供裁剪/限流决策): 有效数 / 检查数。
+        checked_by_source = Counter(r.source for r in results)
+        valid_by_source = Counter(r.source for r in results if r.is_valid)
+        print("  [validate] 每源 有效/检查:", flush=True)
+        for name, checked in checked_by_source.most_common():
+            print(
+                f"    - {name:28s} {valid_by_source.get(name, 0):6d}/{checked:7d}",
+                flush=True,
+            )
+
         # 校验通过后再批量补齐省份/城市归属(带缓存, 每 100 个 IP 一次请求),
         # 让 Clash 分省分组不再依赖写死的网段规则。
         await self._enrich_locations(progress.valid_list)
@@ -486,9 +495,9 @@ class ProxyValidator:
         """Resolve province/city for validated proxies and persist them.
 
         Best-effort: any resolver failure leaves the geo fields empty and the
-        existing country/network-rule fallback still applies downstream. Mutates
-        the records in ``valid`` in place (so callers see enriched objects) and
-        writes the results back to the store.
+        existing country/network-rule fallback still applies downstream. Rebuilds
+        ``valid`` in place (so callers see enriched objects) with a single pass
+        and batch-writes the results back to the store (no O(n**2) list.index).
         """
         if not valid:
             return
@@ -507,10 +516,13 @@ class ProxyValidator:
             return
         if not mapping:
             return
-        enriched = 0
+
+        loc_rows: list[tuple[str, str, str, str]] = []
+        enriched_list: list[ProxyRecord] = []
         for rec in valid:
             geo = mapping.get(rec.ip)
             if geo is None:
+                enriched_list.append(rec)
                 continue
             # 只信任 ip-api 校验时的实时国家(代理出口国): 该 IP 归属到的国家
             # 才是它当前真实出口, 比一次性的 echo country 更可靠; ip-api 未判定
@@ -521,31 +533,27 @@ class ProxyValidator:
             is_mainland = str(country).upper() == "CN"
             province = geo.province if is_mainland else ""
             city = geo.city if is_mainland else ""
-            # Persist the resolved location alongside the validation result.
-            self._store.update_location(
-                rec.key,
-                country=country,
-                province=province,
-                city=city,
+            loc_rows.append((country, province, city, rec.key))
+            enriched_list.append(
+                ProxyRecord(
+                    ip=rec.ip,
+                    port=rec.port,
+                    protocol=rec.protocol,
+                    source=rec.source,
+                    country=country,
+                    province=province,
+                    city=city,
+                    anonymity=rec.anonymity,
+                    response_time=rec.response_time,
+                    last_verified=rec.last_verified,
+                    is_valid=rec.is_valid,
+                )
             )
-            # Reflect on the returned (frozen) record via a replacement.
-            idx = valid.index(rec)
-            valid[idx] = ProxyRecord(
-                ip=rec.ip,
-                port=rec.port,
-                protocol=rec.protocol,
-                source=rec.source,
-                country=country,
-                province=province,
-                city=city,
-                anonymity=rec.anonymity,
-                response_time=rec.response_time,
-                last_verified=rec.last_verified,
-                is_valid=rec.is_valid,
-            )
-            enriched += 1
-        if enriched:
+        if loc_rows:
+            self._store.update_many_locations(loc_rows)
+        valid[:] = enriched_list
+        if loc_rows:
             print(
-                f"  [geo] resolved province/city for {enriched}/{len(valid)} valid proxies",
+                f"  [geo] resolved province/city for {len(loc_rows)}/{len(valid)} valid proxies",
                 flush=True,
             )

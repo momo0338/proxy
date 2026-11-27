@@ -1,10 +1,8 @@
 {
   "timeout": 30,
-  "max_workers": 20,
-  "verify_timeout": 5.0,
-  "quick_probe_timeout": 3.0,
+  "verify_timeout": 5,
+  "quick_probe_timeout": 3,
   "verify_hard_timeout": 0,
-  "max_verify": 200,
   "output_dir": "output",
   "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
   "db_path": "data/proxies.db",
@@ -24,62 +22,164 @@
   ],
   "anon_check_url": "https://ipinfo.io/json",
   "country_url": "http://ip-api.com/json",
+  "settings": {
+    "collect_limit": 0,
+    "collect_per_source_default": 0
+  },
   "sources": [
     {
-      "name": "TheSpeedX HTTP",
-      "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
-      "protocol": "http",
-      "format": "ip:port",
-      "enabled": true
+      "name": "Hookzof SOCKS5",
+      "url": "https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
+      "protocol": "socks5",
+      "enabled": true,
+      "weight": 3
+    },
+    {
+      "name": "ALIILAPRO SOCKS5",
+      "url": "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks5.txt",
+      "protocol": "socks5",
+      "enabled": true,
+      "weight": 3
     },
     {
       "name": "Monosans HTTP",
       "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/http.txt",
       "protocol": "http",
-      "format": "ip:port",
-      "enabled": true
-    },
-    {
-      "name": "clarketm HTTP",
-      "url": "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt",
-      "protocol": "http",
-      "format": "ip:port",
-      "enabled": true
-    },
-    {
-      "name": "ShiftyTR HTTP",
-      "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt",
-      "protocol": "http",
-      "format": "ip:port",
-      "enabled": true
-    },
-    {
-      "name": "roosterkid HTTPS",
-      "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt",
-      "protocol": "https",
-      "format": "ip:port",
-      "enabled": true
-    },
-    {
-      "name": "TheSpeedX SOCKS5",
-      "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
-      "protocol": "socks5",
-      "format": "ip:port",
-      "enabled": true
+      "enabled": true,
+      "weight": 2
     },
     {
       "name": "Monosans SOCKS5",
       "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt",
       "protocol": "socks5",
-      "format": "ip:port",
-      "enabled": true
+      "enabled": true,
+      "weight": 2
     },
     {
-      "name": "Hookzof SOCKS5",
-      "url": "https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
+      "name": "mmpx12 SOCKS5",
+      "url": "https://raw.githubusercontent.com/mmpx12/proxy-list/master/socks5.txt",
       "protocol": "socks5",
-      "format": "ip:port",
-      "enabled": true
+      "enabled": true,
+      "weight": 2
+    },
+    {
+      "name": "Zaeem20 SOCKS5",
+      "url": "https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/socks5.txt",
+      "protocol": "socks5",
+      "enabled": true,
+      "weight": 2
+    },
+    {
+      "name": "Zaeem20 HTTP",
+      "url": "https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/http.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 2
+    },
+    {
+      "name": "ALIILAPRO HTTP",
+      "url": "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/http.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "mmpx12 HTTP",
+      "url": "https://raw.githubusercontent.com/mmpx12/proxy-list/master/http.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "TheSpeedX HTTP",
+      "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "TheSpeedX SOCKS5",
+      "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
+      "protocol": "socks5",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "roosterkid HTTPS",
+      "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt",
+      "protocol": "https",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "roosterkid SOCKS5",
+      "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS5_RAW.txt",
+      "protocol": "socks5",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "sunny9577 HTTP",
+      "url": "https://raw.githubusercontent.com/sunny9577/proxy-scraper/master/generated/http_proxies.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "sunny9577 SOCKS5",
+      "url": "https://raw.githubusercontent.com/sunny9577/proxy-scraper/master/generated/socks5_proxies.txt",
+      "protocol": "socks5",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "vakhov HTTP",
+      "url": "https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/http.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "vakhov SOCKS5",
+      "url": "https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/socks5.txt",
+      "protocol": "socks5",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "Tsprnay HTTP",
+      "url": "https://raw.githubusercontent.com/Tsprnay/Proxy-lists/master/proxies/http.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "Tsprnay SOCKS5",
+      "url": "https://raw.githubusercontent.com/Tsprnay/Proxy-lists/master/proxies/socks5.txt",
+      "protocol": "socks5",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "proxifly ALL",
+      "url": "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/all/data.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "clarketm HTTP",
+      "url": "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 1
+    },
+    {
+      "name": "ShiftyTR HTTP",
+      "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt",
+      "protocol": "http",
+      "enabled": true,
+      "weight": 1
     }
   ]
 }

@@ -8,135 +8,169 @@ from pathlib import Path
 from src.models import ProxyProtocol
 
 # ---------------------------------------------------------------------------
-# Default proxy sources — all 8 original GitHub sources preserved exactly
+# Default proxy sources — curated multi-protocol public lists.
+# Fields per entry:
+#   name / url / protocol / enabled
+#   weight: relative sampling weight (higher = preferred). Reserved for the
+#           sampling/optimisation pass; not yet enforced by the collector.
+#   max:    per-source cap on kept proxies per collect cycle.
+# The parser auto-detects `scheme://ip:port` and `ip:port:PROTOCOL` lines, so
+# `protocol` here is only the fallback for plain `ip:port` rows.
 # ---------------------------------------------------------------------------
 DEFAULT_PROXY_SOURCES: list[dict[str, object]] = [
-    {
-        "name": "TheSpeedX HTTP",
-        "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
-        "protocol": "http",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "Monosans HTTP",
-        "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/http.txt",
-        "protocol": "http",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "clarketm HTTP",
-        "url": "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt",
-        "protocol": "http",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "ShiftyTR HTTP",
-        "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt",
-        "protocol": "http",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "roosterkid HTTPS",
-        "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt",
-        "protocol": "https",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "TheSpeedX SOCKS5",
-        "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
-        "protocol": "socks5",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "Monosans SOCKS5",
-        "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt",
-        "protocol": "socks5",
-        "format": "ip:port",
-        "enabled": True,
-    },
     {
         "name": "Hookzof SOCKS5",
         "url": "https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
         "protocol": "socks5",
-        "format": "ip:port",
         "enabled": True,
-    },
-    # --- Additional public ip:port sources (zero parser change) ---
-    {
-        "name": "TheSpeedX SOCKS4",
-        "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt",
-        "protocol": "socks4",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "Monosans SOCKS4",
-        "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt",
-        "protocol": "socks4",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "ShiftyTR SOCKS4",
-        "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks4.txt",
-        "protocol": "socks4",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "ShiftyTR SOCKS5",
-        "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt",
-        "protocol": "socks5",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "ShiftyTR HTTPS",
-        "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/https.txt",
-        "protocol": "https",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "roosterkid SOCKS4",
-        "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS4_RAW.txt",
-        "protocol": "socks4",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "roosterkid SOCKS5",
-        "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS5_RAW.txt",
-        "protocol": "socks5",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "mmpx12 HTTP",
-        "url": "https://raw.githubusercontent.com/mmpx12/proxy-list/master/http.txt",
-        "protocol": "http",
-        "format": "ip:port",
-        "enabled": True,
-    },
-    {
-        "name": "ALIILAPRO SOCKS4",
-        "url": "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks4.txt",
-        "protocol": "socks4",
-        "format": "ip:port",
-        "enabled": True,
+        "weight": 3,
     },
     {
         "name": "ALIILAPRO SOCKS5",
         "url": "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks5.txt",
         "protocol": "socks5",
-        "format": "ip:port",
         "enabled": True,
+        "weight": 3,
+    },
+    {
+        "name": "Monosans HTTP",
+        "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/http.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 2,
+    },
+    {
+        "name": "Monosans SOCKS5",
+        "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt",
+        "protocol": "socks5",
+        "enabled": True,
+        "weight": 2,
+    },
+    {
+        "name": "mmpx12 SOCKS5",
+        "url": "https://raw.githubusercontent.com/mmpx12/proxy-list/master/socks5.txt",
+        "protocol": "socks5",
+        "enabled": True,
+        "weight": 2,
+    },
+    {
+        "name": "Zaeem20 SOCKS5",
+        "url": "https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/socks5.txt",
+        "protocol": "socks5",
+        "enabled": True,
+        "weight": 2,
+    },
+    {
+        "name": "Zaeem20 HTTP",
+        "url": "https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/http.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 2,
+    },
+    {
+        "name": "ALIILAPRO HTTP",
+        "url": "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/http.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "mmpx12 HTTP",
+        "url": "https://raw.githubusercontent.com/mmpx12/proxy-list/master/http.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "TheSpeedX HTTP",
+        "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "TheSpeedX SOCKS5",
+        "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
+        "protocol": "socks5",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "roosterkid HTTPS",
+        "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt",
+        "protocol": "https",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "roosterkid SOCKS5",
+        "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS5_RAW.txt",
+        "protocol": "socks5",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "sunny9577 HTTP",
+        "url": "https://raw.githubusercontent.com/sunny9577/proxy-scraper/master/generated/http_proxies.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "sunny9577 SOCKS5",
+        "url": "https://raw.githubusercontent.com/sunny9577/proxy-scraper/master/generated/socks5_proxies.txt",
+        "protocol": "socks5",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "vakhov HTTP",
+        "url": "https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/http.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "vakhov SOCKS5",
+        "url": "https://raw.githubusercontent.com/vakhov/fresh-proxy-list/master/socks5.txt",
+        "protocol": "socks5",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "Tsprnay HTTP",
+        "url": "https://raw.githubusercontent.com/Tsprnay/Proxy-lists/master/proxies/http.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "Tsprnay SOCKS5",
+        "url": "https://raw.githubusercontent.com/Tsprnay/Proxy-lists/master/proxies/socks5.txt",
+        "protocol": "socks5",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "proxifly ALL",
+        "url": "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/all/data.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "clarketm HTTP",
+        "url": "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 1,
+    },
+    {
+        "name": "ShiftyTR HTTP",
+        "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt",
+        "protocol": "http",
+        "enabled": True,
+        "weight": 1,
     },
 ]
 
@@ -145,15 +179,18 @@ DEFAULT_PROXY_SOURCES: list[dict[str, object]] = [
 # ---------------------------------------------------------------------------
 DEFAULT_CONFIG: dict[str, object] = {
     "timeout": 30,
-    "max_workers": 20,
     "verify_timeout": 5.0,
     # 死代理快速跳过: 首轮单端点 + 短超时快筛, 通了才走完整验证。
     "quick_probe_timeout": 3.0,
     # 每个代理硬超时(秒); 兜底黑洞 DNS/半开连接。0 = verify_timeout * 2。
     "verify_hard_timeout": 0,
-    "max_verify": 200,
     "output_dir": "output",
     "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    # --- Source collection caps ---
+    # 单次采集总量上限(去重后), 0 = 不限制。当前不设上限, 先拉全量做基线。
+    "collect_limit": 0,
+    # 未显式配置 max 的源, 每源默认保留条数。0 = 不限制(拉全部)。
+    "collect_per_source_default": 0,
     # --- New service keys ---
     "db_path": "data/proxies.db",
     "refresh_interval_minutes": 30,
@@ -187,7 +224,11 @@ def load_config(config_file: str | None = None) -> dict[str, object]:
         try:
             with Path(config_file).open(encoding="utf-8") as fh:
                 user_config = json.load(fh)
+                # Allow grouping collection caps under a nested "settings" object.
+                settings = user_config.pop("settings", None)
                 config.update(user_config)
+                if isinstance(settings, dict):
+                    config.update(settings)
         except (json.JSONDecodeError, OSError) as exc:
             print(f"Failed to load config file: {exc}")
 

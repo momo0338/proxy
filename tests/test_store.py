@@ -301,3 +301,53 @@ class TestProxyStoreUnvalidated:
         ))
         assert store.count_unvalidated() == 1
         assert store.count_unvalidated(include_failed=True) == 2
+
+
+
+class TestProxyStoreBatch:
+    """Tests for batch write helpers used by the validator hot path."""
+
+    def test_record_many_validations(self, store: ProxyStore) -> None:
+        recs = [
+            ProxyRecord(ip=f"10.1.0.{i}", port=80, protocol=ProxyProtocol.HTTP, source="t")
+            for i in range(3)
+        ]
+        store.save_many(recs)
+        now = datetime.now().isoformat()
+        updated = [
+            ProxyRecord(
+                ip=r.ip,
+                port=r.port,
+                protocol=r.protocol,
+                source=r.source,
+                country="CN",
+                anonymity=Anonymity.ELITE,
+                response_time=0.2,
+                last_verified=now,
+                is_valid=True,
+            )
+            for r in recs
+        ]
+        store.record_many_validations(updated)
+        assert store.count()["valid"] == 3
+
+    def test_record_many_validations_empty(self, store: ProxyStore) -> None:
+        store.record_many_validations([])
+        assert store.count()["total"] == 0
+
+    def test_update_many_locations(self, store: ProxyStore) -> None:
+        recs = [
+            ProxyRecord(ip=f"10.2.0.{i}", port=80, protocol=ProxyProtocol.HTTP, source="t")
+            for i in range(3)
+        ]
+        store.save_many(recs)
+        rows = [("CN", "江苏", "苏州", r.key) for r in recs]
+        store.update_many_locations(rows)
+        with store._connect() as conn:
+            got = conn.execute("SELECT province, city FROM proxies").fetchall()
+        assert len(got) == 3
+        assert all(row["province"] == "江苏" and row["city"] == "苏州" for row in got)
+
+    def test_update_many_locations_empty(self, store: ProxyStore) -> None:
+        store.update_many_locations([])
+

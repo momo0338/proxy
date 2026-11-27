@@ -17,7 +17,8 @@ permissions:
 
 concurrency:
   group: daily-proxy-check
-  cancel-in-progress: false
+  # 同一时刻只保留一个 run: 避免两个 run 并发往 main 推数据导致 git push 非快进失败
+  cancel-in-progress: true
 
 jobs:
   check:
